@@ -1,4 +1,4 @@
-from django import serializers
+from rest_framework import serializers
 from designer.models import Designe, DesignGrid, Colors
 from django.contrib.auth.models import User
 
