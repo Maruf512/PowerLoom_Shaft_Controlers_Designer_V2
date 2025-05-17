@@ -10,9 +10,11 @@
 
   --color-primary: var(--color-primary);
   --color-secondary: var(--color-secondary);
+  --color-error: var(--color-error);
 
   --color-strong: var(--text-strong);
   --color-basec: var(--text-basec);
+  --color-muted: var(--text-muted);
 
   --color-shadow: var(--color-shadow);
 
@@ -29,14 +31,19 @@
 
   --color-primary: oklch(0.55 0.0955 231.81); /* main brand color */
   --color-secondary: oklch(0.66 0.0955 227.65); /* secondary brand color */
+  --color-error: oklch(0.65 0.1921 28.84);
 
   --text-strong: oklch(0.19 0.0955 227.65); /* strong text color */
   --text-basec: oklch(0.26 0.0955 227.65); /* base text color */
+  --text-muted: oklch(0.64 0.0593 227.65); /* muted text color */
 
   --color-shadow: oklch(0.42 0.0955 227.65); /* shadow color */
 }
 
 /* Apply mono font */
-* {
-  @apply font-geist-mono inset-0 -z-10  bg-surface bg-[radial-gradient(var(--color-secondary),transparent_1px)] [background-size:16px_16px];
+body {
+  @apply font-geist-mono inset-0 bg-surface bg-[radial-gradient(var(--color-secondary),transparent_1px)] [background-size:16px_16px];
+}
+
+@layer utilities {
 }

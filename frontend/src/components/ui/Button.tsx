@@ -35,13 +35,19 @@ const Button = ({
   size,
   isLoading,
   className,
+  children,
   ...props
 }: ButtonProps) => {
   return (
     <button
-      className={cn(buttonVarients({ variant, size }), className as string)}
+      className={cn(buttonVarients({ variant, size }), className as string, {
+        "cursor-not-allowed": isLoading,
+      })}
+      disabled={isLoading}
       {...props}
-    />
+    >
+      {isLoading ? "Loading..." : children}
+    </button>
   );
 };
 
