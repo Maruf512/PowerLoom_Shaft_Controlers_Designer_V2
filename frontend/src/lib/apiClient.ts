@@ -26,14 +26,12 @@ const apiClient = async <T = any>(
   };
 
   try {
-    const res = await fetch(`${baseUrl()}/${url}`, config);
+    const res = await fetch(`${baseUrl()}/${url}/`, config);
     const status = res.status;
     let data: T | null = null;
     let error: ApiErrorType = null;
 
     const contentType = res.headers.get("content-type");
-
-    console.log(res);
 
     if (contentType && contentType.includes("application/json")) {
       const json = await res.json();
