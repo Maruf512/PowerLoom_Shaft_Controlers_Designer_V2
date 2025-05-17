@@ -1,14 +1,28 @@
 import Dashboard from "@/components/layout/Dashboard";
-import Button from "@/components/ui/Button";
-import React from "react";
+import apiClient from "@/lib/apiClient";
 
-const page = () => {
+const page = async () => {
+  const { data, error, status } = await apiClient<{ success: boolean }>(
+    "login",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: {
+        username: "sami",
+        email: "sami@gmail.com",
+        password: "928374gfbusjd",
+      },
+      credentials: "include",
+    }
+  );
+
+  console.log(data);
+
   return (
     <div>
       <Dashboard />
-      <Button className="" variant={"destructive"}>
-        Hello
-      </Button>
     </div>
   );
 };

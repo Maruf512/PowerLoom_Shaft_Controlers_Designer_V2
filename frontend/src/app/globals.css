@@ -24,10 +24,10 @@
   --radius-lg: 1rem; /* large border radius */
   --radius-sm: 0.5rem; /* small border radius */
 
-  --color-surface: oklch(0.94 0.0351 215.79); /* background color */
+  --color-surface: oklch(0.94 0.0143 231.81); /* background color */
   --color-on-surface: oklch(0.89 0.0351 210.45); /* surface text color */
 
-  --color-primary: oklch(0.47 0.0955 231.81); /* main brand color */
+  --color-primary: oklch(0.55 0.0955 231.81); /* main brand color */
   --color-secondary: oklch(0.66 0.0955 227.65); /* secondary brand color */
 
   --text-strong: oklch(0.19 0.0955 227.65); /* strong text color */
@@ -38,5 +38,5 @@
 
 /* Apply mono font */
 * {
-  @apply font-geist-mono;
+  @apply font-geist-mono inset-0 -z-10  bg-surface bg-[radial-gradient(var(--color-secondary),transparent_1px)] [background-size:16px_16px];
 }
