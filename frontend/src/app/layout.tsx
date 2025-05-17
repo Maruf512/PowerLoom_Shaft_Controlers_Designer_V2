@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistMone.variable}  antialiased`}>
+      <body className={`${geistMone.variable}  antialiased bg-surface`}>
         <div className="min-h-screen">{children}</div>
         <Footer />
       </body>
