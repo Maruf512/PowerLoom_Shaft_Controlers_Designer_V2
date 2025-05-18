@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/layout/Footer";
 
 const geistMone = Geist_Mono({
   variable: "--font-geist-mono",
@@ -21,8 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistMone.variable}  antialiased bg-surface`}>
-        <div className="min-h-screen">{children}</div>
-        <Footer />
+        <div>{children}</div>
       </body>
     </html>
   );

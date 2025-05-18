@@ -4,17 +4,17 @@ import {
   ApiResponseType,
 } from "@/types/api";
 import { baseUrl } from "@/utils/baseUrl";
+import parseApiError from "@/utils/normalizePythonError";
 
 const apiClient = async <T = any>(
   url: string,
   options: ApiClientOptionsType = {}
 ): Promise<ApiResponseType<T>> => {
-  const { method = "GET", body, ...restOpts } = options;
-
+  const { method = "GET", body, headers, ...restOpts } = options;
   const defaultHeaders = {
     "Content-Type": "application/json",
     Accept: "application/json",
-    ...(options.headers || {}),
+    ...headers,
   };
 
   const config: RequestInit = {
@@ -31,14 +31,14 @@ const apiClient = async <T = any>(
     let data: T | null = null;
     let error: ApiErrorType = null;
 
-    const contentType = res.headers.get("content-type");
+    const contentType = res.headers.get("content-type") || "";
 
-    if (contentType && contentType.includes("application/json")) {
+    if (contentType.includes("application/json")) {
       const json = await res.json();
       if (res.ok) {
-        data = json;
+        data = json as T;
       } else {
-        error = json?.message ?? json?.detail ?? json ?? "An error occurred";
+        error = parseApiError(json?.message ?? json?.detail ?? json);
       }
     } else if (!res.ok) {
       error = "Non-JSON error response";

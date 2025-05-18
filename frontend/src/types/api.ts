@@ -5,7 +5,7 @@ export interface ApiClientOptionsType
   body?: any;
 }
 
-export type ApiErrorType = string | null | Record<string, string>;
+export type ApiErrorType = string | null;
 
 export interface ApiResponseType<T> {
   data: T | null;
