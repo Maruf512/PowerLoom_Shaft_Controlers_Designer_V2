@@ -1,6 +1,7 @@
 from rest_framework import serializers
-from designer.models import Designe, DesignGrid, Colors
-from django.contrib.auth.models import User
+from designer.models import Designe, DesignGrid, Colors, CustomUser
+
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
