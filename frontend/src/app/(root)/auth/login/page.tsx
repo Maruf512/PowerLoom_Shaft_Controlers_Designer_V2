@@ -31,6 +31,7 @@ const page = () => {
       setError(error || "Registration failed");
     }
   };
+
   return (
     <>
       <p>{error && JSON.stringify(error)}</p>

@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useMemo, useReducer, useState } from "react";
-import Button from "../ui/Button";
-import { cn } from "@/utils/cn";
-import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { AuthFieldsTypes, AuthFormTypes } from "@/types/auth";
+import { cn } from "@/utils/cn";
 import { authFormValidator } from "@/utils/validators";
+import React, { useMemo, useState } from "react";
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
+import Button from "../ui/Button";
 
 const AuthForm = ({
   fields,
@@ -50,7 +50,7 @@ const AuthForm = ({
   return (
     <form
       onSubmit={(e) => formHandler(e)}
-      className="flex flex-col items-center px-8 py-10 rounded-radius-sm md:w-[35rem] w-[90%] bg-gradient-to-b from-on-surface via-muted/10 to-on-surface border-2 border-muted/10 "
+      className="flex flex-col items-center px-8 py-10 rounded-radius-sm md:w-[35rem] w-[90%] bg-gradient-to-b from-on-surface via-muted/10 to-on-surface border-2 border-muted/10"
     >
       <div className="w-full space-y-4">
         <div className="mb-6 space-y-1">
