@@ -8,11 +8,13 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     class Meta:
-        model = User
+        model = CustomUser
         fields = ["username", "email", "password"]
 
     def create(self, validated_data):
-        user = User(username=validated_data["username"], email=validated_data["email"])
+        user = CustomUser(
+            username=validated_data["username"], email=validated_data["email"]
+        )
         user.set_password(validated_data["password"])
         user.save()
         return user
@@ -20,7 +22,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = CustomUser
         fields = ["id", "username", "email"]
 
 
@@ -51,3 +53,7 @@ class ColorsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Colors
         fields = ["id", "color"]
+
+
+class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
+    username_field = CustomUser.EMAIL_FIELD
