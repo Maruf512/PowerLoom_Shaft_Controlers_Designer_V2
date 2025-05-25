@@ -20,6 +20,8 @@ const page = () => {
       body: values,
     });
 
+    console.log(data);
+
     setLoading(false);
 
     if (status >= 200 && status < 300 && !error) {

@@ -16,7 +16,6 @@ const page = () => {
     setError(undefined);
     setLoading(true);
 
-    console.log(values);
     const { data, error, status } = await apiClient<any>("login", {
       method: "POST",
       body: values,
@@ -34,10 +33,10 @@ const page = () => {
 
   return (
     <>
-      <p>{error && JSON.stringify(error)}</p>
+      <p className="absolute top-2 left-2">{error && JSON.stringify(error)}</p>
       <div className="h-screen flex items-center justify-center">
         <AuthForm
-          fields={["username", "email", "password"]}
+          fields={["email", "password"]}
           title={"Login to your account"}
           subtitle="Enter your credentials below to login to your account"
           submitHandler={handleSubmit}
