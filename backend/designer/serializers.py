@@ -1,7 +1,10 @@
 from rest_framework import serializers
 from designer.models import Designe, DesignGrid, Colors, CustomUser
-
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth import get_user_model
+
+
+User = get_user_model()
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -57,3 +60,20 @@ class ColorsSerializer(serializers.ModelSerializer):
 
 class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
     username_field = CustomUser.EMAIL_FIELD
+
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        token["user_id"] = user.id
+        token["email"] = user.email
+
+        return token
+
+    def validate(self, attrs):
+        data = super().validate(attrs)
+
+        data["user_id"] = self.user.id
+        data["email"] = self.user.email
+
+        return data
