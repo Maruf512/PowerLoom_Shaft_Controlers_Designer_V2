@@ -1,27 +1,28 @@
 from rest_framework import serializers
-from designer.models import Designe, DesignGrid, Colors
-from django.contrib.auth.models import User
+from designer.models import Designe, DesignGrid, Colors, CustomUser
+
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     class Meta:
-        model = User
+        model = CustomUser
         fields = ['username', 'email','password']
     
     def create(self, validated_data):
-        user = User(
+        user = CustomUser(
             username=validated_data['username'],
             email=validated_data['email']
         )
         user.set_password(validated_data['password'])
         user.save()
         return user
-    
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = CustomUser
         fields = ['id', 'username', 'email']
 
 
@@ -42,4 +43,7 @@ class ColorsSerializer(serializers.ModelSerializer):
         model = Colors
         fields = ['id', 'color']
 
+
+class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
+    username_field = CustomUser.EMAIL_FIELD
 
