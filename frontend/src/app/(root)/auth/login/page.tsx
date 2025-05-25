@@ -24,8 +24,8 @@ const page = () => {
       }
     );
 
-    if (data?.id) {
-      localStorage.setItem("user_id", data.id.toString());
+    if (data) {
+      localStorage.setItem("user", JSON.stringify(data));
     }
 
     setLoading(false);

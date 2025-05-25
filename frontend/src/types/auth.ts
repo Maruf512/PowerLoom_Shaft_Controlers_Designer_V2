@@ -10,6 +10,7 @@ export type AuthFormTypes = {
 };
 
 export interface AuthUserResponseType {
-  success: boolean;
   id: number;
+  username: string;
+  email: string;
 }

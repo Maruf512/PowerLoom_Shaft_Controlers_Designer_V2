@@ -2,9 +2,7 @@
 
 import Dashboard from "@/components/layout/Dashboard";
 
-const page = async () => {
-  const id = localStorage.getItem("user_id");
-  console.log(id);
+const page = () => {
   return (
     <div>
       <Dashboard />
