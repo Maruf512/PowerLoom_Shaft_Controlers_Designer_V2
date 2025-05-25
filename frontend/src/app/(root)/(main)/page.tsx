@@ -18,7 +18,7 @@ const page = async () => {
     }
   );
 
-  console.log(error);
+  console.log(data);
 
   return (
     <div>
