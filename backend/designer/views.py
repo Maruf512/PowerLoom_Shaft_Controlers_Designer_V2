@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, APIView
 from designer.serializers import *
 from designer.models import Designe, DesignGrid, CustomUser
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
@@ -18,13 +18,13 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
             access_token = tokens["access"]
             refresh_token = tokens["refresh"]
-            user_id = tokens['user_id']
+            user_id = tokens["user_id"]
 
             res = Response()
 
             res.data = {"success": True, "id": user_id}
 
-            print(user_id)
+            print(tokens)
 
             res.set_cookie(
                 key="access_token",
