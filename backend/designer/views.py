@@ -18,6 +18,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
             access_token = tokens["access"]
             refresh_token = tokens["refresh"]
+<<<<<<< HEAD
             user_id = tokens["user_id"]
 
             res = Response()
@@ -25,6 +26,12 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             res.data = {"success": True, "id": user_id}
 
             print(tokens)
+=======
+
+            res = Response()
+
+            res.data = {"id": tokens['user_id'], "username": tokens['username'], "email": tokens['email']}
+>>>>>>> 1500cc7f6e67ebee5a1995896db8a403bcaf42ef
 
             res.set_cookie(
                 key="access_token",
@@ -99,3 +106,5 @@ def register(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
