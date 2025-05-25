@@ -3,13 +3,14 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes
 from designer.serializers import *
-from designer.models import Designe, DesignGrid
-from django.contrib.auth.models import User
-
+from designer.models import Designe, DesignGrid, CustomUser
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
+
+    serializer_class = EmailTokenObtainPairSerializer
+
     def post(self, request, *args, **kwargs):
         try:
             response = super().post(request, *args, **kwargs)
@@ -41,6 +42,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             )
 
             return res
+
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -94,3 +96,5 @@ def register(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
