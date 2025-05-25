@@ -18,13 +18,10 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
             access_token = tokens["access"]
             refresh_token = tokens["refresh"]
-            user_id = tokens['user_id']
 
             res = Response()
 
-            res.data = {"success": True, "id": user_id}
-
-            print(user_id)
+            res.data = {"id": tokens['user_id'], "username": tokens['username'], "email": tokens['email']}
 
             res.set_cookie(
                 key="access_token",
