@@ -1,6 +1,7 @@
 "use client";
 
 import AuthForm from "@/components/layout/AuthForm";
+import useStateCustom from "@/hooks/useAuth";
 import useAuth from "@/hooks/useAuth";
 import apiClient from "@/lib/apiClient";
 import { AuthFieldsTypes } from "@/types/auth";
@@ -8,7 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const page = () => {
-  const { error, loading, setData, setLoading, setError } = useAuth();
+  const { error, loading, setLoading, setError } = useStateCustom();
   const router = useRouter();
 
   const handleSubmit = async (values: Record<AuthFieldsTypes, string>) => {
@@ -20,12 +21,9 @@ const page = () => {
       body: values,
     });
 
-    console.log(data);
-
     setLoading(false);
 
     if (status >= 200 && status < 300 && !error) {
-      setData(data);
       router.push("/auth/login");
     } else {
       setError(error || "Registration failed");

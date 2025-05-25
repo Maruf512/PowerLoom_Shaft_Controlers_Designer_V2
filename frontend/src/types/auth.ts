@@ -8,3 +8,8 @@ export type AuthFormTypes = {
   footerContent: React.ReactNode;
   isLoading?: boolean;
 };
+
+export interface AuthUserResponseType {
+  success: boolean;
+  id: number;
+}
