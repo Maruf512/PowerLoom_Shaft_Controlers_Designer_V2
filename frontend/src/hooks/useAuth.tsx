@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-const useAuth = () => {
-  const [data, setData] = useState();
+const useStateCustom = <T,>() => {
+  const [data, setData] = useState<T | null>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>();
 
@@ -15,4 +15,4 @@ const useAuth = () => {
   };
 };
 
-export default useAuth;
+export default useStateCustom;
