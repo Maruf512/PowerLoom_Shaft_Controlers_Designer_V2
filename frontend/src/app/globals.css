@@ -37,7 +37,7 @@
   --text-basec: oklch(0.26 0.0955 227.65); /* base text color */
   --text-muted: oklch(0.64 0.0593 227.65); /* muted text color */
 
-  --color-shadow: oklch(0.42 0.0955 227.65); /* shadow color */
+  --color-shadow: oklch(0.38 0.0966 227.65 / 53.69%); /* shadow color */
 }
 
 /* Apply mono font */
@@ -46,4 +46,9 @@ body {
 }
 
 @layer utilities {
+  .shadow {
+    box-shadow: 0px 0px 400px -66px var(--color-shadow);
+    -webkit-box-shadow: 0px 0px 400px -66px var(--color-shadow);
+    -moz-box-shadow: 0px 0px 400px -66px var(--color-shadow);
+  }
 }

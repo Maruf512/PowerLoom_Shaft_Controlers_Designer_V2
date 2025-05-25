@@ -1,26 +1,32 @@
 "use client";
 
 import AuthForm from "@/components/layout/AuthForm";
-import useAuth from "@/hooks/useAuth";
+import useStateCustom from "@/hooks/useAuth";
 import apiClient from "@/lib/apiClient";
-import { AuthFieldsTypes } from "@/types/auth";
+import { AuthFieldsTypes, AuthUserResponseType } from "@/types/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
 
 const page = () => {
-  const { error, loading, setData, setLoading, setError } = useAuth();
+  const { error, loading, setData, setLoading, setError } =
+    useStateCustom<AuthUserResponseType>();
   const router = useRouter();
 
   const handleSubmit = async (values: Record<AuthFieldsTypes, string>) => {
     setError(undefined);
     setLoading(true);
 
-    console.log(values);
-    const { data, error, status } = await apiClient<any>("login", {
-      method: "POST",
-      body: values,
-    });
+    const { data, error, status } = await apiClient<AuthUserResponseType>(
+      "login",
+      {
+        method: "POST",
+        body: values,
+      }
+    );
+
+    if (data?.id) {
+      localStorage.setItem("user_id", data.id.toString());
+    }
 
     setLoading(false);
 
@@ -31,12 +37,13 @@ const page = () => {
       setError(error || "Registration failed");
     }
   };
+
   return (
     <>
-      <p>{error && JSON.stringify(error)}</p>
+      <p className="absolute top-2 left-2">{error && JSON.stringify(error)}</p>
       <div className="h-screen flex items-center justify-center">
         <AuthForm
-          fields={["username", "email", "password"]}
+          fields={["email", "password"]}
           title={"Login to your account"}
           subtitle="Enter your credentials below to login to your account"
           submitHandler={handleSubmit}
