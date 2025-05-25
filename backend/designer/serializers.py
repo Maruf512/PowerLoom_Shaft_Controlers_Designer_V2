@@ -55,6 +55,7 @@ class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         token['user_id'] = user.id
         token['email'] = user.email
+        token['username'] = user.username
 
         return token
     
@@ -63,6 +64,7 @@ class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         data['user_id'] = self.user.id
         data['email'] = self.user.email
+        data['username'] = self.user.username
 
         return data
 
