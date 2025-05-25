@@ -19,7 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistMone.variable}  antialiased bg-surface`}>
+      <body
+        className={`${geistMone.variable}  antialiased bg-surface scrollbar-custom`}
+      >
         <div>{children}</div>
       </body>
     </html>

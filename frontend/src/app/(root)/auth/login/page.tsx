@@ -1,7 +1,7 @@
 "use client";
 
 import AuthForm from "@/components/layout/AuthForm";
-import useStateCustom from "@/hooks/useAuth";
+import useFetchState from "@/hooks/useFetchState";
 import apiClient from "@/lib/apiClient";
 import { AuthFieldsTypes, AuthUserResponseType } from "@/types/auth";
 import Link from "next/link";
@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 const page = () => {
   const { error, loading, setData, setLoading, setError } =
-    useStateCustom<AuthUserResponseType>();
+    useFetchState<AuthUserResponseType>();
   const router = useRouter();
 
   const handleSubmit = async (values: Record<AuthFieldsTypes, string>) => {

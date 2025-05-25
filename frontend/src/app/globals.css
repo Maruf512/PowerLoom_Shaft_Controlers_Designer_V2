@@ -27,7 +27,7 @@
   --radius-sm: 0.5rem; /* small border radius */
 
   --color-surface: oklch(0.94 0.0143 231.81); /* background color */
-  --color-on-surface: oklch(0.89 0.0351 210.45); /* surface text color */
+  --color-on-surface: oklch(0.9088 0.0318 240.35); /* surface text color */
 
   --color-primary: oklch(0.55 0.0955 231.81); /* main brand color */
   --color-secondary: oklch(0.66 0.0955 227.65); /* secondary brand color */
@@ -50,5 +50,19 @@ body {
     box-shadow: 0px 0px 400px -66px var(--color-shadow);
     -webkit-box-shadow: 0px 0px 400px -66px var(--color-shadow);
     -moz-box-shadow: 0px 0px 400px -66px var(--color-shadow);
+  }
+}
+
+@layer base {
+  ::-webkit-scrollbar {
+    @apply w-[2px];
+  }
+
+  /* ::-webkit-scrollbar-track {
+    @apply bg-on-surface;
+  } */
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-strong w-[2px];
   }
 }

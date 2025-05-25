@@ -1,4 +1,4 @@
-import useStateCustom from "@/hooks/useAuth";
+import useStateCustom from "@/hooks/useFetchState";
 import apiClient from "@/lib/apiClient";
 import { AuthUserResponseType } from "@/types/auth";
 import Image from "next/image";
@@ -23,8 +23,6 @@ const UserDetails = () => {
       method: "POST",
     });
 
-    console.log(error, status);
-
     if (status >= 200 && status < 300 && !error) {
       localStorage.removeItem("user");
       setData(null);
@@ -33,8 +31,8 @@ const UserDetails = () => {
   };
 
   return (
-    <div className="bg-on-surface rounded-xl space-y-5 shadow-lg h-[13rem] flex flex-col justify-between">
-      <div className="flex gap-5 h-[55%] m-6">
+    <div className="bg-on-surface space-y-5 lg:w-[30rem] w-full h-[13rem] flex flex-col justify-between border border-on-surface lg:rounded-l-xl overflow-hidden">
+      <div className="flex gap-5 h-[55%] m-6 ">
         <div className="image relative h-full aspect-square rounded-lg overflow-hidden shadow-md">
           <Image
             src={"/profile.png"}
@@ -44,7 +42,7 @@ const UserDetails = () => {
         "
           />
         </div>
-        <div className="details  rounded-md py-4 flex flex-col justify-between">
+        <div className="rounded-md py-4 flex flex-col justify-between">
           <div className="-space-y-1">
             <h2 className="2xl:text-2xl text-xl capitalize text-basec font-semibold tracking-wider">
               {data?.username}
@@ -57,7 +55,7 @@ const UserDetails = () => {
         </div>
       </div>
       <button
-        className="bg-secondary w-full rounded-b-xl flex items-center justify-center py-2 hover:bg-primary duration-200 text-on-surface text-xl font-semibold tracking-wide"
+        className="bg-primary w-full flex items-center justify-center py-3 hover:bg-secondary duration-200 text-on-surface text-lg font-semibold tracking-wide"
         onClick={handleLogout}
       >
         Logout

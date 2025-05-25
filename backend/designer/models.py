@@ -6,12 +6,11 @@ from django.conf import settings
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["username"]
 
     def __str__(self):
         return self.email
-
 
 
 class Colors(models.Model):
@@ -22,7 +21,6 @@ class Colors(models.Model):
 
     def __str__(self):
         return self.color
-
 
 
 class Designe(models.Model):
@@ -42,7 +40,6 @@ class Designe(models.Model):
         return self.name
 
 
-
 class DesignGrid(models.Model):
     design = models.ForeignKey(Designe, on_delete=models.CASCADE)
     color_box = models.PositiveIntegerField()
@@ -53,4 +50,4 @@ class DesignGrid(models.Model):
     def __str__(self):
         return f"Design {self.design.name} - Color Box {self.color_box}"
 
-
+    updated_at = models.DateTimeField(auto_now=True)
