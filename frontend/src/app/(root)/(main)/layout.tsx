@@ -3,8 +3,10 @@ import React from "react";
 
 const layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
-    <div>
-      <div className="min-h-screen">{children}</div>
+    <div className="w-full">
+      <div className="mx-auto min-h-screen py-6 w-full max-w-[95%] xl:max-w-[1300px] 2xl:max-w-[1500px]">
+        {children}
+      </div>
       <Footer />
     </div>
   );

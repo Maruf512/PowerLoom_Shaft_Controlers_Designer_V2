@@ -9,7 +9,7 @@ const buttonVarients = cva(
       variant: {
         default: "bg-primary text-surface hover:bg-primary/80",
         destructive: "bg-secondary text-surface hover:bg-secondary/80",
-        outline: "border text-basec",
+        outline: "border border-muted text-basec",
       },
       size: {
         default: "h-10 px-4",
