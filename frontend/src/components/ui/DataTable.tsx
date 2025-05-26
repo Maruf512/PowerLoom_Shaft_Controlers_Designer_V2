@@ -12,8 +12,8 @@ const DataTable = ({ tableData }: { tableData: DesignDataType[] }) => {
 
   return (
     <div className="overflow-x-auto ">
-      <div className="md:w-full h-[20rem] w-[40rem] bg-on-surface rounded-radius-sm ">
-        <div className="flex justify-between capitalize gap-3 tracking-wide text-on-surface bg-primary px-4 py-2 rounded-t-radius-sm">
+      <div className="md:w-full w-[40rem] bg-on-surface rounded-radius-sm ">
+        <div className="flex justify-between capitalize gap-3 tracking-wide text-surface bg-primary px-4 py-2 rounded-t-radius-sm">
           {formatedTableHeader.map((item) => {
             return (
               <p
@@ -30,12 +30,12 @@ const DataTable = ({ tableData }: { tableData: DesignDataType[] }) => {
             );
           })}
         </div>
-        <div className="lg:text-base text-sm px-4 rounded-b-radius-sm text-strong border-2 border-muted/10 border-t-0">
+        <div className="lg:text-base text-sm px-4 rounded-b-radius-sm text-strong border-2 border-muted/10 border-t-0 h-[20rem]">
           {tableData.map((item) => {
             return (
               <div
                 className={cn(
-                  "flex justify-between gap-3 border-b border-muted py-2",
+                  "flex justify-between gap-3 border-b border-muted/10 py-2",
                   {
                     "border-none":
                       tableData.indexOf(item) === tableData.length - 1,
