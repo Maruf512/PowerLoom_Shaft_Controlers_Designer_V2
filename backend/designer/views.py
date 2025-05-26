@@ -1,10 +1,12 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from designer.serializers import *
 from designer.models import Designe, DesignGrid, CustomUser
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+from rest_framework.views import APIView
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
@@ -81,6 +83,8 @@ class CustomRefreshTokenView(TokenRefreshView):
 
 
 @api_view(["POST"])
+@permission_classes([])
+@authentication_classes([])
 def logout(request):
     try:
         res = Response()
