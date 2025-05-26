@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const useStateCustom = <T,>() => {
+const useFetchState = <T,>() => {
   const [data, setData] = useState<T | null>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>();
@@ -15,4 +15,4 @@ const useStateCustom = <T,>() => {
   };
 };
 
-export default useStateCustom;
+export default useFetchState;
