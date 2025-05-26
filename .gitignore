@@ -28,7 +28,7 @@ pnpm-debug.log*
 # ===================================
 
 # Byte-compiled / optimized files
-**/__pycache__/
+__pycache__/
 *.py[cod]
 *$py.class
 
@@ -86,3 +86,18 @@ dmypy.json
 *.ntvs*
 *.njsproj
 *.sln
+
+# ===================================
+# Operating System files
+# ===================================
+
+.DS_Store
+Thumbs.db
+
+# ===================================
+# Miscellaneous
+# ===================================
+
+*.swp
+*.bak
+*.swo
