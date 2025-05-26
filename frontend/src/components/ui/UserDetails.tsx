@@ -3,7 +3,8 @@ import apiClient from "@/lib/apiClient";
 import { AuthUserResponseType } from "@/types/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
+import { RiLogoutBoxRLine } from "react-icons/ri";
 
 const UserDetails = () => {
   const { setData, data } = useStateCustom<AuthUserResponseType>();
@@ -28,12 +29,14 @@ const UserDetails = () => {
       setData(null);
       router.push("/auth/login");
     }
+
+    console.log(error);
   };
 
   return (
-    <div className="bg-on-surface space-y-5 lg:w-[30rem] w-full h-[13rem] flex flex-col justify-between border border-on-surface lg:rounded-l-xl overflow-hidden">
-      <div className="flex gap-5 h-[55%] m-6 ">
-        <div className="image relative h-full aspect-square rounded-lg overflow-hidden shadow-md">
+    <div className="bg-on-surface lg:w-[30rem] flex justify-between lg:rounded-radius-lg rounded-radius-sm overflow-hidden border-2 border-muted/10 ">
+      <div className="flex items-center h-[4.5rem] gap-5 my-4 mx-5">
+        <div className="image relative h-[80%] aspect-square rounded-md overflow-hidden ">
           <Image
             src={"/profile.png"}
             objectFit="cover"
@@ -42,24 +45,30 @@ const UserDetails = () => {
         "
           />
         </div>
-        <div className="rounded-md py-4 flex flex-col justify-between">
-          <div className="-space-y-1">
-            <h2 className="2xl:text-2xl text-xl capitalize text-basec font-semibold tracking-wider">
-              {data?.username}
-            </h2>
-            <p className="text-muted 2xl:text-base text-sm">id:{data?.id}</p>
-          </div>
-          <p className="font-medium text-basec 2xl:text-xl text-lg tracking-wider line-clamp-1">
-            {data?.email}
-          </p>
+        <div className="rounded-md flex flex-col justify-between">
+          {data && (
+            <>
+              <div>
+                <h2 className="2xl:text-2xl text-xl capitalize text-basec font-semibold tracking-wider">
+                  {data?.username}
+                </h2>
+                <p className="text-muted text-xs">ID:{data?.id}</p>
+              </div>
+              <p className="font-medium text-basec tracking-wider line-clamp-1">
+                {data?.email}
+              </p>
+            </>
+          )}
         </div>
       </div>
-      <button
-        className="bg-primary w-full flex items-center justify-center py-3 hover:bg-secondary duration-200 text-on-surface text-lg font-semibold tracking-wide"
-        onClick={handleLogout}
-      >
-        Logout
-      </button>
+      <div className="h-full flex items-center">
+        <button
+          className="mx-5 text-primary hover:bg-secondary px-1 py-4 rounded-xs duration-100 hover:text-on-surface"
+          onClick={handleLogout}
+        >
+          <RiLogoutBoxRLine size={20} />
+        </button>
+      </div>
     </div>
   );
 };

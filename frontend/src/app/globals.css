@@ -23,8 +23,8 @@
 
 /* Global theme values */
 :root {
-  --radius-lg: 1rem; /* large border radius */
-  --radius-sm: 0.5rem; /* small border radius */
+  --radius-lg: 0.7rem; /* large border radius */
+  --radius-sm: 0.3rem; /* small border radius */
 
   --color-surface: oklch(0.94 0.0143 231.81); /* background color */
   --color-on-surface: oklch(0.9088 0.0318 240.35); /* surface text color */
@@ -51,18 +51,20 @@ body {
     -webkit-box-shadow: 0px 0px 400px -66px var(--color-shadow);
     -moz-box-shadow: 0px 0px 400px -66px var(--color-shadow);
   }
+
+  .vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+  }
 }
 
 @layer base {
   ::-webkit-scrollbar {
-    @apply w-[2px];
+    @apply w-[2px] h-[2px];
   }
 
-  /* ::-webkit-scrollbar-track {
-    @apply bg-on-surface;
-  } */
-
   ::-webkit-scrollbar-thumb {
-    @apply bg-strong w-[2px];
+    @apply bg-strong w-[2px] h-[1px];
   }
 }

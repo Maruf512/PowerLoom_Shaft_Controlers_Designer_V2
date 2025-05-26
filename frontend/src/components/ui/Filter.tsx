@@ -1,7 +1,8 @@
 import { FilterPropsType } from "@/types/props";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import { cn } from "@/utils/cn";
+import { BiSearch } from "react-icons/bi";
 
 const Filter = ({
   search,
@@ -11,21 +12,39 @@ const Filter = ({
   color,
   design,
 }: FilterPropsType) => {
+  const [searchValue, setSearchValue] = useState("");
+
+  useEffect(() => {
+    setSearchValue(search);
+  }, [search]);
+
   return (
-    <div className="border-y-2 border-muted/10 flex flex-col lg:flex-row justify-between lg:items-center lg:px-10 px-3 py-4 bg-on-surface">
-      <div className="bg-surface">
+    <div className="border-y-2 border-muted/10 flex flex-col lg:flex-row items-center gap-4 justify-between lg:items-center lg:px-10 px-3 py-4 bg-on-surface rounded-radius-sm">
+      <div className="bg-surface pl-5 rounded-full flex justify-between items-center w-full lg:w-fit">
         <input
+          className="outline-none text-basec"
           type="text"
-          value={search}
+          value={searchValue}
           placeholder="Search"
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => setSearchValue(e.target.value)}
         />
-      </div>
-      <div className="space-x-4">
         <Button
-          className={cn("px-7", {
-            "bg-basec": design,
-          })}
+          variant="outline"
+          className="border-none hover:bg-primary hover:text-on-surface duration-200 rounded-r-full pr-5 "
+          onClick={() => setSearch(searchValue)}
+        >
+          <BiSearch />
+        </Button>
+      </div>
+      <div className="space-x-4 space-y-3 lg:space-y-0 w-full lg:w-fit">
+        <Button
+          variant={"outline"}
+          className={cn(
+            "px-7 w-full lg:w-fit hover:bg-primary hover:text-surface",
+            {
+              "bg-secondary text-on-surface": design,
+            }
+          )}
           onClick={() => {
             setDesign("design");
             setColor("");
@@ -34,9 +53,13 @@ const Filter = ({
           Design
         </Button>
         <Button
-          className={cn("px-7", {
-            "bg-basec": color,
-          })}
+          variant={"outline"}
+          className={cn(
+            "px-7 w-full lg:w-fit hover:bg-primary hover:text-surface",
+            {
+              "bg-secondary text-on-surface": color,
+            }
+          )}
           onClick={() => {
             setColor("color");
             setDesign("");
