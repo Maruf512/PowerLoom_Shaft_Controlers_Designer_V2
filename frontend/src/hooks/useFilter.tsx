@@ -1,43 +1,46 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
+import { TableType } from "@/types/data";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+
+const validDisplays: TableType[] = ["design", "color"];
+
+const isValidDisplay = (display: string) => {
+  return display !== null && validDisplays.includes(display as TableType);
+};
 
 const useFilter = () => {
   const params = useSearchParams();
   const router = useRouter();
 
   const [search, setSearch] = useState("");
-  const [color, setColor] = useState("");
-  const [design, setDesign] = useState("");
+  const [display, setDisplay] = useState<TableType>("");
 
   useEffect(() => {
     const initialSearch = params.get("search") || "";
-    const initialColor = params.get("color") || "";
-    const initialDesign = params.get("design") || "";
+    const param = (params.get("display") || "design") as TableType;
+
+    const initialDisplay = isValidDisplay(param) ? param : "design";
 
     setSearch(initialSearch);
-    setColor(initialColor);
-    setDesign(initialDesign);
+    setDisplay(initialDisplay as TableType);
   }, []);
 
   useEffect(() => {
     const newParams = new URLSearchParams();
 
     if (search) newParams.set("search", search);
-    if (color) newParams.set("color", color);
-    if (design) newParams.set("design", design);
+    if (display) newParams.set("display", display);
 
     router.replace(`?${newParams.toString()}`);
-  }, [search, color, design]);
+  }, [search, display]);
 
   return {
     search,
-    color,
-    design,
     setSearch,
-    setColor,
-    setDesign,
+    display,
+    setDisplay,
   };
 };
 

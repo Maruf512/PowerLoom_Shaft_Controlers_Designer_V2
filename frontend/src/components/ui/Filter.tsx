@@ -7,10 +7,8 @@ import { BiSearch } from "react-icons/bi";
 const Filter = ({
   search,
   setSearch,
-  setColor,
-  setDesign,
-  color,
-  design,
+  setDisplay,
+  display,
 }: FilterPropsType) => {
   const [searchValue, setSearchValue] = useState("");
 
@@ -19,7 +17,7 @@ const Filter = ({
   }, [search]);
 
   return (
-    <div className="border-y-2 border-muted/10 flex flex-col lg:flex-row items-center gap-4 justify-between lg:items-center lg:px-10 px-3 py-4 bg-on-surface rounded-radius-sm">
+    <div className="border-y-2 border-muted/10 flex flex-col lg:flex-row items-center gap-4 justify-between lg:items-center lg:px-10 px-3 py-4 bg-on-surface rounded-radius-lg">
       <div className="bg-surface pl-5 rounded-full flex justify-between items-center w-full lg:w-fit">
         <input
           className="outline-none text-basec"
@@ -42,12 +40,11 @@ const Filter = ({
           className={cn(
             "px-7 w-full lg:w-fit hover:bg-primary hover:text-surface",
             {
-              "bg-secondary text-on-surface": design,
+              "bg-secondary text-on-surface": display === "design",
             }
           )}
           onClick={() => {
-            setDesign("design");
-            setColor("");
+            setDisplay("design");
           }}
         >
           Design
@@ -57,12 +54,11 @@ const Filter = ({
           className={cn(
             "px-7 w-full lg:w-fit hover:bg-primary hover:text-surface",
             {
-              "bg-secondary text-on-surface": color,
+              "bg-secondary text-on-surface": display === "color",
             }
           )}
           onClick={() => {
-            setColor("color");
-            setDesign("");
+            setDisplay("color");
           }}
         >
           Color

@@ -34,7 +34,7 @@ const UserDetails = () => {
   };
 
   return (
-    <div className="bg-on-surface lg:w-[30rem] flex justify-between lg:rounded-radius-lg rounded-radius-sm overflow-hidden border-2 border-muted/10 ">
+    <div className="bg-on-surface lg:w-[30rem] flex justify-between lg:rounded-radius-lg rounded-radius-sm overflow-hidden border-2 border-muted/10">
       <div className="flex items-center h-[4.5rem] gap-5 my-4 mx-5">
         <div className="image relative h-[70%] aspect-square rounded-md overflow-hidden ">
           <Image
