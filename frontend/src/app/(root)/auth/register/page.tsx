@@ -7,7 +7,7 @@ import { AuthFieldsTypes } from "@/types/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const Page = () => {
   const { error, loading, setLoading, setError } = useFetchState();
   const router = useRouter();
 
@@ -15,7 +15,7 @@ const page = () => {
     setError(undefined);
     setLoading(true);
 
-    const { data, error, status } = await apiClient<any>("register", {
+    const { error, status } = await apiClient("register", {
       method: "POST",
       body: values,
     });
@@ -53,4 +53,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

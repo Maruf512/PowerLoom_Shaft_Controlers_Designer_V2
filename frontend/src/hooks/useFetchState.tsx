@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { ApiErrorType } from "@/types/api";
+import { useState } from "react";
 
 const useFetchState = <T,>() => {
   const [data, setData] = useState<T | null>();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<any>();
+  const [error, setError] = useState<ApiErrorType>();
 
   return {
     data,

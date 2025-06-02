@@ -1,12 +1,11 @@
 "use client";
 
+import { data, designColumn } from "@/constants/dataTable";
 import useFilter from "@/hooks/useFilter";
+import DataTable from "../ui/DataTable";
 import Filter from "../ui/Filter";
 import Navigator from "../ui/Navigator";
 import UserDetails from "../ui/UserDetails";
-import DataTable from "../ui/DataTable";
-import { data, designColumn } from "@/constants/dataTable";
-import { DesignDataType } from "@/types/data";
 
 const Dashboard = () => {
   const { setDisplay, display, search, setSearch } = useFilter();

@@ -25,7 +25,7 @@ const useFilter = () => {
 
     setSearch(initialSearch);
     setDisplay(initialDisplay as TableType);
-  }, []);
+  }, [params]);
 
   useEffect(() => {
     const newParams = new URLSearchParams();
@@ -34,7 +34,7 @@ const useFilter = () => {
     if (display) newParams.set("display", display);
 
     router.replace(`?${newParams.toString()}`);
-  }, [search, display]);
+  }, [search, display, router]);
 
   return {
     search,

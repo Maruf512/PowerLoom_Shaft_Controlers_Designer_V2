@@ -26,23 +26,23 @@
   --radius-lg: 0.7rem; /* large border radius */
   --radius-sm: 0.3rem; /* small border radius */
 
-  --color-surface: oklch(0.94 0.0143 231.81); /* background color */
-  --color-on-surface: oklch(0.9088 0.0318 240.35); /* surface text color */
+  --color-surface: oklch(1 0 0); /* background color */
+  --color-on-surface: oklch(1 0 0); /* surface text color */
 
-  --color-primary: oklch(0.55 0.0955 231.81); /* main brand color */
-  --color-secondary: oklch(0.66 0.0955 227.65); /* secondary brand color */
+  --color-primary: oklch(0.2046 0 0); /* main brand color */
+  --color-secondary: oklch(0.9821 0 0); /* secondary brand color */
   --color-error: oklch(0.65 0.1921 28.84);
 
-  --text-strong: oklch(0.19 0.0955 227.65); /* strong text color */
-  --text-basec: oklch(0.26 0.0955 227.65); /* base text color */
-  --text-muted: oklch(0.64 0.0593 227.65); /* muted text color */
+  --text-strong: oklch(0.1448 0 0); /* strong text color */
+  --text-basec: oklch(0.5555 0 0); /* base text color */
+  --text-muted: oklch(0.9219 0 0); /* muted text color */
 
   --color-shadow: oklch(0.38 0.0966 227.65 / 53.69%); /* shadow color */
 }
 
 /* Apply mono font */
 body {
-  @apply font-geist-mono inset-0 bg-surface bg-[radial-gradient(var(--color-secondary),transparent_1px)] [background-size:16px_16px];
+  @apply font-geist-mono  bg-surface absolute inset-0 -z-10 h-full w-full bg-[radial-gradient(#f9f9f9_1px,transparent_1px)] [background-size:16px_16px];
 }
 
 @layer utilities {

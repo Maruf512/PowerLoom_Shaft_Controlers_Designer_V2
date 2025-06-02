@@ -7,7 +7,7 @@ import { AuthFieldsTypes, AuthUserResponseType } from "@/types/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const Page = () => {
   const { error, loading, setData, setLoading, setError } =
     useFetchState<AuthUserResponseType>();
   const router = useRouter();
@@ -50,7 +50,7 @@ const page = () => {
           isLoading={loading}
           footerContent={
             <div>
-              Don't have an account?{" "}
+              {`${"Don't have an account?"}`}
               <Link className="underline hover:scale-105" href="/auth/register">
                 Sign Up
               </Link>
@@ -62,4 +62,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

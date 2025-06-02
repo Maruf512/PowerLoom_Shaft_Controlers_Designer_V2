@@ -1,7 +1,6 @@
 import { DataTablePropsType } from "@/types/props";
 import { cn } from "@/utils/cn";
 import Link from "next/link";
-import { JSX } from "react";
 
 const DataTable = <T,>({
   data,
@@ -11,13 +10,19 @@ const DataTable = <T,>({
 }: DataTablePropsType<T>) => {
   return (
     <div className="overflow-x-auto">
-      <div className="md:w-full w-[40rem] bg-on-surface rounded-radius-lgs">
-        <div className="flex justify-between capitalize gap-3 tracking-wide text-surface bg-primary px-4 py-4 rounded-t-radius-sm">
+      <div
+        className={cn(
+          "md:w-full w-[45rem] bg-on-surface rounded-radius-lg border border-muted",
+          className
+        )}
+      >
+        <div className="flex justify-between capitalize tracking-wide py-4 rounded-t-radius-sm px-4 text-basec font-semibold border-b border-muted">
           {columns.map((item, i) => {
             return (
               <p
+                key={item.header}
                 className={cn(
-                  "line-clamp-1 border-r border-secondary",
+                  "line-clamp-1 border-r border-muted px-2 lg:px-4",
                   {
                     "border-none": i === columns.length - 1,
                   },
@@ -29,7 +34,7 @@ const DataTable = <T,>({
             );
           })}
         </div>
-        <div className="lg:text-base text-sm  rounded-b-radius-lg text-strong border-2 border-muted/10 border-t-0 h-[20rem] overflow-y-auto">
+        <div className="lg:text-base text-sm text-strong h-[20rem] overflow-y-auto px-4">
           {data.length === 0 ? (
             <div className="text-center py-4 text-strong">{emptyMessage}</div>
           ) : (
@@ -40,7 +45,7 @@ const DataTable = <T,>({
                     href={"/"}
                     key={i}
                     className={cn(
-                      "flex justify-between gap-3 border-b border-muted/10 py-2 px-4 hover:bg-secondary duration-50 hover:text-surface cursor-pointer",
+                      "flex justify-between border-b border-secondary py-2 hover:bg-secondary duration-50 cursor-pointer",
                       {
                         "border-none": i === data.length - 1,
                       },
@@ -56,7 +61,7 @@ const DataTable = <T,>({
                         <p
                           key={column.key as string}
                           className={cn(
-                            "line-clamp-1 border-r border-surface",
+                            "line-clamp-1 px-2 lg:px-4",
                             {
                               "border-none": colIndex === columns.length - 1,
                             },

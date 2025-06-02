@@ -17,18 +17,17 @@ const Filter = ({
   }, [search]);
 
   return (
-    <div className="border-y-2 border-muted/10 flex flex-col lg:flex-row items-center gap-4 justify-between lg:items-center lg:px-10 px-3 py-4 bg-on-surface rounded-radius-lg">
-      <div className="bg-surface pl-5 rounded-full flex justify-between items-center w-full lg:w-fit">
+    <div className="border rounded-radius-lg border-muted flex flex-col lg:flex-row items-center gap-4 justify-between lg:items-center lg:px-10 px-3 py-4 bg-on-surface ">
+      <div className="bg-surface pl-5 h-[2.5rem] rounded-full flex justify-between items-center w-full lg:w-fit border border-muted border-r-0 ">
         <input
-          className="outline-none text-basec"
+          className="outline-none text-basec h-full pr-4"
           type="text"
           value={searchValue}
           placeholder="Search"
           onChange={(e) => setSearchValue(e.target.value)}
         />
         <Button
-          variant="outline"
-          className="border-none hover:bg-primary hover:text-on-surface duration-200 rounded-r-full pr-5 "
+          className="border-none hover:bg-primary border duration-200 rounded-r-full "
           onClick={() => setSearch(searchValue)}
         >
           <BiSearch />
@@ -37,12 +36,9 @@ const Filter = ({
       <div className="space-x-4 space-y-3 lg:space-y-0 w-full lg:w-fit">
         <Button
           variant={"outline"}
-          className={cn(
-            "px-7 w-full lg:w-fit hover:bg-primary hover:text-surface",
-            {
-              "bg-secondary text-on-surface": display === "design",
-            }
-          )}
+          className={cn("px-7 w-full lg:w-fit text-strong", {
+            "bg-primary text-on-surface hover:bg-primary": display === "design",
+          })}
           onClick={() => {
             setDisplay("design");
           }}
@@ -51,12 +47,9 @@ const Filter = ({
         </Button>
         <Button
           variant={"outline"}
-          className={cn(
-            "px-7 w-full lg:w-fit hover:bg-primary hover:text-surface",
-            {
-              "bg-secondary text-on-surface": display === "color",
-            }
-          )}
+          className={cn("px-7 w-full lg:w-fit text-strong", {
+            "bg-primary text-on-surface hover:bg-primary": display === "color",
+          })}
           onClick={() => {
             setDisplay("color");
           }}
