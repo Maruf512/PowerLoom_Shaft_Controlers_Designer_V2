@@ -42,7 +42,10 @@ const Page = () => {
           footerContent={
             <div>
               Already have an account?{" "}
-              <Link className="underline hover:scale-105" href="/auth/login">
+              <Link
+                className="underline hover:scale-105 text-primary"
+                href="/auth/login"
+              >
                 Login
               </Link>
             </div>
