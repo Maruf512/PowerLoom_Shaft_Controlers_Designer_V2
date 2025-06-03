@@ -3,8 +3,9 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from designer.serializers import *
-from designer.models import Designe, DesignGrid, CustomUser
+from designer.models import Designe, DesignGrid, CustomUser, Colors
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework import generics
 
 from rest_framework.views import APIView
 
@@ -113,6 +114,30 @@ def designer(request):
     serializer = DesigneSerializer(data=request.data)
     if serializer.is_valid():
         print("Valid Data")
+        print(request)
         print(serializer.data)
 
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+# For Color models
+class ColorsListCreateView(generics.ListCreateAPIView):
+    serializer_class = ColorsSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Colors.objects.filter(user=self.request.user).order_by('-created_at')
+    
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
+    
+
+class ColorsDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ColorsSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Colors.objects.filter(user=self.request.user)
+
