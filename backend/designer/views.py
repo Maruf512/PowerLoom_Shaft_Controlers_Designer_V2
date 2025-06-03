@@ -107,19 +107,6 @@ def register(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-@api_view(["POST"])
-@permission_classes([IsAuthenticated])
-def designer(request):
-    serializer = DesigneSerializer(data=request.data)
-    if serializer.is_valid():
-        print("Valid Data")
-        print(request)
-        print(serializer.data)
-
-    return Response(serializer.data, status=status.HTTP_200_OK)
-
-
 # For Color models
 class ColorsListCreateView(generics.ListCreateAPIView):
     serializer_class = ColorsSerializer
@@ -140,4 +127,34 @@ class ColorsDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Colors.objects.filter(user=self.request.user)
+
+
+# ++++++++++++++++ Designer Section ++++++++++++++++
+class DesigneListCreateView(generics.ListCreateAPIView):
+    serializer_class = DesigneSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Designe.objects.filter(user=self.request.user).order_by('-created_at')
+    
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
+
+
+
+class DesigneDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = DesigneSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Designe.objects.filter(user=self.request.user)
+    
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
+
 
