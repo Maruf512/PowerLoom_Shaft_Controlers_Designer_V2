@@ -50,7 +50,7 @@ const AuthForm = ({
   return (
     <form
       onSubmit={(e) => formHandler(e)}
-      className="flex flex-col items-center px-8 py-10 rounded-radius-sm md:w-[35rem] w-[90%] bg-gradient-to-b from-on-surface via-muted/10 to-on-surface border-2 border-muted/10"
+      className="flex flex-col items-center px-8 py-10 rounded-radius-sm md:w-[35rem] w-[90%] bg-secondary border border-muted"
     >
       <div className="w-full space-y-4">
         <div className="mb-6 space-y-1">
@@ -68,7 +68,7 @@ const AuthForm = ({
             <div className="relative">
               <input
                 className={cn(
-                  "bg-surface w-full px-2 py-1 focus:outline-2 focus:outline-muted rounded-[1px]",
+                  "w-full px-2 py-1 border border-muted rounded-[2px]",
                   errors[field] && "outline-1 outline-error"
                 )}
                 type={

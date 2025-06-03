@@ -28,7 +28,7 @@ pnpm-debug.log*
 # ===================================
 
 # Byte-compiled / optimized files
-__pycache__/
+*__pycache__/
 *.py[cod]
 *$py.class
 
