@@ -14,7 +14,7 @@ function normalizePythonError(raw: string): string {
   }
 }
 
-function parseApiError(rawError: any): string {
+function parseApiError(rawError: unknown): string {
   if (typeof rawError === "object" && rawError !== null) {
     return Object.entries(rawError)
       .map(

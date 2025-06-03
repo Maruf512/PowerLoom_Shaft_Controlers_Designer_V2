@@ -6,7 +6,7 @@ import {
 import { baseUrl } from "@/utils/baseUrl";
 import parseApiError from "@/utils/normalizePythonError";
 
-const apiClient = async <T = any>(
+const apiClient = async <T>(
   url: string,
   options: ApiClientOptionsType = {}
 ): Promise<ApiResponseType<T>> => {
@@ -45,10 +45,18 @@ const apiClient = async <T = any>(
     }
 
     return { data, error, status };
-  } catch (err: any) {
+  } catch (err: unknown) {
+    let error = "An unexpected error occurred";
+
+    if (err instanceof Error) {
+      error = err.message;
+    } else if (typeof err === "string") {
+      error = err;
+    }
+
     return {
       data: null,
-      error: err.message ?? "An unexpected error occurred",
+      error: error,
       status: 500,
     };
   }
