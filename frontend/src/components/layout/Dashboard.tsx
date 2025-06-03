@@ -6,9 +6,12 @@ import DataTable from "../ui/DataTable";
 import Filter from "../ui/Filter";
 import Navigator from "../ui/Navigator";
 import UserDetails from "../ui/UserDetails";
+import useFetchState from "@/hooks/useFetchState";
 
 const Dashboard = () => {
   const { setDisplay, display, search, setSearch } = useFilter();
+  // const { data, setData, loading, setLoading, error, setError } =
+  //   useFetchState();
 
   return (
     <div className=" space-y-10">

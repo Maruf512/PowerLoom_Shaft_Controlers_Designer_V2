@@ -50,8 +50,11 @@ const Page = () => {
           isLoading={loading}
           footerContent={
             <div>
-              {`${"Don't have an account?"}`}
-              <Link className="underline hover:scale-105" href="/auth/register">
+              {`${"Don't have an account? "}`}
+              <Link
+                className="underline hover:scale-105 text-primary"
+                href="/auth/register"
+              >
                 Sign Up
               </Link>
             </div>

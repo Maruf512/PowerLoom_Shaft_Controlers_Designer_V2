@@ -1,5 +1,3 @@
-"use client";
-
 import Dashboard from "@/components/layout/Dashboard";
 
 const page = () => {
