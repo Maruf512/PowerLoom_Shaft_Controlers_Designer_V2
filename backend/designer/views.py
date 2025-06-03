@@ -104,3 +104,15 @@ def register(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def designer(request):
+    serializer = DesigneSerializer(data=request.data)
+    if serializer.is_valid():
+        print("Valid Data")
+        print(serializer.data)
+
+    return Response(serializer.data, status=status.HTTP_200_OK)
