@@ -42,14 +42,14 @@
 
 /* Apply mono font */
 body {
-  @apply font-geist-mono  bg-surface absolute inset-0 -z-10 h-full w-full bg-[radial-gradient(#f9f9f9_1px,transparent_1px)] [background-size:16px_16px];
+  @apply font-geist-mono  bg-surface absolute inset-0 -z-10 h-full w-full bg-[radial-gradient(var(--color-muted)_1px,transparent_1px)] [background-size:16px_16px];
 }
 
 @layer utilities {
   .shadow {
-    box-shadow: 0px 0px 400px -66px var(--color-shadow);
-    -webkit-box-shadow: 0px 0px 400px -66px var(--color-shadow);
-    -moz-box-shadow: 0px 0px 400px -66px var(--color-shadow);
+    box-shadow: 0px 0px 77px -55px var(--color-basec);
+    -webkit-box-shadow: 0px 0px 77px -55px var(--color-basec);
+    -moz-box-shadow: 0px 0px 77px -55px var(--color-basec);
   }
 
   .vertical-text {
@@ -66,5 +66,9 @@ body {
 
   ::-webkit-scrollbar-thumb {
     @apply bg-strong w-[2px] h-[1px];
+  }
+
+  input {
+    @apply w-full px-2 py-1 border border-muted rounded-radius-sm shadow-xs;
   }
 }
