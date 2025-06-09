@@ -3,7 +3,11 @@
 import AuthForm from "@/components/layout/AuthForm";
 import useFetchState from "@/hooks/useFetchState";
 import apiClient from "@/lib/apiClient";
-import { AuthFieldsTypes, AuthUserResponseType } from "@/types/auth";
+import {
+  AuthFieldsNameType,
+  AuthFieldsTypes,
+  AuthUserResponseType,
+} from "@/types/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -12,7 +16,7 @@ const Page = () => {
     useFetchState<AuthUserResponseType>();
   const router = useRouter();
 
-  const handleSubmit = async (values: Record<AuthFieldsTypes, string>) => {
+  const handleSubmit = async (values: Record<AuthFieldsNameType, string>) => {
     setError(undefined);
     setLoading(true);
 
@@ -43,7 +47,18 @@ const Page = () => {
       <p className="absolute top-2 left-2">{error && JSON.stringify(error)}</p>
       <div className="h-screen flex items-center justify-center">
         <AuthForm
-          fields={["email", "password"]}
+          fields={[
+            {
+              fieldName: "email",
+              fieldType: "email",
+              placeholder: "Enter your email",
+            },
+            {
+              fieldName: "password",
+              fieldType: "password",
+              placeholder: "Enter your password",
+            },
+          ]}
           title={"Login to your account"}
           subtitle="Enter your credentials below to login to your account"
           submitHandler={handleSubmit}

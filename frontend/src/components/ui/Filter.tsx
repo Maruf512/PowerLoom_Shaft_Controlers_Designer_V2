@@ -18,9 +18,9 @@ const Filter = ({
 
   return (
     <div className="border rounded-radius-lg border-muted flex flex-col lg:flex-row items-center gap-4 justify-between lg:items-center lg:px-10 px-3 py-4 bg-on-surface ">
-      <div className="bg-surface pl-5 h-[2.5rem] rounded-full flex justify-between items-center w-full lg:w-fit border border-muted border-r-0 ">
+      <div className="bg-surface pl-5 h-[2.5rem] rounded-full flex justify-between items-center w-full lg:w-fit border border-muted border-r-0 shadow-xs">
         <input
-          className="outline-none text-basec h-full pr-4"
+          className="border-0 outline-0 pr-4 shadow-none"
           type="text"
           value={searchValue}
           placeholder="Search"
