@@ -1,8 +1,14 @@
-export type AuthFieldsTypes = "username" | "email" | "password";
+export type AuthFieldsNameType = "email" | "password" | "username";
+
+export interface AuthFieldsTypes {
+  fieldName: AuthFieldsNameType;
+  fieldType: "text" | "password" | "email" | "url";
+  placeholder?: string;
+}
 
 export type AuthFormTypes = {
   fields: AuthFieldsTypes[];
-  submitHandler: (data: Record<AuthFieldsTypes, string>) => void;
+  submitHandler: (data: Record<AuthFieldsNameType, string>) => void;
   title: string;
   subtitle: string;
   footerContent: React.ReactNode;
