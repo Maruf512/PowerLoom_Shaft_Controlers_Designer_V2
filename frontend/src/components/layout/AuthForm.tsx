@@ -56,7 +56,7 @@ const AuthForm = ({
   return (
     <form
       onSubmit={(e) => formHandler(e)}
-      className="flex flex-col items-center px-8 py-10 rounded-radius-sm md:w-[35rem] w-[90%] bg-surface border border-muted shadow"
+      className="flex flex-col items-center px-8 py-10 rounded-radius-sm md:w-[35rem] w-[90%] bg-surface border border-muted shadow-sm"
     >
       <div className="w-full space-y-4">
         <div className="mb-6 space-y-1">

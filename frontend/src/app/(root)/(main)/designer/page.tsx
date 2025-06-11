@@ -1,25 +1,19 @@
 "use client";
 
+import Button from "@/components/ui/Button";
+import DesignBoxTable from "@/components/ui/DesignBoxTable";
 import {
   SelectColorBoxes,
   SelectMachineType,
   SelectStartingPosition,
 } from "@/components/ui/DesignSelect";
+import { designerEnitialState } from "@/constants/Designer";
 import { DesignType } from "@/types/data";
 import { useState } from "react";
 
 const Page = () => {
-  const [designerData, setDesignerData] = useState<DesignType>({
-    name: "",
-    total_color_palettes: 0,
-    color_box_1: "",
-    color_box_2: "",
-    color_box_3: "",
-    color_box_4: "",
-    starting_position: "",
-    machine_type: "" as any,
-    design_grids: [],
-  });
+  const [designerData, setDesignerData] =
+    useState<DesignType>(designerEnitialState);
 
   const handleDesignerDataChange = <K extends keyof DesignType>(
     key: K,
@@ -32,19 +26,15 @@ const Page = () => {
   };
 
   return (
-    <div className="flex min-h-[calc(100vh-48px)]">
+    <div className="flex flex-col xl:flex-row gap-10">
       <div className="border border-muted p-7 rounded-radius-lg shadow-sm space-y-6 xl:w-[30%] w-full bg-surface/50 backdrop-blur-lg">
         <h2 className="text-2xl font-semibold text-strong border-b border-muted pb-4">
           Design Parameters
         </h2>
         <div>
-          <label
-            htmlFor="design-name"
-            className="text-lg font-semibold text-strong mb-2 block"
-          >
-            Design Name
-          </label>
+          <p className="text-lg font-semibold text-strong mb-2">Design Name</p>
           <input
+            className="shadow-none bg-secondary"
             id="design-name"
             placeholder="Enter Design Name"
             type="text"
@@ -53,13 +43,11 @@ const Page = () => {
           />
         </div>
         <div className="border-t border-muted pt-6">
-          <label
-            htmlFor="total-color-palettes"
-            className="text-lg font-semibold text-strong mb-2 block"
-          >
+          <p className="text-lg font-semibold text-strong mb-2 block">
             Total Color Palettes
-          </label>
+          </p>
           <input
+            className="shadow-none bg-secondary"
             id="total-color-palettes"
             placeholder="Total Color Palettes"
             type="number"
@@ -98,6 +86,23 @@ const Page = () => {
             setDesignerData={setDesignerData}
           />
         </div>
+        <div className="border-t border-muted pt-6">
+          <Button
+            className="w-full"
+            onClick={() => setDesignerData(designerEnitialState)}
+          >
+            Reset
+          </Button>
+        </div>
+      </div>
+      <div className="flex flex-col justify-between xl:w-[70%]">
+        <div>
+          <DesignBoxTable
+            designerData={designerData}
+            setDesignerData={setDesignerData}
+          />
+        </div>
+        <div>w</div>
       </div>
     </div>
   );
