@@ -40,6 +40,11 @@ export type SelectMachineTypeFieldsType = {
   value: string;
 };
 
+export interface DesignGridType {
+  color_box: number | null;
+  total_pics: number;
+}
+
 export interface DesignType {
   name: string;
   total_color_palettes: number;
@@ -49,8 +54,5 @@ export interface DesignType {
   color_box_4: string;
   starting_position: string;
   machine_type: string;
-  design_grids: Array<{
-    color_box: number;
-    total_pics: number;
-  }>;
+  design_grids: DesignGridType[];
 }
