@@ -15,14 +15,27 @@ export interface DataTablePropsType<T> {
   emptyMessage?: string;
 }
 
+// export interface SelectContextType {
+//   open: boolean;
+//   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+//   fieldContext?: selectFieldsKeyType;
+//   selectedValue: string | React.ReactNode;
+//   handelSelect: (
+//     value: string,
+//     key: selectFieldsKeyType,
+//     jsxValue?: React.ReactNode
+//   ) => void;
+//   value?: string;
+// }
+
 export interface SelectContextType {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   fieldContext?: selectFieldsKeyType;
-  selectedValue: string | React.ReactNode;
   handelSelect: (
     value: string,
     key: selectFieldsKeyType,
     jsxValue?: React.ReactNode
   ) => void;
+  value?: string;
 }
