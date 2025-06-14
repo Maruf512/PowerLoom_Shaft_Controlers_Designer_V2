@@ -1,44 +1,48 @@
-import { SelectColorFieldType } from "@/types/data";
+import {
+  SelectColorFieldType,
+  SelectMachineTypeFieldsType,
+  SelectStartingPositionFieldsType,
+} from "@/types/data";
 
 export const colorBoxFields: SelectColorFieldType[] = [
   {
-    label: "Color Box 1", // display text for color box select
+    label: "Box 1", // display text for color box select
     key: "color_box_1", // key for color box vlyes in the designer data
   },
   {
-    label: "Color Box 2",
+    label: "Box 2",
     key: "color_box_2",
   },
   {
-    label: "Color Box 3",
+    label: "Box 3",
     key: "color_box_3",
   },
   {
-    label: "Color Box 4",
+    label: "Box 4",
     key: "color_box_4",
   },
 ];
 
-export const startingPositionFields = [
+export const startingPositionField: SelectStartingPositionFieldsType[] = [
   {
     label: "Color Box 1",
-    value: "color_box_1",
+    value: "1",
   },
   {
     label: "Color Box 2",
-    value: "color_box_2",
+    value: "2",
   },
   {
     label: "Color Box 3",
-    value: "color_box_3",
+    value: "3",
   },
   {
     label: "Color Box 4",
-    value: "color_box_4",
+    value: "4",
   },
 ];
 
-export const machineTypeFields = [
+export const machineTypeFields: SelectMachineTypeFieldsType[] = [
   {
     label: "Left Handed",
     value: "left_handed",

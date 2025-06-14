@@ -1,13 +1,9 @@
 "use client";
 
-import {
-  AuthFieldsNameType,
-  AuthFieldsTypes,
-  AuthFormTypes,
-} from "@/types/auth";
+import { AuthFieldsNameType, AuthFormTypes } from "@/types/auth";
 import { cn } from "@/utils/cn";
 import { authFormValidator } from "@/utils/validators";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import Button from "../ui/Button";
 
@@ -32,9 +28,7 @@ const AuthForm = ({
     {} as Record<AuthFieldsNameType, string>
   );
 
-  const formHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const formHandler = () => {
     const errors = authFormValidator(formData);
 
     if (Object.keys(errors).length > 0) {
@@ -53,11 +47,20 @@ const AuthForm = ({
     setErrors({ ...errors, [field]: "" });
   };
 
+  useEffect(() => {
+    const handelKeypress = (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        formHandler();
+      }
+    };
+
+    document.addEventListener("keydown", handelKeypress);
+
+    return () => document.removeEventListener("keydown", handelKeypress);
+  }, [formHandler]);
+
   return (
-    <form
-      onSubmit={(e) => formHandler(e)}
-      className="flex flex-col items-center px-8 py-10 rounded-radius-sm md:w-[35rem] w-[90%] bg-surface border border-muted shadow-sm"
-    >
+    <form className="flex flex-col items-center px-8 py-10 rounded-radius-sm md:w-[35rem] w-[90%] bg-surface border border-muted shadow-sm">
       <div className="w-full space-y-4">
         <div className="mb-6 space-y-1">
           <h3 className="text-xl text-strong font-semibold">{title}</h3>
@@ -74,7 +77,7 @@ const AuthForm = ({
             <div className="relative">
               <input
                 className={cn(
-                  "",
+                  "w-full px-3 py-1 border border-muted rounded-radius-sm bg-secondary",
                   errors[field.fieldName] && "outline-1 outline-error"
                 )}
                 type={field.fieldType}
@@ -103,7 +106,11 @@ const AuthForm = ({
           </div>
         ))}
       </div>
-      <Button className="mt-6 w-full" isLoading={isLoading}>
+      <Button
+        className="mt-6 w-full"
+        isLoading={isLoading}
+        onClick={formHandler}
+      >
         {title.split(" ")[0]}
       </Button>
       <div className="mt-2 text-basec">{footerContent}</div>

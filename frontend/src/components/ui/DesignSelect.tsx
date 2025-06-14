@@ -1,11 +1,16 @@
 import {
   colorBoxFields,
   machineTypeFields,
-  startingPositionFields,
+  startingPositionField,
 } from "@/constants/select";
-import { DesignType, selectFieldsKeyType } from "@/types/data";
+import {
+  DesignType,
+  selectFieldsKeyType,
+  SelectStartingPositionFieldsType,
+} from "@/types/data";
 import React, { useEffect } from "react";
 import { Select, SelectBody, SelectHeader, SelectItem } from "./Select";
+import { getLabel } from "@/utils/getLabel";
 
 const colors = [
   { name: "Red", hex: "#FF0000" },
@@ -33,36 +38,55 @@ export const SelectColorBoxes = ({
 
   return (
     <div className="flex flex-col gap-4">
-      {colorBoxFields.map((item) => (
-        <Select
-          key={item.key}
-          className="relative w-full"
-          value={
-            (designerData[item.key as selectFieldsKeyType] as string) || ""
-          }
-          selectHandler={colorBoxHandler}
-          fieldContext={item.key}
-        >
-          <div className="flex items-center gap-2">
-            <span className="font-semibold">{item.label}:</span>
-            <SelectHeader className="flex-grow" placeHolder="Select Color" />
-          </div>
-          <SelectBody>
-            {colors.map((color) => (
-              <SelectItem key={color.hex} itemValue={color.hex}>
-                <div className="flex items-center gap-2 ">
-                  <div
-                    className="w-4 h-4 rounded-full border border-muted"
-                    style={{ backgroundColor: color.hex }}
-                  ></div>
-                  <span className="font-medium">{color.name}</span>{" "}
-                  <span className="font-normal text-basec">({color.hex})</span>
-                </div>
-              </SelectItem>
-            ))}
-          </SelectBody>
-        </Select>
-      ))}
+      {colorBoxFields.map((item) => {
+        const colorValue = designerData[item.key as selectFieldsKeyType] || "";
+
+        return (
+          <Select
+            key={item.key}
+            className="relative w-full"
+            value={
+              (designerData[item.key as selectFieldsKeyType] as string) || ""
+            }
+            selectHandler={colorBoxHandler}
+            fieldContext={item.key}
+          >
+            <div className="flex items-center gap-2">
+              <span className="font-semibold">{item.label}:</span>
+              <SelectHeader className="flex-grow" placeHolder="Select Color">
+                {colorValue && (
+                  <div className="flex items-center gap-2 ">
+                    <div
+                      className="w-4 h-4 rounded-full border border-muted"
+                      style={{ backgroundColor: colorValue }}
+                    ></div>
+                    {/* <span className="font-medium">{color.name}</span>{" "} */}
+                    <span className="font-normal text-basec">
+                      ({colorValue})
+                    </span>
+                  </div>
+                )}
+              </SelectHeader>
+            </div>
+            <SelectBody>
+              {colors.map((color) => (
+                <SelectItem key={color.hex} itemValue={color.hex}>
+                  <div className="flex items-center gap-2 ">
+                    <div
+                      className="w-4 h-4 rounded-full border border-muted"
+                      style={{ backgroundColor: color.hex }}
+                    ></div>
+                    <span className="font-medium">{color.name}</span>{" "}
+                    <span className="font-normal text-basec">
+                      ({color.hex})
+                    </span>
+                  </div>
+                </SelectItem>
+              ))}
+            </SelectBody>
+          </Select>
+        );
+      })}
     </div>
   );
 };
@@ -78,6 +102,8 @@ export const SelectStartingPosition = ({
     setDesignerData((prev) => ({ ...prev, [key]: value }));
   };
 
+  const label = getLabel(designerData.starting_position, startingPositionField);
+
   return (
     <div>
       <Select
@@ -89,13 +115,17 @@ export const SelectStartingPosition = ({
         <SelectHeader
           className="flex-grow"
           placeHolder="Select The Starting Postigon"
-        />
+        >
+          {!!label && label}
+        </SelectHeader>
         <SelectBody>
-          {colorBoxFields.map((item) => (
-            <SelectItem key={item.key} itemValue={item.key}>
-              {item.label}
-            </SelectItem>
-          ))}
+          {startingPositionField.map(
+            (item: SelectStartingPositionFieldsType) => (
+              <SelectItem key={item.label} itemValue={item.value}>
+                {item.label}
+              </SelectItem>
+            )
+          )}
         </SelectBody>
       </Select>
     </div>
@@ -117,6 +147,8 @@ export const SelectMachineType = ({
     setDesignerData((prev) => ({ ...prev, machine_type: machineType }));
   }, [machineType, designerData.machine_type]);
 
+  const label = getLabel(designerData.machine_type, machineTypeFields);
+
   return (
     <div>
       <Select
@@ -124,10 +156,16 @@ export const SelectMachineType = ({
         value={machineType}
         fieldContext="machine_type"
       >
-        <SelectHeader placeHolder="Select Machine Type" />
+        <SelectHeader placeHolder="Select Machine Type">
+          {!!label && label}
+        </SelectHeader>
         <SelectBody>
           {machineTypeFields.map((item) => (
-            <SelectItem key={item.value} itemValue={item.value}>
+            <SelectItem
+              key={item.value}
+              itemValue={item.value}
+              itemLabel={item.label}
+            >
               {item.label}
             </SelectItem>
           ))}
