@@ -1,9 +1,9 @@
-import { AuthFieldsTypes } from "@/types/auth";
+import { AuthFieldsNameType, AuthFieldsTypes } from "@/types/auth";
 
 export const authFormValidator = (
-  formData: Record<AuthFieldsTypes, string>
+  formData: Record<AuthFieldsNameType, string>
 ) => {
-  const newErrors = {} as Record<AuthFieldsTypes, string>;
+  const newErrors = {} as Record<AuthFieldsNameType, string>;
 
   if (formData.email.trim() === "") {
     newErrors.email = "Email is required";

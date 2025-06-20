@@ -68,7 +68,7 @@ body {
     @apply bg-strong w-[2px] h-[1px];
   }
 
-  input {
+  /* input {
     @apply w-full px-2 py-1 border border-muted rounded-radius-sm shadow-xs;
-  }
+  } */
 }

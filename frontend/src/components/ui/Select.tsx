@@ -52,6 +52,12 @@ export const Select = ({
   };
 
   useEffect(() => {
+    if (value === "") {
+      setSelectedValue(value);
+    }
+  }, [value]);
+
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         selectRef.current &&
@@ -106,7 +112,7 @@ export const SelectHeader = ({
   return (
     <div
       className={cn(
-        "border border-muted px-3 py-2 rounded-radius-sm cursor-pointer flex items-center justify-between text-sm shadow-xs",
+        "border border-muted px-3 py-2 rounded-radius-sm cursor-pointer flex items-center justify-between text-sm bg-secondary",
         className
       )}
       onClick={() => context.setOpen((prv) => !prv)}
@@ -145,7 +151,7 @@ export const SelectBody = ({
   return context.open ? (
     <div
       className={cn(
-        "absolute z-10 w-full mt-1 p-1 border border-muted bg-secondary/50 backdrop-blur-lg rounded-radius-sm",
+        "absolute z-10 w-full mt-1 p-1 border border-muted bg-secondary",
         "max-h-[22rem] overflow-y-auto shadow-lg",
         className
       )}

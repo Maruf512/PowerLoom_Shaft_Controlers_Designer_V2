@@ -1,6 +1,10 @@
 "use client";
 
-import { AuthFieldsTypes, AuthFormTypes } from "@/types/auth";
+import {
+  AuthFieldsNameType,
+  AuthFieldsTypes,
+  AuthFormTypes,
+} from "@/types/auth";
 import { cn } from "@/utils/cn";
 import { authFormValidator } from "@/utils/validators";
 import React, { useMemo, useState } from "react";
@@ -17,14 +21,16 @@ const AuthForm = ({
 }: AuthFormTypes) => {
   const initialFormData = useMemo(() => {
     return fields.reduce((acc, field) => {
-      acc[field] = "";
+      acc[field.fieldName] = "";
       return acc;
-    }, {} as Record<AuthFieldsTypes, string>);
+    }, {} as Record<AuthFieldsNameType, string>);
   }, [fields]);
 
   const [formData, setFormData] = useState(initialFormData);
   const [showPassword, setShowPassword] = useState(false);
-  const [errors, setErrors] = useState({} as Record<AuthFieldsTypes, string>);
+  const [errors, setErrors] = useState(
+    {} as Record<AuthFieldsNameType, string>
+  );
 
   const formHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,7 +47,7 @@ const AuthForm = ({
 
   const handelChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    field: AuthFieldsTypes
+    field: AuthFieldsNameType
   ) => {
     setFormData({ ...formData, [field]: e.target.value });
     setErrors({ ...errors, [field]: "" });
@@ -50,7 +56,7 @@ const AuthForm = ({
   return (
     <form
       onSubmit={(e) => formHandler(e)}
-      className="flex flex-col items-center px-8 py-10 rounded-radius-sm md:w-[35rem] w-[90%] bg-surface border border-muted shadow"
+      className="flex flex-col items-center px-8 py-10 rounded-radius-sm md:w-[35rem] w-[90%] bg-surface border border-muted shadow-sm"
     >
       <div className="w-full space-y-4">
         <div className="mb-6 space-y-1">
@@ -58,32 +64,27 @@ const AuthForm = ({
           <p className="text-basec line-clamp-2">{subtitle}</p>
         </div>
         {fields.map((field) => (
-          <div key={field} className="flex flex-col gap-1 w-full">
+          <div key={field.fieldName} className="flex flex-col gap-1 w-full">
             <label
-              htmlFor={field}
+              htmlFor={field.fieldType}
               className="capitalize text-basec font-medium"
             >
-              {field}
+              {field.fieldName}
             </label>
             <div className="relative">
               <input
-                className={cn("", errors[field] && "outline-1 outline-error")}
-                type={
-                  field === "username"
-                    ? "text"
-                    : field === "password"
-                    ? showPassword
-                      ? "text"
-                      : "password"
-                    : "text"
-                }
-                id={field}
-                name={field}
-                value={formData[field]}
-                placeholder={field === "email" ? "example@gmail.com" : ""}
-                onChange={(e) => handelChange(e, field)}
+                className={cn(
+                  "",
+                  errors[field.fieldName] && "outline-1 outline-error"
+                )}
+                type={field.fieldType}
+                id={field.fieldName}
+                name={field.fieldName}
+                value={formData[field.fieldName]}
+                placeholder={field.placeholder}
+                onChange={(e) => handelChange(e, field.fieldName)}
               />
-              {field === "password" && (
+              {field.fieldType === "password" && (
                 <button
                   className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer px-1 py-1 hover:bg-on-surface duration-200 rounded-sm
                 "
@@ -96,7 +97,9 @@ const AuthForm = ({
                 </button>
               )}
             </div>
-            <p className="text-xs text-error">{errors && errors[field]}</p>
+            <p className="text-xs text-error">
+              {errors && errors[field.fieldName]}
+            </p>
           </div>
         ))}
       </div>
