@@ -158,3 +158,7 @@ class DesigneDetailView(generics.RetrieveUpdateDestroyAPIView):
         context = super().get_serializer_context()
         context["request"] = self.request
         return context
+
+
+# test
+
