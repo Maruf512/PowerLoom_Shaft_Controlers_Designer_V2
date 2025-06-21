@@ -40,14 +40,19 @@ export type SelectMachineTypeFieldsType = {
   value: string;
 };
 
+export type SelectStartingPositionFieldsType = {
+  label: string;
+  value: "1" | "2" | "3" | "4";
+};
+
 export interface DesignGridType {
   color_box: number | null;
-  total_pics: number;
+  total_pics: number | null;
 }
 
 export interface DesignType {
   name: string;
-  total_color_palettes: number;
+  total_color_palettes: number | null;
   color_box_1: string;
   color_box_2: string;
   color_box_3: string;
@@ -55,4 +60,16 @@ export interface DesignType {
   starting_position: string;
   machine_type: string;
   design_grids: DesignGridType[];
+}
+
+export interface DesignErrorType {
+  name: string;
+  total_color_palettes: string;
+  color_box_1: string;
+  color_box_2: string;
+  color_box_3: string;
+  color_box_4: string;
+  starting_position: string;
+  machine_type: string;
+  design_grids: Array<Record<keyof DesignGridType, string>>;
 }
