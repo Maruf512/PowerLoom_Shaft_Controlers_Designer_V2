@@ -69,9 +69,6 @@
 //     });
 //   };
 
-//   console.log(designerData);
-//   console.log(designGrids);
-
 //   return (
 //     <div className="border border-muted w-full rounded-radius-lg">
 //       <div className="flex justify-between bg-secondary border-b border-muted lg:px-6 px-3 py-2 font-semibold text-basec gap-2">
@@ -120,7 +117,8 @@
 
 // export default DesignBoxTable;
 
-import { DesignType } from "@/types/data";
+import { DesignErrorType, DesignType } from "@/types/data";
+import { cn } from "@/utils/cn";
 import { useEffect, useMemo } from "react";
 import { IoIosCheckbox } from "react-icons/io";
 import { MdCheckBoxOutlineBlank } from "react-icons/md";
@@ -128,9 +126,13 @@ import { MdCheckBoxOutlineBlank } from "react-icons/md";
 const DesignBoxTable = ({
   designerData,
   setDesignerData,
+  setDesignDataError,
+  designDataError,
 }: {
   designerData: DesignType;
   setDesignerData: React.Dispatch<React.SetStateAction<DesignType>>;
+  setDesignDataError: React.Dispatch<React.SetStateAction<DesignErrorType>>;
+  designDataError: DesignErrorType;
 }) => {
   useEffect(() => {
     const totalColorPalettes = designerData.total_color_palettes || 0;
@@ -157,7 +159,19 @@ const DesignBoxTable = ({
         color_box:
           newGrids[columnbNum].color_box === rowNum + 1 ? null : rowNum + 1,
       };
+
       return { ...prev, design_grids: newGrids };
+    });
+
+    setDesignDataError((prev) => {
+      const newErrorGrid = { ...prev.design_grids };
+
+      newErrorGrid[columnbNum] = {
+        ...newErrorGrid[columnbNum],
+        color_box: "",
+      };
+
+      return { ...prev, design_grids: newErrorGrid };
     });
   };
 
@@ -172,20 +186,34 @@ const DesignBoxTable = ({
       }
       return { ...prev, design_grids: newGrids };
     });
-  };
 
-  console.log(designerData);
+    setDesignDataError((prev) => {
+      const newErrorGrid = { ...prev.design_grids };
+
+      newErrorGrid[columnIndex] = {
+        ...newErrorGrid[columnIndex],
+        total_pics: "",
+      };
+
+      return { ...prev, design_grids: newErrorGrid };
+    });
+  };
 
   return (
     <div className="border border-muted w-full rounded-radius-lg h-[52rem] overflow-auto">
-      <div className="flex justify-between border-b border-muted lg:px-6 px-4 py-3 tracking-wide font-semibold text-basec gap-2 text-xs lg:text-base sticky top-0 z-40 bg-on-surface">
-        <p className="lg:w-[4rem] w-[2rem]">No.</p>
+      <div className="flex justify-between border-b border-muted  py-3 tracking-wide font-semibold text-basec text-xs lg:text-base sticky top-0 z-40 bg-on-surface">
+        <p className="lg:w-[4rem] w-[2rem] border-r border-muted flex items-center justify-center">
+          No.
+        </p>
         {deisignGridRow.map((item) => (
-          <p className="flex-1" key={item}>
+          <p
+            className="flex-1 border-r border-muted flex items-center justify-center"
+            key={item}
+          >
             {item}
           </p>
         ))}
-        <p className="flex-1">NOCV</p>
+        <p className="flex-1 flex items-center justify-center">NOCV</p>
       </div>
       <div className="">
         {!!designerData.design_grids.length ? (
@@ -193,16 +221,22 @@ const DesignBoxTable = ({
             {designerData.design_grids.map((item, columbNum) => (
               <div
                 key={columbNum}
-                className="flex justify-between items-center py-2 lg:px-6 px-4 border-b border-muted/70 last:border-none gap-2 text-strong bg-on-surface hover:bg-secondary text-xs lg:text-base"
+                className={cn(
+                  "flex justify-between items-center py-2 border-b border-muted/70 last:border-none text-strong bg-on-surface hover:bg-secondary text-xs lg:text-base",
+                  {
+                    "bg-error/5":
+                      designDataError?.design_grids[columbNum]?.color_box,
+                  }
+                )}
               >
-                <p className="lg:w-[4rem] w-[2rem] lg:text-sm">
+                <p className="lg:w-[4rem] w-[2rem] lg:text-sm flex items-center justify-center">
                   {columbNum + 1}
                 </p>
 
                 {deisignGridRow.map((_, rowNum) => (
                   <div
                     key={rowNum}
-                    className="flex-1"
+                    className="flex-1 flex items-center justify-center"
                     onClick={() => handelColorBox(columbNum, rowNum)}
                   >
                     {designerData.design_grids[columbNum].color_box ===
@@ -213,9 +247,15 @@ const DesignBoxTable = ({
                     )}
                   </div>
                 ))}
-                <div className="flex-1">
+                <div className="flex-1 w-[80%] flex items-center justify-center">
                   <input
-                    className="w-full border border-muted rounded-xs px-3 text-xs py-1"
+                    className={cn(
+                      "border border-muted rounded-xs px-3 text-xs py-1 w-[80%]",
+                      {
+                        "border-error":
+                          designDataError?.design_grids[columbNum]?.total_pics,
+                      }
+                    )}
                     type="number"
                     placeholder=""
                     value={item.total_pics === null ? "" : item.total_pics}

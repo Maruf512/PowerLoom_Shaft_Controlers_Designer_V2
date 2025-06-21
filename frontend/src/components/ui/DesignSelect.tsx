@@ -4,6 +4,7 @@ import {
   startingPositionField,
 } from "@/constants/select";
 import {
+  DesignErrorType,
   DesignType,
   selectFieldsKeyType,
   SelectStartingPositionFieldsType,
@@ -28,12 +29,17 @@ const colors = [
 export const SelectColorBoxes = ({
   designerData,
   setDesignerData,
+  setDesignDataError,
+  designDataError,
 }: {
   designerData: DesignType;
   setDesignerData: React.Dispatch<React.SetStateAction<DesignType>>;
+  setDesignDataError: React.Dispatch<React.SetStateAction<DesignErrorType>>;
+  designDataError: DesignErrorType;
 }) => {
   const colorBoxHandler = (key: selectFieldsKeyType, value: string) => {
     setDesignerData((prev) => ({ ...prev, [key]: value }));
+    setDesignDataError((prev) => ({ ...prev, [key]: "" }));
   };
 
   return (
@@ -52,21 +58,25 @@ export const SelectColorBoxes = ({
             fieldContext={item.key}
           >
             <div className="flex items-center gap-2">
-              <span className="font-semibold">{item.label}:</span>
-              <SelectHeader className="flex-grow" placeHolder="Select Color">
-                {colorValue && (
-                  <div className="flex items-center gap-2 ">
-                    <div
-                      className="w-4 h-4 rounded-full border border-muted"
-                      style={{ backgroundColor: colorValue }}
-                    ></div>
-                    {/* <span className="font-medium">{color.name}</span>{" "} */}
-                    <span className="font-normal text-basec">
-                      ({colorValue})
-                    </span>
-                  </div>
-                )}
-              </SelectHeader>
+              <div className="flex-grow">
+                {/* <span className="font-semibold">{item.label}:</span> */}
+                <SelectHeader className="flex-grow" placeHolder={item.label}>
+                  {colorValue && (
+                    <div className="flex items-center gap-2 ">
+                      <div
+                        className="w-4 h-4 rounded-full border border-muted"
+                        style={{ backgroundColor: colorValue }}
+                      ></div>
+                      <span className="font-normal text-basec">
+                        ({colorValue})
+                      </span>
+                    </div>
+                  )}
+                </SelectHeader>
+                <p className="error-text">
+                  {designDataError[item.key as selectFieldsKeyType]}
+                </p>
+              </div>
             </div>
             <SelectBody>
               {colors.map((color) => (
@@ -94,15 +104,21 @@ export const SelectColorBoxes = ({
 export const SelectStartingPosition = ({
   designerData,
   setDesignerData,
+  setDesignDataError,
+  designDataError,
 }: {
   designerData: DesignType;
   setDesignerData: React.Dispatch<React.SetStateAction<DesignType>>;
+  setDesignDataError: React.Dispatch<React.SetStateAction<DesignErrorType>>;
+  designDataError: DesignErrorType;
 }) => {
   const startingPosigionHandler = (key: selectFieldsKeyType, value: string) => {
     setDesignerData((prev) => ({ ...prev, [key]: value }));
+    setDesignDataError((prev) => ({ ...prev, [key]: "" }));
   };
 
   const label = getLabel(designerData.starting_position, startingPositionField);
+
 
   return (
     <div>
@@ -112,12 +128,15 @@ export const SelectStartingPosition = ({
         value={designerData.starting_position}
         className="w-full relative"
       >
-        <SelectHeader
-          className="flex-grow"
-          placeHolder="Select The Starting Postigon"
-        >
-          {!!label && label}
-        </SelectHeader>
+        <div>
+          <SelectHeader
+            className="flex-grow"
+            placeHolder="Select The Starting Postigon"
+          >
+            {!!label && label}
+          </SelectHeader>
+          <p>{designDataError.starting_position}</p>
+        </div>
         <SelectBody>
           {startingPositionField.map(
             (item: SelectStartingPositionFieldsType) => (
@@ -135,9 +154,13 @@ export const SelectStartingPosition = ({
 export const SelectMachineType = ({
   designerData,
   setDesignerData,
+  setDesignDataError,
+  designDataError,
 }: {
   designerData: DesignType;
   setDesignerData: React.Dispatch<React.SetStateAction<DesignType>>;
+  setDesignDataError: React.Dispatch<React.SetStateAction<DesignErrorType>>;
+  designDataError: DesignErrorType;
 }) => {
   const [machineType, setMachineType] = React.useState(
     designerData.machine_type
@@ -145,6 +168,7 @@ export const SelectMachineType = ({
 
   useEffect(() => {
     setDesignerData((prev) => ({ ...prev, machine_type: machineType }));
+    setDesignDataError((prev) => ({ ...prev, machine_type: "" }));
   }, [machineType, designerData.machine_type]);
 
   const label = getLabel(designerData.machine_type, machineTypeFields);
@@ -156,9 +180,12 @@ export const SelectMachineType = ({
         value={machineType}
         fieldContext="machine_type"
       >
-        <SelectHeader placeHolder="Select Machine Type">
-          {!!label && label}
-        </SelectHeader>
+        <div>
+          <SelectHeader placeHolder="Select Machine Type">
+            {!!label && label}
+          </SelectHeader>
+          <p>{designDataError.machine_type}</p>
+        </div>
         <SelectBody>
           {machineTypeFields.map((item) => (
             <SelectItem

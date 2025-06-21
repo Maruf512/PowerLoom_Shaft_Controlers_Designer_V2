@@ -1,7 +1,11 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.decorators import (
+    api_view,
+    permission_classes,
+    authentication_classes,
+)
 from designer.serializers import *
 from designer.models import Designe, DesignGrid, CustomUser, Colors
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
@@ -113,13 +117,13 @@ class ColorsListCreateView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Colors.objects.filter(user=self.request.user).order_by('-created_at')
-    
+        return Colors.objects.filter(user=self.request.user).order_by("-created_at")
+
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        context['request'] = self.request
+        context["request"] = self.request
         return context
-    
+
 
 class ColorsDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ColorsSerializer
@@ -135,14 +139,12 @@ class DesigneListCreateView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Designe.objects.filter(user=self.request.user).order_by('-created_at')
-    
+        return Designe.objects.filter(user=self.request.user).order_by("-created_at")
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        context['request'] = self.request
+        context["request"] = self.request
         return context
-
 
 
 class DesigneDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -151,10 +153,8 @@ class DesigneDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Designe.objects.filter(user=self.request.user)
-    
+
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        context['request'] = self.request
+        context["request"] = self.request
         return context
-
-

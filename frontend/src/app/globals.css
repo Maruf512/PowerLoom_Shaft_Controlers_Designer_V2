@@ -38,11 +38,13 @@
   --text-muted: oklch(0.9219 0 0); /* muted text color */
 
   --color-shadow: oklch(0.38 0.0966 227.65 / 53.69%); /* shadow color */
+
+  /* --bg-image: url("/background.jpg"); */
 }
 
-/* Apply mono font */
 body {
-  @apply font-geist-mono  bg-surface absolute inset-0 -z-10 h-full w-full bg-[radial-gradient(var(--color-muted)_1px,transparent_1px)] [background-size:16px_16px];
+  @apply font-geist-mono bg-fixed bg-cover bg-no-repeat bg-on-surface;
+  /* background-image: var(--bg-image); */
 }
 
 @layer utilities {
@@ -57,6 +59,10 @@ body {
     text-orientation: mixed;
     transform: rotate(180deg);
   }
+
+  .error-text {
+    @apply text-error/60 text-xs font-medium;
+  }
 }
 
 @layer base {
@@ -65,7 +71,7 @@ body {
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-strong w-[2px] h-[1px];
+    @apply bg-basec w-[2px] h-[1px];
   }
 
   /* input {
