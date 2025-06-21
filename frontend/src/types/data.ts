@@ -71,5 +71,8 @@ export interface DesignErrorType {
   color_box_4: string;
   starting_position: string;
   machine_type: string;
-  design_grids: Array<Record<keyof DesignGridType, string>>;
+  design_grids: {
+    color_box: string;
+    total_pics: string;
+  }[];
 }

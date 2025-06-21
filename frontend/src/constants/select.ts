@@ -6,19 +6,19 @@ import {
 
 export const colorBoxFields: SelectColorFieldType[] = [
   {
-    label: "Box 1", // display text for color box select
+    label: "Select Box 1", // display text for color box select
     key: "color_box_1", // key for color box vlyes in the designer data
   },
   {
-    label: "Box 2",
+    label: "Select Box 2",
     key: "color_box_2",
   },
   {
-    label: "Box 3",
+    label: "Select Box 3",
     key: "color_box_3",
   },
   {
-    label: "Box 4",
+    label: "Select Box 4",
     key: "color_box_4",
   },
 ];
