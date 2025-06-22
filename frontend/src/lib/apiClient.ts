@@ -4,6 +4,7 @@ import {
   ApiResponseType,
 } from "@/types/api";
 import { baseUrl } from "@/utils/baseUrl";
+import { getCookie1 } from "@/utils/getCSRF";
 import parseApiError from "@/utils/normalizePythonError";
 
 const apiClient = async <T>(
@@ -13,6 +14,7 @@ const apiClient = async <T>(
   const { method = "GET", body, headers, ...restOpts } = options;
   const defaultHeaders = {
     "Content-Type": "application/json",
+    "X-CSRFToken": getCookie1("csrftoken") || "",
     Accept: "application/json",
     ...headers,
   };
