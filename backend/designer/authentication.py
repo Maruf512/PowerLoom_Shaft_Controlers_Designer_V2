@@ -3,11 +3,11 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework.exceptions import AuthenticationFailed
 
+
 class CookiesJwtAuthentication(JWTAuthentication):
     def authenticate(self, request):
-        access_token = request.COOKIES.get('access_token')
-        refresh_token = request.COOKIES.get('refresh_token')
-
+        access_token = request.COOKIES.get("access_token")
+        refresh_token = request.COOKIES.get("refresh_token")
 
         if not access_token:
             return None  # No access token = skip authentication
@@ -30,7 +30,9 @@ class CookiesJwtAuthentication(JWTAuthentication):
                 except TokenError:
                     raise AuthenticationFailed("Refresh token expired or invalid")
             else:
-                raise AuthenticationFailed("Access token expired and no refresh token found")
+                raise AuthenticationFailed(
+                    "Access token expired and no refresh token found"
+                )
 
         try:
             user = self.get_user(validated_token)

@@ -42,39 +42,37 @@ const Semulator = ({
         Simulate
       </Button>
       {isValid && isOpen && (
-        <Modal setIsOpen={setIsOpen} className="w-[40rem]">
-          <div className="flex justify-between h-full">
-            <div className="h-full w-full">
-              <div className="overflow-hidden rounded-radius-lg space-y-0.5 h-full overflow-y-scroll">
-                {designerData.design_grids.map((item, i) => {
-                  const heightInPixels = (item.total_pics as number) * 6 + 30;
+        <Modal
+          setIsOpen={setIsOpen}
+          className="flex items-center justify-center"
+        >
+          <div className="bg-black ">
+            {designerData.design_grids.map((item, i) => {
+              const heightInPixels = (item.total_pics as number) * 6 + 30;
 
-                  const backgroundColor =
-                    colorBoxes[(item.color_box as number) - 1];
+              const backgroundColor =
+                colorBoxes[(item.color_box as number) - 1];
 
-                  return (
-                    <div
-                      key={i}
-                      className={cn(
-                        "w-full ",
-                        "transition-all duration-300 ease-in-out",
-                        "flex items-center px-4  text-sm font-medium"
-                      )}
-                      style={{
-                        height: `${heightInPixels}px`,
-                        backgroundColor: backgroundColor,
-                      }}
-                    >
-                      <p className="bg-strong/80 px-3 py-1 rounded-radius-sm text-muted">
-                        {colorBoxes[(item.color_box as number) - 1]}
-                        {" | "}
-                        {item.total_pics}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+              return (
+                <div
+                  key={i}
+                  className={cn(
+                    "w-full ",
+                    "flex items-center px-4 text-sm font-medium"
+                  )}
+                  style={{
+                    height: `${heightInPixels}px`,
+                    backgroundColor: backgroundColor,
+                  }}
+                >
+                  <p className="bg-strong/80 px-3 py-1 rounded-radius-sm text-muted">
+                    {colorBoxes[(item.color_box as number) - 1]}
+                    {" | "}
+                    {item.total_pics}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </Modal>
       )}

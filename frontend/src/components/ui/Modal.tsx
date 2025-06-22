@@ -20,18 +20,15 @@ const Modal = ({
 
   return (
     <div
-      className="fixed inset-0 z-[40] bg-on-surface/40 backdrop-blur-lg flex items-center justify-center"
+      className={cn(
+        "fixed inset-0 z-[40] bg-on-surface/40 backdrop-blur-lg",
+        className
+      )}
       onClick={() => setIsOpen(false)}
     >
-      <div
-        className={cn(
-          "z-[50] bg-on-surface border border-muted rounded-radius-lg  mx-8 h-[80vh] overflow-y-auto",
-          className
-        )}
-        onClick={(e) => e.stopPropagation()}
-      >
+      <span className={cn("z-[50]")} onClick={(e) => e.stopPropagation()}>
         {children}
-      </div>
+      </span>
     </div>
   );
 };
