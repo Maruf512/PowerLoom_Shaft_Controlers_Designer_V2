@@ -60,27 +60,33 @@ const AuthForm = ({
   }, [formHandler]);
 
   return (
-    <form className="flex flex-col items-center px-8 py-10 rounded-radius-sm md:w-[35rem] w-[90%] bg-surface border border-muted shadow-sm">
+    <form className="flex flex-col items-center px-5 py-6 rounded-radius-sm w-[90%] md:w-[35rem] lg:px-7 lg:py-9 bg-surface border border-muted shadow-sm">
       <div className="w-full space-y-4">
         <div className="mb-6 space-y-1">
-          <h3 className="text-xl text-strong font-semibold">{title}</h3>
-          <p className="text-basec line-clamp-2">{subtitle}</p>
+          <h3 className="text-lg md:text-xl text-strong font-semibold">
+            {title}
+          </h3>
+          <p className="text-sm md:text-base line-clamp-2">{subtitle}</p>
         </div>
         {fields.map((field) => (
           <div key={field.fieldName} className="flex flex-col gap-1 w-full">
             <label
               htmlFor={field.fieldType}
-              className="capitalize text-basec font-medium"
+              className="capitalize text-sm md:text-basec font-medium"
             >
               {field.fieldName}
             </label>
             <div className="relative">
               <input
                 className={cn(
-                  "w-full px-3 py-1 border border-muted rounded-radius-sm bg-secondary",
+                  "w-full px-3 py-1 border border-muted rounded-radius-sm bg-secondary text-sm md:text-base",
                   errors[field.fieldName] && "outline-1 outline-error"
                 )}
-                type={field.fieldType}
+                type={
+                  field.fieldType === "password" && showPassword
+                    ? "text"
+                    : field.fieldType
+                }
                 id={field.fieldName}
                 name={field.fieldName}
                 value={formData[field.fieldName]}
@@ -89,14 +95,17 @@ const AuthForm = ({
               />
               {field.fieldType === "password" && (
                 <button
-                  className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer px-1 py-1 hover:bg-on-surface duration-200 rounded-sm
-                "
+                  className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer px-1 py-1 hover:bg-on-surface duration-200 rounded-sm"
                   onClick={(e) => {
                     e.preventDefault();
                     setShowPassword(!showPassword);
                   }}
                 >
-                  {showPassword ? <IoEyeOutline /> : <IoEyeOffOutline />}
+                  {showPassword ? (
+                    <IoEyeOutline className="text-base md:text-lg" />
+                  ) : (
+                    <IoEyeOffOutline className="text-base md:text-lg" />
+                  )}
                 </button>
               )}
             </div>
@@ -107,13 +116,15 @@ const AuthForm = ({
         ))}
       </div>
       <Button
-        className="mt-6 w-full"
+        className="mt-6 w-full text-base md:text-lg"
         isLoading={isLoading}
         onClick={formHandler}
       >
         {title.split(" ")[0]}
       </Button>
-      <div className="mt-2 text-basec">{footerContent}</div>
+      <div className="mt-2 text-sm md:text-base text-basec">
+        {footerContent}
+      </div>
     </form>
   );
 };

@@ -4,13 +4,28 @@ import DataTable from "@/components/ui/DataTable";
 import Filter from "@/components/ui/Filter";
 import Navigator from "@/components/ui/Navigator";
 import UserDetails from "@/components/ui/UserDetails";
-import { data, designColumn } from "@/constants/dataTable";
+import { designColumn } from "@/constants/dataTable";
+import useFetchState from "@/hooks/useFetchState";
 import useFilter from "@/hooks/useFilter";
+import apiClient from "@/lib/apiClient";
+import { DesignDataType, DesignType } from "@/types/data";
+import { useEffect } from "react";
 
 const Dashboard = () => {
   const { setDisplay, display, search, setSearch } = useFilter();
-  // const { data, setData, loading, setLoading, error, setError } =
-  //   useFetchState();
+  const { data, setData, loading, setLoading, error, setError } =
+    useFetchState<DesignDataType[]>();
+
+  useEffect(() => {
+    const fetchDesigns = async () => {
+      const { data, error, status } = await apiClient<DesignType[]>("designs", {
+        method: "GET",
+      });
+      console.log(data, error, status);
+    };
+
+    fetchDesigns();
+  }, [display, search]);
 
   return (
     <div className="space-y-10">
@@ -27,7 +42,7 @@ const Dashboard = () => {
         />
       </div>
       <div>
-        <DataTable data={data} columns={designColumn} />
+        <DataTable data={data || []} columns={designColumn} />
       </div>
     </div>
   );

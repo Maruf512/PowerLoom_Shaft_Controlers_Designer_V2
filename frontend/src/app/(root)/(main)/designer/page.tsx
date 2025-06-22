@@ -42,7 +42,7 @@ const Page = () => {
     if (isValid) {
       const { data, error, status } = await apiClient("designs", {
         method: "POST",
-        body: JSON.stringify(designerData),
+        body: designerData,
       });
 
       console.log(data, error, status);

@@ -2,7 +2,7 @@ import { DesignErrorType, DesignType } from "@/types/data";
 
 export const designerEnitialState: DesignType = {
   name: "eafdawed",
-  total_color_palettes: 3,
+  total_color_palettes: 14,
   color_box_1: "#FF0000",
   color_box_2: "#FF00FF",
   color_box_3: "#FFFF00",
@@ -17,6 +17,50 @@ export const designerEnitialState: DesignType = {
     {
       color_box: 2,
       total_pics: 8,
+    },
+    {
+      color_box: 3,
+      total_pics: 12,
+    },
+    {
+      color_box: 4,
+      total_pics: 12,
+    },
+    {
+      color_box: 3,
+      total_pics: 12,
+    },
+    {
+      color_box: 1,
+      total_pics: 12,
+    },
+    {
+      color_box: 4,
+      total_pics: 12,
+    },
+    {
+      color_box: 3,
+      total_pics: 12,
+    },
+    {
+      color_box: 2,
+      total_pics: 12,
+    },
+    {
+      color_box: 1,
+      total_pics: 12,
+    },
+    {
+      color_box: 4,
+      total_pics: 12,
+    },
+    {
+      color_box: 2,
+      total_pics: 12,
+    },
+    {
+      color_box: 4,
+      total_pics: 12,
     },
     {
       color_box: 3,
