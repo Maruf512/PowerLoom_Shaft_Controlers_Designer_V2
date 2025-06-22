@@ -40,7 +40,7 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <button
-      className={cn(buttonVarients({ variant, size }), className as string, {
+      className={cn(buttonVarients({ size, variant }), className as string, {
         "cursor-not-allowed": isLoading,
       })}
       disabled={isLoading}

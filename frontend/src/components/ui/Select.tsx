@@ -210,6 +210,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { IoCheckmark } from "react-icons/io5";
 import { TiArrowSortedDown } from "react-icons/ti";
 
 const SelectContext = createContext<SelectContextType | null>(null);
@@ -328,17 +329,21 @@ export const SelectBody = ({
     return null;
   }
 
-  return context.open ? (
+  return (
     <div
       className={cn(
-        "absolute z-10 w-full mt-1 p-1 border border-muted bg-secondary",
-        "max-h-[22rem] overflow-y-auto shadow-lg",
+        "absolute z-10 w-full mt-1 p-1 border border-muted bg-secondary shadow-lg py-3",
+        "overflow-y-auto max-h-[22rem]",
+        "transform origin-top transition-all duration-300 ease-in-out",
+        context.open
+          ? "scale-100 opacity-100"
+          : "scale-95 opacity-0 pointer-events-none",
         className
       )}
     >
       {children}
     </div>
-  ) : null;
+  );
 };
 
 export const SelectItem = ({
@@ -362,8 +367,7 @@ export const SelectItem = ({
   return (
     <div
       className={cn(
-        "px-2 py-2 cursor-pointer hover:bg-surface transition-colors duration-100",
-        context.value === itemValue ? "bg-muted" : "",
+        "px-2 py-2 cursor-pointer hover:bg-surface transition-colors duration-100 border-b border-muted last:border-0",
         className
       )}
       onClick={() => {
@@ -376,7 +380,10 @@ export const SelectItem = ({
         context.handelSelect(valueToSelect, context.fieldContext!, itemLabel);
       }}
     >
-      {children}
+      <div className="flex items-center justify-between">
+        {children}
+        <span>{context.value === itemValue && <IoCheckmark />}</span>
+      </div>
     </div>
   );
 };

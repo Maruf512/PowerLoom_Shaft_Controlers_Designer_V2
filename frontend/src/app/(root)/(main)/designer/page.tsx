@@ -48,7 +48,6 @@ const Page = () => {
       console.log(data, error, status);
     }
   };
-  console.log(designerData);
 
   return (
     <div className="space-y-4">
