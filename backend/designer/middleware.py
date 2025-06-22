@@ -1,35 +1,23 @@
-from django.http import JsonResponse
+# designer/middleware.py
 
+from django.conf import settings
 
-PUBLIC_PATHS = [
-    '/designer/login/',
-    '/designer/register/',
-    '/designer/test/',
-]
-
-
-class SimpleMiddleware:
+class SetRefreshedAccessTokenCookieMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
-
-        if request.path in PUBLIC_PATHS:
-            return self.get_response(request)
-
-        # Pass the request to the view
         response = self.get_response(request)
 
-        # If the custom authentication class refreshed the token, set it in cookies
-        new_access_token = getattr(request, '_refreshed_access_token', None)
-        if new_access_token:
+        # Check if our custom auth class set a new token
+        if hasattr(request, '_refreshed_access_token'):
+            new_access_token = request._refreshed_access_token
             response.set_cookie(
-                'access_token',
-                new_access_token,
+                key=getattr(settings, 'SIMPLE_JWT_ACCESS_TOKEN_COOKIE_NAME', 'access_token'),
+                value=new_access_token,
                 httponly=True,
-                secure=True,
-                samesite='None',
-                path='/'
+                samesite='Lax', # Or 'None' if cross-domain with secure=True
+                secure=settings.DEBUG is False, # True in production, False for http://localhost
+                max_age=settings.SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'].total_seconds()
             )
-
         return response

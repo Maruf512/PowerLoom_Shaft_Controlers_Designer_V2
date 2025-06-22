@@ -11,7 +11,7 @@ from designer.models import Designe, DesignGrid, CustomUser, Colors
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework import generics
 
-from rest_framework.views import APIView
+from django.middleware.csrf import get_token
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
@@ -26,6 +26,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             access_token = tokens["access"]
             refresh_token = tokens["refresh"]
 
+
             res = Response()
 
             res.data = {
@@ -33,6 +34,18 @@ class CustomTokenObtainPairView(TokenObtainPairView):
                 "username": tokens["username"],
                 "email": tokens["email"],
             }
+
+
+            csrf_token = get_token(request)
+
+            res.set_cookie(
+                key="csrftoken",
+                value=csrf_token,
+                httponly=False,
+                secure=True,
+                samesite="Lax",
+                path="/"
+            )
 
             res.set_cookie(
                 key="access_token",
@@ -162,3 +175,27 @@ class DesigneDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 # test
 
+{
+    "name": "eafdawed",
+    "total_color_palettes": 3,
+    "color_box_1": "#FF0000",
+    "color_box_2": "#FF00FF",
+    "color_box_3": "#FFFF00",
+    "color_box_4": "#00FF00",
+    "starting_position": "2",
+    "machine_type": "left_handed",
+    "design_grids": [
+        {
+            "color_box": 1,
+            "total_pics": 5
+        },
+        {
+            "color_box": 2,
+            "total_pics": 8
+        },
+        {
+            "color_box": 3,
+            "total_pics": 12
+        }
+    ]
+}
