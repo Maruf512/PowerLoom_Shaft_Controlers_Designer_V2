@@ -66,10 +66,10 @@ const AuthForm = ({
           <h3 className="text-lg md:text-xl text-strong font-semibold">
             {title}
           </h3>
-          <p className="text-sm md:text-base line-clamp-2">{subtitle}</p>
+          <p className="text-xs md:text-base line-clamp-2">{subtitle}</p>
         </div>
         {fields.map((field) => (
-          <div key={field.fieldName} className="flex flex-col gap-1 w-full">
+          <div key={field.fieldName} className="flex flex-col w-full">
             <label
               htmlFor={field.fieldType}
               className="capitalize text-sm md:text-basec font-medium"
@@ -116,15 +116,13 @@ const AuthForm = ({
         ))}
       </div>
       <Button
-        className="mt-6 w-full text-base md:text-lg"
+        className="mt-6 w-full lg:text-base text-sm md:text-base"
         isLoading={isLoading}
         onClick={formHandler}
       >
         {title.split(" ")[0]}
       </Button>
-      <div className="mt-2 text-sm md:text-base text-basec">
-        {footerContent}
-      </div>
+      <div className="mt-2 text-sm md:text-base">{footerContent}</div>
     </form>
   );
 };
