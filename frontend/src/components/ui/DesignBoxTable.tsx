@@ -201,7 +201,7 @@ const DesignBoxTable = ({
 
   return (
     <div className="border border-muted w-full rounded-radius-lg h-[52rem] overflow-auto">
-      <div className="flex justify-between border-b border-muted  py-3 tracking-wide font-semibold text-basec text-xs lg:text-base sticky top-0 z-40 bg-on-surface">
+      <div className="flex justify-between border-b border-muted py-4 tracking-wide font-semibold text-muted text-xs lg:text-base sticky top-0 z-40 bg-primary">
         <p className="lg:w-[4rem] w-[2rem] border-r border-muted flex items-center justify-center">
           No.
         </p>

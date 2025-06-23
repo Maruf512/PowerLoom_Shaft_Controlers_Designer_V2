@@ -4,7 +4,7 @@ export const designColumn: DataTableColumnType<DesignDataType>[] = [
   {
     key: "id",
     header: "ID",
-    className: "w-[4.5rem]",
+    className: "w-[5rem]",
   },
   {
     key: "name",

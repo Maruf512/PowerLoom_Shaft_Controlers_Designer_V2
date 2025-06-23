@@ -8,7 +8,7 @@ import { designColumn } from "@/constants/dataTable";
 import useFetchState from "@/hooks/useFetchState";
 import useFilter from "@/hooks/useFilter";
 import apiClient from "@/lib/apiClient";
-import { DesignDataType, DesignType } from "@/types/data";
+import { DesignDataRecievedType, DesignDataType } from "@/types/data";
 import { useEffect } from "react";
 
 const Dashboard = () => {
@@ -18,10 +18,24 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchDesigns = async () => {
-      const { data, error, status } = await apiClient<DesignType[]>("designs", {
-        method: "GET",
-      });
-      console.log(data, error, status);
+      const { data, error } = await apiClient<DesignDataRecievedType[]>(
+        "designs",
+        {
+          method: "GET",
+        }
+      );
+
+      if (data && !error) {
+        const mutatedData = data.map((design) => ({
+          id: design.id,
+          name: design.name,
+          total_color_palettes: design.total_color_palettes,
+          machine_type: design.machine_type,
+          date: design.updated_at.split("T")[0],
+        }));
+
+        setData(mutatedData);
+      }
     };
 
     fetchDesigns();

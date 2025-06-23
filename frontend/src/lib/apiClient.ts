@@ -2,9 +2,9 @@ import {
   ApiClientOptionsType,
   ApiErrorType,
   ApiResponseType,
+  HttpMethodsType,
 } from "@/types/api";
 import { baseUrl } from "@/utils/baseUrl";
-import { getCookie1 } from "@/utils/getCSRF";
 import parseApiError from "@/utils/normalizePythonError";
 
 const apiClient = async <T>(
@@ -14,7 +14,7 @@ const apiClient = async <T>(
   const { method = "GET", body, headers, ...restOpts } = options;
   const defaultHeaders = {
     "Content-Type": "application/json",
-    "X-CSRFToken": getCookie1("csrftoken") || "",
+    // "X-CSRFToken": getCookie1("csrftoken") || "",
     Accept: "application/json",
     ...headers,
   };
@@ -27,8 +27,16 @@ const apiClient = async <T>(
     ...restOpts,
   };
 
-  const attemptRequest = async (urlString: string) => {
-    const res = await fetch(`${baseUrl()}/${urlString}/`, config);
+  const attemptRequest = async (
+    urlString: string,
+    method?: HttpMethodsType
+  ) => {
+    const newConfig = {
+      ...config,
+      method: method || config.method,
+    };
+
+    const res = await fetch(`${baseUrl()}/${urlString}/`, newConfig);
     const status = res.status;
     let data: T | null = null;
     let error: ApiErrorType = null;
@@ -51,18 +59,16 @@ const apiClient = async <T>(
 
   try {
     const { data, error, status } = await attemptRequest(url);
-    console.log("=============after eletial fetch====================");
 
     if (status === 401) {
-      const {
-        data: ref,
-        error: err,
-        status: sta,
-      } = await attemptRequest("refresh");
-      console.log("=============after refresh====================");
-      console.log(ref, err, sta);
+      const { error: refreshErr } = await attemptRequest("refresh", "POST");
+
+      if (!refreshErr) {
+        const { data, error, status } = await attemptRequest(url);
+        return { data, error, status };
+      }
+
       const { data, error, status } = await attemptRequest(url);
-      console.log("=============after second fetch====================");
 
       return { data, error, status };
     }

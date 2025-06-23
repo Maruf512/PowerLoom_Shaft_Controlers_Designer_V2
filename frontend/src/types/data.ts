@@ -1,7 +1,7 @@
 export interface DesignDataType {
   id: number;
   name: string;
-  total_color_palettes: number;
+  total_color_palettes: number | null;
   machine_type: string;
   date: string;
 }
@@ -60,6 +60,17 @@ export interface DesignType {
   starting_position: string;
   machine_type: string;
   design_grids: DesignGridType[];
+}
+
+export interface DesignDataRecievedType extends DesignType {
+  id: number;
+  updated_at: string;
+  created_at: string;
+  user: {
+    id: number;
+    username: string;
+    email: string;
+  };
 }
 
 export interface DesignErrorType {
