@@ -1,6 +1,15 @@
+export type HttpMethodsType =
+  | "GET"
+  | "POST"
+  | "PUT"
+  | "DELETE"
+  | "PATCH"
+  | "HEAD"
+  | "OPTIONS";
+
 export interface ApiClientOptionsType
   extends Omit<RequestInit, "body" | "headers"> {
-  method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "HEAD" | "OPTIONS";
+  method?: HttpMethodsType;
   headers?: Record<string, string>;
   body?: unknown;
 }

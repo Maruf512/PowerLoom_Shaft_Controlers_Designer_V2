@@ -16,13 +16,13 @@ const DataTable = <T,>({
           className
         )}
       >
-        <div className="flex justify-between capitalize tracking-wide py-4 rounded-t-radius-sm px-4 text-basec font-semibold border-b border-muted">
+        <div className="flex justify-between capitalize tracking-wide py-4 rounded-t-radius-sm  font-semibold border-b border-muted bg-primary text-secondary text-sm">
           {columns.map((item, i) => {
             return (
               <p
                 key={item.header}
                 className={cn(
-                  "line-clamp-1 border-r border-muted px-2 lg:px-4",
+                  "line-clamp-1 border-r border-muted px-3 lg:px-6",
                   {
                     "border-none": i === columns.length - 1,
                   },
@@ -34,7 +34,7 @@ const DataTable = <T,>({
             );
           })}
         </div>
-        <div className="lg:text-base text-sm text-strong h-[20rem] overflow-y-auto px-4">
+        <div className="lg:text-base text-sm text-strong h-[20rem] overflow-y-auto ">
           {data.length === 0 ? (
             <div className="text-center py-4 text-strong">{emptyMessage}</div>
           ) : (
@@ -45,7 +45,7 @@ const DataTable = <T,>({
                     href={"/"}
                     key={i}
                     className={cn(
-                      "flex justify-between border-b border-secondary py-2 hover:bg-secondary duration-50 cursor-pointer",
+                      "flex justify-between border-b border-muted py-3 hover:bg-secondary rounded-radius-sm duration-50 cursor-pointer",
                       {
                         "border-none": i === data.length - 1,
                       },
@@ -61,7 +61,7 @@ const DataTable = <T,>({
                         <p
                           key={column.key as string}
                           className={cn(
-                            "line-clamp-1 px-2 lg:px-4",
+                            "line-clamp-1 px-3 lg:px-6",
                             {
                               "border-none": colIndex === columns.length - 1,
                             },
