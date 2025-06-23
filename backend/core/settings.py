@@ -73,6 +73,7 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
+<<<<<<< HEAD
     "ACCESS_TOKEN_LIFETIME": timedelta(seconds=15),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFRESH_TOKENS": True,
@@ -81,6 +82,16 @@ SIMPLE_JWT = {
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
     "USER_ID_FIELD": "id",
     "USER_ID_CLAIM": "user_id",
+=======
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=0.5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+>>>>>>> 6d39a5db214d1474e2e7d28371353fd03026b7e5
 }
 
 ROOT_URLCONF = "core.urls"

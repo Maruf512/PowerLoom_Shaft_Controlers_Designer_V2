@@ -73,31 +73,38 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
 class CustomRefreshTokenView(TokenRefreshView):
     def post(self, request, *args, **kwargs):
-        try:
-            refresh_token = request.COOKIES.get("refresh_token")
-            request.data["refresh"] = refresh_token
-            response = super().post(request, *args, **kwargs)
+        refresh_token = request.COOKIES.get("refresh_token")
 
-            tokens = response.data
-            access_token = tokens["access"]
+        if not refresh_token:
+            return Response({"refreshed": False, "error": "No refresh token in cookies"}, status=status.HTTP_400_BAD_REQUEST)
 
-            res = Response()
+        # Make a mutable copy of the request data
+        request._full_data = request.data.copy()
+        request._full_data["refresh"] = refresh_token
 
-            res.data = {"refreshed": True}
+        # Now call the default TokenRefreshView logic
+        response = super().post(request, *args, **kwargs)
 
-            res.set_cookie(
-                key="access_token",
-                value=access_token,
-                httponly=True,
-                secure=True,
-                samesite="None",
-                path="/",
-            )
+        if response.status_code != 200 or "access" not in response.data:
+            return Response({"refreshed": False, "error": "Invalid refresh token"}, status=status.HTTP_400_BAD_REQUEST)
 
-            return res
+        access_token = response.data["access"]
 
-        except:
-            return Response({"refreshed": False}, status=status.HTTP_400_BAD_REQUEST)
+        # Prepare a fresh response
+        res = Response({"refreshed": True})
+
+        # Set the new access token in cookie
+        res.set_cookie(
+            key="access_token",
+            value=access_token,
+            httponly=True,
+            secure=True,
+            samesite="None",
+            path="/",
+        )
+
+        return res
+
 
 
 @api_view(["POST"])
