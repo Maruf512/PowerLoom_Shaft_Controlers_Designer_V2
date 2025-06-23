@@ -27,8 +27,8 @@ const apiClient = async <T>(
     ...restOpts,
   };
 
-  try {
-    const res = await fetch(`${baseUrl()}/${url}/`, config);
+  const attemptRequest = async (urlString: string) => {
+    const res = await fetch(`${baseUrl()}/${urlString}/`, config);
     const status = res.status;
     let data: T | null = null;
     let error: ApiErrorType = null;
@@ -44,6 +44,27 @@ const apiClient = async <T>(
       }
     } else if (!res.ok) {
       error = "Non-JSON error response";
+    }
+
+    return { data, error, status };
+  };
+
+  try {
+    const { data, error, status } = await attemptRequest(url);
+    console.log("=============after eletial fetch====================");
+
+    if (status === 401) {
+      const {
+        data: ref,
+        error: err,
+        status: sta,
+      } = await attemptRequest("refresh");
+      console.log("=============after refresh====================");
+      console.log(ref, err, sta);
+      const { data, error, status } = await attemptRequest(url);
+      console.log("=============after second fetch====================");
+
+      return { data, error, status };
     }
 
     return { data, error, status };
