@@ -44,7 +44,7 @@ export const designDataValidator = (
     })),
   };
 
-  let isValid = true;
+  let isValid = false;
 
   if (
     designData.name === "" ||
@@ -52,7 +52,7 @@ export const designDataValidator = (
     designData.name === undefined
   ) {
     errors.name = "Name is Required";
-    isValid = false;
+    isValid = true;
   }
 
   if (
@@ -61,7 +61,7 @@ export const designDataValidator = (
     designData.total_color_palettes === 0
   ) {
     errors.total_color_palettes = "Total Color Palettes is Required";
-    isValid = false;
+    isValid = true;
   }
 
   if (
@@ -70,7 +70,7 @@ export const designDataValidator = (
     designData.color_box_1 === ""
   ) {
     errors.color_box_1 = "Color Box 1 is Required";
-    isValid = false;
+    isValid = true;
   }
   if (
     designData.color_box_2 === null ||
@@ -78,7 +78,7 @@ export const designDataValidator = (
     designData.color_box_2 === ""
   ) {
     errors.color_box_2 = "Color Box 2 is Required";
-    isValid = false;
+    isValid = true;
   }
   if (
     designData.color_box_3 === null ||
@@ -86,7 +86,7 @@ export const designDataValidator = (
     designData.color_box_3 === ""
   ) {
     errors.color_box_3 = "Color Box 3 is Required";
-    isValid = false;
+    isValid = true;
   }
   if (
     designData.color_box_4 === null ||
@@ -94,7 +94,7 @@ export const designDataValidator = (
     designData.color_box_4 === ""
   ) {
     errors.color_box_4 = "Color Box 4 is Required";
-    isValid = false;
+    isValid = true;
   }
 
   if (
@@ -103,7 +103,7 @@ export const designDataValidator = (
     designData.starting_position === ""
   ) {
     errors.starting_position = "Starting Position is Required";
-    isValid = false;
+    isValid = true;
   }
 
   if (
@@ -112,7 +112,7 @@ export const designDataValidator = (
     designData.machine_type === ""
   ) {
     errors.machine_type = "Machine Type is Required";
-    isValid = false;
+    isValid = true;
   }
 
   designData.design_grids.forEach((item: DesignGridType, i: number) => {
@@ -126,7 +126,7 @@ export const designDataValidator = (
       item.color_box === 0
     ) {
       errors.design_grids[i].color_box = "Choose a Color Box";
-      isValid = false;
+      isValid = true;
     }
 
     if (
@@ -135,7 +135,7 @@ export const designDataValidator = (
       item.total_pics === 0
     ) {
       errors.design_grids[i].total_pics = "Total Pics is Required";
-      isValid = false;
+      isValid = true;
     }
   });
 

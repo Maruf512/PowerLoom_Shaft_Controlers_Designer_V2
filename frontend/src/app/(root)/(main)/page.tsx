@@ -3,6 +3,7 @@
 import DataTable from "@/components/ui/DataTable";
 import Filter from "@/components/ui/Filter";
 import Navigator from "@/components/ui/Navigator";
+import { useToast } from "@/components/ui/ToastProvider";
 import UserDetails from "@/components/ui/UserDetails";
 import { designColumn } from "@/constants/dataTable";
 import useFetchState from "@/hooks/useFetchState";
@@ -17,6 +18,7 @@ const Dashboard = () => {
     useFetchState<DesignDataType[]>();
 
   useEffect(() => {
+    console.log("useeffect enitiatedx");
     const fetchDesigns = async () => {
       const { data, error } = await apiClient<DesignDataRecievedType[]>(
         "designs",
@@ -41,8 +43,18 @@ const Dashboard = () => {
     fetchDesigns();
   }, [display, search]);
 
+  const { addToast } = useToast();
+
+  console.log(data);
+
   return (
     <div className="space-y-10">
+      <button
+        onClick={() => addToast("Operation successful!", "info")}
+        className="px-6 py-3 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition-colors duration-200"
+      >
+        Show Success Toast
+      </button>
       <div className="flex flex-col gap-4 lg:flex-row justify-center lg:justify-between bg-surface rounded-radius-lg">
         <Navigator />
         <UserDetails />

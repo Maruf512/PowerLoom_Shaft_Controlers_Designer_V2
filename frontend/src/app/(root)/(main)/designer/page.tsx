@@ -8,6 +8,8 @@ import {
   SelectStartingPosition,
 } from "@/components/ui/DesignSelect";
 import ExportTxt from "@/components/ui/ExportTxt";
+import JSONView from "@/components/ui/JSONView";
+import { Modal, ModalContent } from "@/components/ui/Modal";
 import Semulator from "@/components/ui/Semulator";
 import {
   designerEnitialState,
@@ -16,7 +18,8 @@ import {
 import apiClient from "@/lib/apiClient";
 import { DesignErrorType, DesignType } from "@/types/data";
 import { designDataValidator } from "@/utils/validators";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { BiQuestionMark } from "react-icons/bi";
 
 const Page = () => {
   const [designerData, setDesignerData] =
@@ -24,6 +27,8 @@ const Page = () => {
   const [designDataError, setDesignDataError] = useState<DesignErrorType>(
     designerErrorEnitialState
   );
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   const handleDesignerDataChange = <K extends keyof DesignType>(
     key: K,
@@ -49,8 +54,36 @@ const Page = () => {
     }
   };
 
+  const resetHandler = () => {
+    setDesignerData(designerEnitialState);
+    setDesignDataError(designerErrorEnitialState);
+  };
+
   return (
     <div className="space-y-4">
+      <div>
+        <div
+          className="fixed bottom-4 right-4 z-40 border border-muted rounded-full p-1 hover:scale-110 duration-200 hover:bg-muted bg-on-surface"
+          onClick={() => setErrorModalOpen(true)}
+        >
+          <BiQuestionMark size={20} />
+          {hasError && (
+            <div className="w-2 h-2 bg-error rounded-full absolute top-0 -right-0.5"></div>
+          )}
+        </div>
+        {errorModalOpen && (
+          <Modal
+            isOpen={errorModalOpen}
+            setIsOpen={setErrorModalOpen}
+            className="flex items-center justify-center"
+          >
+            <ModalContent className="bg-on-surface p-4 rounded-radius-lg lg:w-[50%] w-[90%] h-[70%] overflow-y-hidden">
+              <JSONView object={designDataError} title="Error" />
+            </ModalContent>
+          </Modal>
+        )}
+      </div>
+
       <div className="text-on-surface text-center tracking-wide w-fit font-medium cursor-pointer">
         <Button>Go Back</Button>
       </div>
@@ -129,10 +162,7 @@ const Page = () => {
             />
           </div>
           <div className="border-t border-muted pt-6">
-            <Button
-              className="w-full"
-              onClick={() => setDesignerData(designerEnitialState)}
-            >
+            <Button className="w-full" onClick={resetHandler}>
               Reset
             </Button>
           </div>
@@ -154,6 +184,7 @@ const Page = () => {
               <Semulator
                 designerData={designerData}
                 setDesignDataError={setDesignDataError}
+                setHasError={setHasError}
               />
             </div>
             <div className="flex-1">

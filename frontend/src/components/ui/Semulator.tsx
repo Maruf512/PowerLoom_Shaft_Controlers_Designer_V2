@@ -4,16 +4,19 @@ import { DesignErrorType, DesignType } from "@/types/data";
 import { designDataValidator } from "@/utils/validators";
 import { cn } from "@/utils/cn";
 import { Modal, ModalContent } from "./Modal";
+import { useToast } from "./ToastProvider";
 
 const Semulator = ({
   designerData,
   setDesignDataError,
+  setHasError,
 }: {
   designerData: DesignType;
   setDesignDataError: React.Dispatch<React.SetStateAction<DesignErrorType>>;
+  setHasError: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const [isValid, setIsValid] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const { addToast } = useToast();
 
   const handleSimulate = () => {
     const validationResult = designDataValidator(
@@ -21,11 +24,14 @@ const Semulator = ({
       setDesignDataError
     );
 
-    setIsValid(validationResult);
+    setHasError(validationResult);
 
     if (validationResult) {
-      setIsOpen(true);
+      addToast("Empty Fields Detected", "error");
+      return;
     }
+
+    setIsOpen(true);
   };
 
   const colorBoxes = [
@@ -34,8 +40,6 @@ const Semulator = ({
     designerData.color_box_3,
     designerData.color_box_4,
   ].filter(Boolean);
-
-  console.log(isOpen);
 
   return (
     <div>
