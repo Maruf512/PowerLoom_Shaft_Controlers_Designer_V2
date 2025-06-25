@@ -48,17 +48,11 @@ const Dashboard = () => {
   console.log(data);
 
   return (
-    <div className="space-y-10">
-      <button
-        onClick={() => addToast("Operation successful!", "info")}
-        className="px-6 py-3 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition-colors duration-200"
-      >
-        Show Success Toast
-      </button>
-      <div className="flex flex-col gap-4 lg:flex-row justify-center lg:justify-between bg-surface rounded-radius-lg">
+    <div className="space-y-6">
+      {/* <div className="flex flex-col gap-4 lg:flex-row justify-center lg:justify-between bg-surface rounded-radius-lg">
         <Navigator />
         <UserDetails />
-      </div>
+      </div> */}
       <div>
         <Filter
           search={search}

@@ -51,9 +51,7 @@ export const SelectColorBoxes = ({
           <Select
             key={item.key}
             className="relative w-full"
-            value={
-              (designerData[item.key as selectFieldsKeyType] as string) || ""
-            }
+            value={colorValue}
             selectHandler={colorBoxHandler}
             fieldContext={item.key}
           >

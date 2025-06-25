@@ -364,6 +364,11 @@ export const SelectItem = ({
     return null;
   }
 
+  console.log("============================");
+  console.log(itemValue);
+  console.log(context.value);
+  console.log("============================");
+
   return (
     <div
       className={cn(

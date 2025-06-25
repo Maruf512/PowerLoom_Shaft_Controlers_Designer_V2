@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/ui/Button";
+import DataErrorModal from "@/components/ui/DataErrorModal";
 import DesignBoxTable from "@/components/ui/DesignBoxTable";
 import {
   SelectColorBoxes,
@@ -17,9 +18,9 @@ import {
 } from "@/constants/Designer";
 import apiClient from "@/lib/apiClient";
 import { DesignErrorType, DesignType } from "@/types/data";
+import { cn } from "@/utils/cn";
 import { designDataValidator } from "@/utils/validators";
-import { useCallback, useMemo, useState } from "react";
-import { BiQuestionMark } from "react-icons/bi";
+import { useState } from "react";
 
 const Page = () => {
   const [designerData, setDesignerData] =
@@ -27,7 +28,7 @@ const Page = () => {
   const [designDataError, setDesignDataError] = useState<DesignErrorType>(
     designerErrorEnitialState
   );
-  const [errorModalOpen, setErrorModalOpen] = useState(false);
+
   const [hasError, setHasError] = useState(false);
 
   const handleDesignerDataChange = <K extends keyof DesignType>(
@@ -57,36 +58,17 @@ const Page = () => {
   const resetHandler = () => {
     setDesignerData(designerEnitialState);
     setDesignDataError(designerErrorEnitialState);
+    setHasError(false);
   };
 
   return (
     <div className="space-y-4">
-      <div>
-        <div
-          className="fixed bottom-4 right-4 z-40 border border-muted rounded-full p-1 hover:scale-110 duration-200 hover:bg-muted bg-on-surface"
-          onClick={() => setErrorModalOpen(true)}
-        >
-          <BiQuestionMark size={20} />
-          {hasError && (
-            <div className="w-2 h-2 bg-error rounded-full absolute top-0 -right-0.5"></div>
-          )}
-        </div>
-        {errorModalOpen && (
-          <Modal
-            isOpen={errorModalOpen}
-            setIsOpen={setErrorModalOpen}
-            className="flex items-center justify-center"
-          >
-            <ModalContent className="bg-on-surface p-4 rounded-radius-lg lg:w-[50%] w-[90%] h-[70%] overflow-y-hidden">
-              <JSONView object={designDataError} title="Error" />
-            </ModalContent>
-          </Modal>
-        )}
-      </div>
+      <DataErrorModal
+        designDataError={designDataError}
+        designerData={designerData}
+        hasError={hasError}
+      />
 
-      <div className="text-on-surface text-center tracking-wide w-fit font-medium cursor-pointer">
-        <Button>Go Back</Button>
-      </div>
       <div className="flex flex-col xl:flex-row gap-10">
         <div className="border border-muted lg:p-7 p-5 rounded-radius-lg space-y-6 xl:w-[30%] w-full bg-surface/50 backdrop-blur-lg">
           <h2 className="text-2xl font-semibold text-strong border-b border-muted pb-4">
