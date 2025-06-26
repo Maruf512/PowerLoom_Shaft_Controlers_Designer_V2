@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ToastProvider } from "@/components/ui/ToastProvider";
 
 const geistMone = Geist_Mono({
   variable: "--font-geist-mono",
@@ -22,7 +23,9 @@ export default function RootLayout({
       <body
         className={`${geistMone.variable} antialiased bg-surface scrollbar-custom`}
       >
-        <div>{children}</div>
+        <div>
+          <ToastProvider>{children}</ToastProvider>
+        </div>
       </body>
     </html>
   );

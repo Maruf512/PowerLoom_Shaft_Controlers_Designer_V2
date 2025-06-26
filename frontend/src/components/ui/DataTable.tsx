@@ -16,7 +16,7 @@ const DataTable = <T,>({
           className
         )}
       >
-        <div className="flex justify-between capitalize tracking-wide py-4 rounded-t-radius-sm  font-semibold border-b border-muted bg-primary text-secondary text-sm">
+        <div className="flex justify-between capitalize tracking-wide py-4 rounded-t-radius-lg  font-semibold border-b border-muted bg-primary text-secondary text-sm">
           {columns.map((item, i) => {
             return (
               <p
@@ -34,7 +34,7 @@ const DataTable = <T,>({
             );
           })}
         </div>
-        <div className="lg:text-base text-sm text-strong h-[20rem] overflow-y-auto ">
+        <div className="lg:text-base text-sm text-strong max-h-[30rem] overflow-y-auto ">
           {data.length === 0 ? (
             <div className="text-center py-4 text-strong">{emptyMessage}</div>
           ) : (

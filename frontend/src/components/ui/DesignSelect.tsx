@@ -51,15 +51,12 @@ export const SelectColorBoxes = ({
           <Select
             key={item.key}
             className="relative w-full"
-            value={
-              (designerData[item.key as selectFieldsKeyType] as string) || ""
-            }
+            value={colorValue}
             selectHandler={colorBoxHandler}
             fieldContext={item.key}
           >
             <div className="flex items-center gap-2">
               <div className="flex-grow">
-                {/* <span className="font-semibold">{item.label}:</span> */}
                 <SelectHeader className="flex-grow" placeHolder={item.label}>
                   {colorValue && (
                     <div className="flex items-center gap-2 ">
@@ -118,7 +115,6 @@ export const SelectStartingPosition = ({
   };
 
   const label = getLabel(designerData.starting_position, startingPositionField);
-
 
   return (
     <div>

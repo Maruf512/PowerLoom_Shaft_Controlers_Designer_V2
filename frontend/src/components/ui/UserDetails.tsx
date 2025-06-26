@@ -1,71 +1,70 @@
-import useFetchState from "@/hooks/useFetchState";
+import useUser from "@/hooks/useUser";
 import apiClient from "@/lib/apiClient";
 import { AuthUserResponseType } from "@/types/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useMemo } from "react";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 
 const UserDetails = () => {
-  const { setData, data } = useFetchState<AuthUserResponseType>();
-
   const router = useRouter();
+  const { getUser, removeUser } = useUser();
 
-  useEffect(() => {
-    const user = localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user")!)
-      : null;
-
-    setData(user);
-  }, [setData]);
+  const user = useMemo(() => {
+    return getUser() as AuthUserResponseType;
+  }, [getUser]);
 
   const handleLogout = async () => {
-    const { error, status } = await apiClient("logout", {
+    const { status } = await apiClient("logout", {
       method: "POST",
     });
 
-    if (status >= 200 && status < 300 && !error) {
-      localStorage.removeItem("user");
-      setData(null);
+    if (status >= 200 && status < 300) {
+      removeUser();
       router.push("/auth/login");
     }
   };
 
   return (
-    <div className="bg-on-surface lg:w-[30rem] flex justify-between lg:rounded-radius-lg rounded-radius-sm overflow-hidden border border-muted">
-      <div className="flex items-center h-[4.5rem] gap-5 my-4 mx-5">
-        <div className="image relative h-[70%] aspect-square rounded-md overflow-hidden ">
-          <Image
-            src={"/profile.png"}
-            objectFit="cover"
-            layout="fill"
-            alt="profile
-        "
-          />
-        </div>
-        <div className="rounded-md flex flex-col justify-between">
-          {data && (
-            <>
-              <div>
-                <h2 className="2xl:text-2xl text-xl capitalize text-strong font-semibold tracking-wider">
-                  {data?.username}
+    <div className="max-w-md mx-auto rounded-radius-lg shadow-2xl overflow-hidden bg-on-surface border border-muted lg:w-[30rem] w-[20rem]">
+      <div className="p-4 flex items-center justify-between space-x-6">
+        <div className="flex gap-5 items-center justify-center">
+          <div className="relative w-12 h-12 rounded-full overflow-hidden ring-4 ring-primary-500">
+            <Image
+              src="/profile.png"
+              layout="fill"
+              objectFit="cover"
+              alt="User Profile"
+            />
+          </div>
+          <div className="flex-1 min-w-0">
+            {user ? (
+              <>
+                <h2 className="text-xl font-semibold text-primary capitalize truncate">
+                  {user.username}
                 </h2>
-                <p className="text-basec text-xs">ID:{data?.id}</p>
-              </div>
-              <p className="font-medium text-strong tracking-wider line-clamp-1">
-                {data?.email}
-              </p>
-            </>
-          )}
+                <p className="mt-1 text-sm text-strong truncate">
+                  {user.email}
+                </p>
+                <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                  <span className="font-medium">ID:</span> {user.id}
+                </p>
+              </>
+            ) : (
+              <p className="text-muted dark:text-gray-300">Loading...</p>
+            )}
+          </div>
         </div>
-      </div>
-      <div className="h-full flex items-center">
         <button
-          className="mx-5 text-primary hover:bg-primary px-4 py-4 rounded-radius-sm duration-200 hover:text-on-surface"
           onClick={handleLogout}
+          className="hover:bg-muted p-2 rounded-full duration-150"
         >
           <RiLogoutBoxRLine size={20} />
         </button>
+      </div>
+      <div className="bg-gray-100 dark:bg-muted h-px"></div>
+      <div className="px-6 py-4 text-sm text-basec">
+        <p>Welcome back! Here’s your account overview.</p>
       </div>
     </div>
   );

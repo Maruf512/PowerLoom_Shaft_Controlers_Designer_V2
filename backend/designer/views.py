@@ -26,7 +26,6 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             access_token = tokens["access"]
             refresh_token = tokens["refresh"]
 
-
             res = Response()
 
             res.data = {
@@ -34,7 +33,6 @@ class CustomTokenObtainPairView(TokenObtainPairView):
                 "username": tokens["username"],
                 "email": tokens["email"],
             }
-
 
             csrf_token = get_token(request)
 
@@ -44,7 +42,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
                 httponly=False,
                 secure=True,
                 samesite="Lax",
-                path="/"
+                path="/",
             )
 
             res.set_cookie(
@@ -76,7 +74,10 @@ class CustomRefreshTokenView(TokenRefreshView):
         refresh_token = request.COOKIES.get("refresh_token")
 
         if not refresh_token:
-            return Response({"refreshed": False, "error": "No refresh token in cookies"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"refreshed": False, "error": "No refresh token in cookies"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         # Make a mutable copy of the request data
         request._full_data = request.data.copy()
@@ -86,7 +87,10 @@ class CustomRefreshTokenView(TokenRefreshView):
         response = super().post(request, *args, **kwargs)
 
         if response.status_code != 200 or "access" not in response.data:
-            return Response({"refreshed": False, "error": "Invalid refresh token"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"refreshed": False, "error": "Invalid refresh token"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         access_token = response.data["access"]
 
@@ -177,3 +181,31 @@ class DesigneDetailView(generics.RetrieveUpdateDestroyAPIView):
         context = super().get_serializer_context()
         context["request"] = self.request
         return context
+
+
+# test
+
+{
+    "name": "eafdawed",
+    "total_color_palettes": 3,
+    "color_box_1": "#FF0000",
+    "color_box_2": "#FF00FF",
+    "color_box_3": "#FFFF00",
+    "color_box_4": "#00FF00",
+    "starting_position": "2",
+    "machine_type": "left_handed",
+    "design_grids": [
+        {
+            "color_box": 1,
+            "total_pics": 5
+        },
+        {
+            "color_box": 2,
+            "total_pics": 8
+        },
+        {
+            "color_box": 3,
+            "total_pics": 12
+        }
+    ]
+}
