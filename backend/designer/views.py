@@ -106,7 +106,6 @@ class CustomRefreshTokenView(TokenRefreshView):
         return res
 
 
-
 @api_view(["POST"])
 @permission_classes([])
 @authentication_classes([])
@@ -178,31 +177,3 @@ class DesigneDetailView(generics.RetrieveUpdateDestroyAPIView):
         context = super().get_serializer_context()
         context["request"] = self.request
         return context
-
-
-# test
-
-{
-    "name": "eafdawed",
-    "total_color_palettes": 3,
-    "color_box_1": "#FF0000",
-    "color_box_2": "#FF00FF",
-    "color_box_3": "#FFFF00",
-    "color_box_4": "#00FF00",
-    "starting_position": "2",
-    "machine_type": "left_handed",
-    "design_grids": [
-        {
-            "color_box": 1,
-            "total_pics": 5
-        },
-        {
-            "color_box": 2,
-            "total_pics": 8
-        },
-        {
-            "color_box": 3,
-            "total_pics": 12
-        }
-    ]
-}
