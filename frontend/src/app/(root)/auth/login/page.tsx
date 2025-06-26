@@ -3,16 +3,12 @@
 import AuthForm from "@/components/layout/AuthForm";
 import useFetchState from "@/hooks/useFetchState";
 import apiClient from "@/lib/apiClient";
-import {
-  AuthFieldsNameType,
-  AuthFieldsTypes,
-  AuthUserResponseType,
-} from "@/types/auth";
+import { AuthFieldsNameType, AuthUserResponseType } from "@/types/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const Page = () => {
-  const { error, loading, setData, setLoading, setError } =
+  const { error, loading, setLoading, setError } =
     useFetchState<AuthUserResponseType>();
   const router = useRouter();
 
@@ -35,7 +31,6 @@ const Page = () => {
     setLoading(false);
 
     if (status >= 200 && status < 300 && !error) {
-      setData(data);
       router.push("/");
     } else {
       setError(error || "Registration failed");

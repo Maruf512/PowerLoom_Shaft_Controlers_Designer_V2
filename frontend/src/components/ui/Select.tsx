@@ -332,7 +332,7 @@ export const SelectBody = ({
   return (
     <div
       className={cn(
-        "absolute z-10 w-full mt-1 px-1 border border-muted bg-on-surface shadow-lg py-3 rounded-radius-sm",
+        "absolute z-10 w-full mt-1 px-1 border border-muted bg-on-surface shadow-lg py-1 rounded-radius-sm",
         "overflow-y-auto max-h-[22rem]",
         "transform origin-top transition-all duration-300 ease-in-out",
         context.open
