@@ -195,8 +195,17 @@ class DesigneDetailView(generics.RetrieveUpdateDestroyAPIView):
     "starting_position": "2",
     "machine_type": "left_handed",
     "design_grids": [
-        {"color_box": 1, "total_pics": 5},
-        {"color_box": 2, "total_pics": 8},
-        {"color_box": 3, "total_pics": 12},
-    ],
+        {
+            "color_box": 1,
+            "total_pics": 5
+        },
+        {
+            "color_box": 2,
+            "total_pics": 8
+        },
+        {
+            "color_box": 3,
+            "total_pics": 12
+        }
+    ]
 }
