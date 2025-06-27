@@ -87,7 +87,7 @@ export const Modal = ({
         className={cn(
           "absolute inset-0 transition-opacity duration-300",
           "bg-muted/50 backdrop-blur-sm",
-          isOpen ? "opacity-100 " : "opacity-0"
+          isOpen ? "opacity-100" : "opacity-0"
         )}
       />
 

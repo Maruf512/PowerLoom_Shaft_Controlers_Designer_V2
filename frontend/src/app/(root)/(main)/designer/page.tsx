@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/ui/Button";
+import DataErrorModal from "@/components/ui/DataErrorModal";
 import DesignBoxTable from "@/components/ui/DesignBoxTable";
 import {
   SelectColorBoxes,
@@ -8,6 +9,8 @@ import {
   SelectStartingPosition,
 } from "@/components/ui/DesignSelect";
 import ExportTxt from "@/components/ui/ExportTxt";
+import JSONView from "@/components/ui/JSONView";
+import { Modal, ModalContent } from "@/components/ui/Modal";
 import Semulator from "@/components/ui/Semulator";
 import {
   designerEnitialState,
@@ -15,6 +18,7 @@ import {
 } from "@/constants/Designer";
 import apiClient from "@/lib/apiClient";
 import { DesignErrorType, DesignType } from "@/types/data";
+import { cn } from "@/utils/cn";
 import { designDataValidator } from "@/utils/validators";
 import { useState } from "react";
 
@@ -24,6 +28,8 @@ const Page = () => {
   const [designDataError, setDesignDataError] = useState<DesignErrorType>(
     designerErrorEnitialState
   );
+
+  const [hasError, setHasError] = useState(false);
 
   const handleDesignerDataChange = <K extends keyof DesignType>(
     key: K,
@@ -49,11 +55,20 @@ const Page = () => {
     }
   };
 
+  const resetHandler = () => {
+    setDesignerData(designerEnitialState);
+    setDesignDataError(designerErrorEnitialState);
+    setHasError(false);
+  };
+
   return (
     <div className="space-y-4">
-      <div className="text-on-surface text-center tracking-wide w-fit font-medium cursor-pointer">
-        <Button>Go Back</Button>
-      </div>
+      <DataErrorModal
+        designDataError={designDataError}
+        designerData={designerData}
+        hasError={hasError}
+      />
+
       <div className="flex flex-col xl:flex-row gap-10">
         <div className="border border-muted lg:p-7 p-5 rounded-radius-lg space-y-6 xl:w-[30%] w-full bg-surface/50 backdrop-blur-lg">
           <h2 className="text-2xl font-semibold text-strong border-b border-muted pb-4">
@@ -129,10 +144,7 @@ const Page = () => {
             />
           </div>
           <div className="border-t border-muted pt-6">
-            <Button
-              className="w-full"
-              onClick={() => setDesignerData(designerEnitialState)}
-            >
+            <Button className="w-full" onClick={resetHandler}>
               Reset
             </Button>
           </div>
@@ -154,6 +166,7 @@ const Page = () => {
               <Semulator
                 designerData={designerData}
                 setDesignDataError={setDesignDataError}
+                setHasError={setHasError}
               />
             </div>
             <div className="flex-1">

@@ -12,6 +12,11 @@
   --color-secondary: var(--color-secondary);
   --color-error: var(--color-error);
 
+  --color-success-toast: var(--color-success-toast);
+  --color-error-toast: var(--color-error-toast);
+  --color-warning-toast: var(--color-warning-toast);
+  --color-info-toast: var(--color-info-toast);
+
   --color-strong: var(--text-strong);
   --color-basec: var(--text-basec);
   --color-muted: var(--text-muted);
@@ -32,6 +37,11 @@
   --color-primary: oklch(0.2046 0 0); /* main brand color */
   --color-secondary: oklch(0.9821 0 0); /* secondary brand color */
   --color-error: oklch(0.65 0.1921 28.84);
+
+  --color-success-toast: oklch(0.7003 0.1241 154.06);
+  --color-error-toast: oklch(0.65 0.1921 28.84);
+  --color-warning-toast: oklch(0.7764 0.1438 49.24);
+  --color-info-toast: oklch(1 0 0);
 
   --text-strong: oklch(0.1448 0 0); /* strong text color */
   --text-basec: oklch(0.5555 0 0); /* base text color */
@@ -61,7 +71,21 @@ body {
   }
 
   .error-text {
-    @apply text-error/60 text-xs font-medium;
+    @apply text-error/60 text-xs font-medium pl-1;
+  }
+
+  .toast-item {
+    animation-duration: 0.3s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+  }
+
+  .toast-enter {
+    animation-name: slide-in-right;
+  }
+
+  .toast-exit {
+    animation-name: slide-out-right;
   }
 }
 
@@ -74,7 +98,25 @@ body {
     @apply bg-basec w-[2px] h-[1px];
   }
 
-  /* input {
-    @apply w-full px-2 py-1 border border-muted rounded-radius-sm shadow-xs;
-  } */
+  @keyframes slide-in-right {
+    from {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide-out-right {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-10rem);
+    }
+  }
 }

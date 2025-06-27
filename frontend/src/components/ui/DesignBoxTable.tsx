@@ -200,8 +200,8 @@ const DesignBoxTable = ({
   };
 
   return (
-    <div className="border border-muted w-full rounded-radius-lg h-[52rem] overflow-auto">
-      <div className="flex justify-between border-b border-muted py-4 tracking-wide font-semibold text-muted text-xs lg:text-base sticky top-0 z-40 bg-primary">
+    <div className="border border-muted w-full rounded-radius-lg lg:max-h-[52rem] overflow-auto ">
+      <div className="flex justify-between border-b border-muted py-4 tracking-wide font-semibold text-muted text-xs lg:text-base sticky top-0 bg-primary px-2">
         <p className="lg:w-[4rem] w-[2rem] border-r border-muted flex items-center justify-center">
           No.
         </p>
@@ -222,7 +222,7 @@ const DesignBoxTable = ({
               <div
                 key={columbNum}
                 className={cn(
-                  "flex justify-between items-center py-2 border-b border-muted/70 last:border-none text-strong bg-on-surface hover:bg-secondary text-xs lg:text-base",
+                  "flex justify-between items-center py-2 px-2 border-b border-muted/70 last:border-none text-strong bg-on-surface hover:bg-secondary text-xs lg:text-base",
                   {
                     "bg-error/5":
                       designDataError?.design_grids[columbNum]?.color_box,
@@ -268,7 +268,7 @@ const DesignBoxTable = ({
             ))}
           </div>
         ) : (
-          <p className="text-center mt-5 text-basec font-semibold text-xl">
+          <p className="text-center my-5 text-basec font-semibold text-lg">
             Enter Total Color Palettes
           </p>
         )}
