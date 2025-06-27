@@ -3,7 +3,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import React from "react";
 
 const buttonVarients = cva(
-  "px-4 py-2 rounded font-medium transition-colors hover:bg-secondary duration-200 cursor-pointer",
+  "px-40 rounded font-medium transition-colors hover:bg-secondary duration-200 cursor-pointer",
   {
     variants: {
       variant: {
@@ -12,9 +12,9 @@ const buttonVarients = cva(
         outline: "border border-muted text-basec",
       },
       size: {
-        default: "h-10 px-4",
-        sm: "h-8 px-3",
-        lg: "h-12 px-6",
+        default: "py-2 px-4",
+        sm: "py-1 px-3",
+        lg: "py-3 px-6",
       },
     },
     defaultVariants: {

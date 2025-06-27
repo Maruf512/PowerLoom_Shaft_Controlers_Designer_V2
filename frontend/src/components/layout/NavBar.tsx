@@ -38,9 +38,7 @@ const NavBar = () => {
               href={link.path}
               className={cn(
                 "inline-block transition-transform duration-100 ease-in-out",
-                path === link.path
-                  ? "font-semibold -translate-y-0.5 "
-                  : "translate-y-0 scale-95"
+                path === link.path ? "font-semibold" : "translate-y-0 scale-95"
               )}
             >
               {link.label}

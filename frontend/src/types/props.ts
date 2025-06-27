@@ -3,9 +3,9 @@ import { DataTableColumnType, selectFieldsKeyType, TableType } from "./data";
 
 export interface FilterPropsType {
   search: string;
-  display: string;
+  // display: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
-  setDisplay: React.Dispatch<React.SetStateAction<TableType>>;
+  // setDisplay: React.Dispatch<React.SetStateAction<TableType>>;
 }
 
 export interface DataTablePropsType<T> {

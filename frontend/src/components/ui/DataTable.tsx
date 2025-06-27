@@ -42,7 +42,8 @@ const DataTable = <T,>({
               {data.map((item, i) => {
                 return (
                   <Link
-                    href={"/"}
+                    // @ts-ignore
+                    href={`/designer/${item.id}/edit`}
                     key={i}
                     className={cn(
                       "flex justify-between border-b border-muted py-3 hover:bg-secondary rounded-radius-sm duration-50 cursor-pointer",

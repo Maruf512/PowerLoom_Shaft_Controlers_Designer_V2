@@ -87,3 +87,50 @@ export interface DesignErrorType {
     total_pics: string;
   }[];
 }
+
+export interface ColorResponseType {
+  id: number;
+  color: string;
+  created_at: string;
+  updated_at: string;
+  user: {
+    id: number;
+    username: string;
+    email: string;
+  };
+}
+
+export interface ColorType
+  extends Omit<ColorResponseType, "created_at" | "updated_at" | "user"> {}
+
+export type DesignGrid = {
+  id: number;
+  color_box: 1 | 2 | 3 | 4;
+  total_pics: number;
+};
+
+export type User = {
+  id: number;
+  username: string;
+  email: string;
+};
+
+export type Design = {
+  id: number;
+  name: string;
+  machine_type: string;
+  starting_position: string;
+  total_color_palettes: number;
+
+  color_box_1: string;
+  color_box_2: string;
+  color_box_3: string;
+  color_box_4: string;
+
+  design_grids: DesignGrid[];
+
+  user: User;
+
+  created_at: string;
+  updated_at: string;
+};

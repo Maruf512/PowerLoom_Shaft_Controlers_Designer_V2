@@ -16,7 +16,7 @@ const Semulator = ({
   setHasError: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { addToast } = useToast();
+  const toast = useToast();
 
   const handleSimulate = () => {
     const validationResult = designDataValidator(
@@ -27,7 +27,7 @@ const Semulator = ({
     setHasError(validationResult);
 
     if (validationResult) {
-      addToast("Empty Fields Detected", "error");
+      toast("Can't simulat with empty fields", "error");
       return;
     }
 
@@ -59,13 +59,15 @@ const Semulator = ({
             <h2 className="text-lg md:text-xl font-semibold text-strong">
               Design Simulation
             </h2>
-            <button
+            <Button
+              variant={"outline"}
+              size={"sm"}
               onClick={() => setIsOpen(false)}
-              className="text-xl md:text-2xl text-strong hover:text-red-500"
+              className="text-xl rounded-full border-0 md:text-2xl text-strong hover:scale-105"
               aria-label="Close simulation"
             >
               &times;
-            </button>
+            </Button>
           </div>
           <div className="flex-1 overflow-y-auto p-5">
             {designerData.design_grids.length === 0 ? (

@@ -1,5 +1,6 @@
 "use client";
 
+import DataErrorModal from "@/components/ui/DataErrorModal";
 import DataTable from "@/components/ui/DataTable";
 import Filter from "@/components/ui/Filter";
 import Navigator from "@/components/ui/Navigator";
@@ -13,9 +14,8 @@ import { DesignDataRecievedType, DesignDataType } from "@/types/data";
 import { useEffect } from "react";
 
 const Dashboard = () => {
-  const { setDisplay, display, search, setSearch } = useFilter();
-  const { data, setData, loading, setLoading, error, setError } =
-    useFetchState<DesignDataType[]>();
+  const { display, search, setSearch } = useFilter();
+  const { data, setData } = useFetchState<DesignDataType[]>();
 
   useEffect(() => {
     console.log("useeffect enitiatedx");
@@ -43,10 +43,6 @@ const Dashboard = () => {
     fetchDesigns();
   }, [display, search]);
 
-  const { addToast } = useToast();
-
-  console.log(data);
-
   return (
     <div className="space-y-6">
       {/* <div className="flex flex-col gap-4 lg:flex-row justify-center lg:justify-between bg-surface rounded-radius-lg">
@@ -57,8 +53,8 @@ const Dashboard = () => {
         <Filter
           search={search}
           setSearch={setSearch}
-          setDisplay={setDisplay}
-          display={display}
+          // setDisplay={setDisplay}
+          // display={display}
         />
       </div>
       <div>

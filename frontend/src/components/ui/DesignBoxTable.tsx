@@ -201,7 +201,7 @@ const DesignBoxTable = ({
 
   return (
     <div className="border border-muted w-full rounded-radius-lg lg:max-h-[52rem] overflow-auto ">
-      <div className="flex justify-between border-b border-muted py-4 tracking-wide font-semibold text-muted text-xs lg:text-base sticky top-0 bg-primary px-2">
+      <div className="flex justify-between border-b border-muted py-4 tracking-wide font-semibold text-muted text-xs lg:text-sm sticky top-0 bg-primary px-2">
         <p className="lg:w-[4rem] w-[2rem] border-r border-muted flex items-center justify-center">
           No.
         </p>
@@ -268,7 +268,7 @@ const DesignBoxTable = ({
             ))}
           </div>
         ) : (
-          <p className="text-center my-5 text-basec font-semibold text-lg">
+          <p className="text-center my-5 text-sm font-semibold">
             Enter Total Color Palettes
           </p>
         )}
