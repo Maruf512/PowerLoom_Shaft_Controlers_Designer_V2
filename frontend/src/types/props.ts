@@ -1,5 +1,9 @@
 import React from "react";
-import { DataTableColumnType, selectFieldsKeyType, TableType } from "./data";
+import {
+  DataTableColumnType,
+  DesignDataType,
+  selectFieldsKeyType,
+} from "./data";
 
 export interface FilterPropsType {
   search: string;
@@ -8,11 +12,12 @@ export interface FilterPropsType {
   // setDisplay: React.Dispatch<React.SetStateAction<TableType>>;
 }
 
-export interface DataTablePropsType<T> {
-  data: T[];
-  columns: DataTableColumnType<T>[];
+export interface DataTablePropsType {
+  data: DesignDataType[];
+  columns: DataTableColumnType<DesignDataType>[];
   className?: string;
   emptyMessage?: string;
+  setReload: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // export interface SelectContextType {

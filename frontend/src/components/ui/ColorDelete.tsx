@@ -1,14 +1,14 @@
-import { cn } from "@/utils/cn";
-import React, { useEffect, useRef } from "react";
+// components/ColorDelete.tsx
+"use client";
+import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 
-const Overlay = ({
-  children,
-  className,
+const CustomContextMeny = ({
   setIsOpen,
+  children,
 }: {
-  children: React.ReactNode;
-  className?: string;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  children: React.ReactNode;
 }) => {
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -18,7 +18,6 @@ const Overlay = ({
         setIsOpen(false);
       }
     };
-
     const handelScroll = () => {
       setIsOpen(false);
     };
@@ -33,11 +32,9 @@ const Overlay = ({
     };
   }, [setIsOpen]);
 
-  return (
-    <div ref={ref} className={cn(className)}>
-      {children}
-    </div>
-  );
+  if (typeof window === "undefined") return null;
+
+  return createPortal(<div ref={ref}>{children}</div>, document.body);
 };
 
-export default Overlay;
+export default CustomContextMeny;

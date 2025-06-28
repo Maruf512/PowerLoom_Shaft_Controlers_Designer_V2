@@ -29,7 +29,7 @@ export const designDataValidator = (
   designData: DesignType,
   setDesignDataError: React.Dispatch<React.SetStateAction<DesignErrorType>>
 ): boolean => {
-  let errors: DesignErrorType = {
+  const errors: DesignErrorType = {
     name: "",
     total_color_palettes: "",
     color_box_1: "",

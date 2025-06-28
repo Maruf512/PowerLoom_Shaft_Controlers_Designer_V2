@@ -1,3 +1,5 @@
+"use client";
+
 import useUser from "@/hooks/useUser";
 import apiClient from "@/lib/apiClient";
 import { AuthUserResponseType } from "@/types/auth";

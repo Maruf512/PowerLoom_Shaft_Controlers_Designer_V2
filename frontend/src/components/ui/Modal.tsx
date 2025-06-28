@@ -12,6 +12,7 @@ import ReactDOM from "react-dom";
 interface ModalContextType {
   modalRef: React.RefObject<HTMLDivElement | null>;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  isOpen: boolean;
 }
 
 const ModalContext = createContext<ModalContextType | null>(null);
@@ -32,6 +33,7 @@ export const Modal = ({
   const contextValue: ModalContextType = {
     modalRef: modalDialogRef,
     setIsOpen,
+    isOpen,
   };
 
   useEffect(() => {
@@ -61,12 +63,9 @@ export const Modal = ({
     };
 
     if (isOpen) {
-      const timeoutId = setTimeout(() => {
-        document.addEventListener("mousedown", handleClickOutside);
-      }, 0);
+      document.addEventListener("mousedown", handleClickOutside);
 
       return () => {
-        clearTimeout(timeoutId);
         document.removeEventListener("mousedown", handleClickOutside);
       };
     }

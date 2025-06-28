@@ -1,26 +1,20 @@
 "use client";
 
 import { navlinks } from "@/constants/Nav";
-import useUser from "@/hooks/useUser";
-import { AuthUserResponseType } from "@/types/auth";
 import { cn } from "@/utils/cn";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { IoCaretBackSharp } from "react-icons/io5";
-import { Modal, ModalContent } from "../ui/Modal";
-import UserDetails from "../ui/UserDetails";
 import Overlay from "../ui/Overlay";
+import UserDetails from "../ui/UserDetails";
 
 const NavBar = () => {
   const path = usePathname();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-
-  const user = useMemo(() => {
-    return useUser().getUser() as AuthUserResponseType;
-  }, []);
+  console.log(path.slice(1));
 
   return (
     <div className="bg-surface rounded-radius-lg border border-muted lg:text-sm text-xs flex justify-between items-center h-[3rem]">
@@ -38,7 +32,7 @@ const NavBar = () => {
               href={link.path}
               className={cn(
                 "inline-block transition-transform duration-100 ease-in-out",
-                path === link.path ? "font-semibold" : "translate-y-0 scale-95"
+                path === link.path ? "font-semibold" : "translate-y-0"
               )}
             >
               {link.label}
@@ -47,7 +41,6 @@ const NavBar = () => {
         </div>
       </div>
       <div className="lg:px-6 px-3 flex items-center justify-center gap-3 relative">
-        {/* <p className="capitalize font-semibold text-sm">{user?.username}</p> */}
         <div
           className="relative w-8 h-8 rounded-full overflow-hidden cursor-pointer"
           onClick={() => setIsOpen((prev) => !prev)}
