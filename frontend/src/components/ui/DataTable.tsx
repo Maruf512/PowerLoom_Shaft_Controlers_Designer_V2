@@ -7,7 +7,7 @@ const DataTable = <T,>({
   columns,
   className,
   emptyMessage = "No Data Found",
-}: DataTablePropsType<T>) => {
+}: DataTablePropsType) => {
   return (
     <div className="overflow-x-auto">
       <div
@@ -42,8 +42,7 @@ const DataTable = <T,>({
               {data.map((item, i) => {
                 return (
                   <Link
-                    // @ts-ignore
-                    href={`/designer/${item.id}/edit`}
+                    href={`/designer/${item.id}`}
                     key={i}
                     className={cn(
                       "flex justify-between border-b border-muted py-3 hover:bg-secondary rounded-radius-sm duration-50 cursor-pointer",

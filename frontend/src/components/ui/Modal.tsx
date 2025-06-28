@@ -61,12 +61,9 @@ export const Modal = ({
     };
 
     if (isOpen) {
-      const timeoutId = setTimeout(() => {
-        document.addEventListener("mousedown", handleClickOutside);
-      }, 0);
+      document.addEventListener("mousedown", handleClickOutside);
 
       return () => {
-        clearTimeout(timeoutId);
         document.removeEventListener("mousedown", handleClickOutside);
       };
     }

@@ -14,7 +14,7 @@ import { DesignDataRecievedType, DesignDataType } from "@/types/data";
 import { useEffect } from "react";
 
 const Dashboard = () => {
-  const { display, search, setSearch } = useFilter();
+  const { search, setSearch } = useFilter();
   const { data, setData } = useFetchState<DesignDataType[]>();
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const Dashboard = () => {
     };
 
     fetchDesigns();
-  }, [display, search]);
+  }, [search]);
 
   return (
     <div className="space-y-6">

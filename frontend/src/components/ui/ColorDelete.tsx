@@ -1,14 +1,16 @@
+// components/ColorDelete.tsx
+"use client";
+import { createPortal } from "react-dom";
 import { cn } from "@/utils/cn";
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
+import { ColorType } from "@/types/data";
 
-const Overlay = ({
-  children,
-  className,
+const ColorDelete = ({
   setIsOpen,
+  children,
 }: {
-  children: React.ReactNode;
-  className?: string;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  children: React.ReactNode;
 }) => {
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -18,7 +20,6 @@ const Overlay = ({
         setIsOpen(false);
       }
     };
-
     const handelScroll = () => {
       setIsOpen(false);
     };
@@ -33,11 +34,9 @@ const Overlay = ({
     };
   }, []);
 
-  return (
-    <div ref={ref} className={cn(className)}>
-      {children}
-    </div>
-  );
+  if (typeof window === "undefined") return null;
+
+  return createPortal(<div ref={ref}>{children}</div>, document.body);
 };
 
-export default Overlay;
+export default ColorDelete;

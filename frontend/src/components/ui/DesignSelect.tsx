@@ -14,11 +14,11 @@ import {
 } from "@/types/data";
 import { getLabel } from "@/utils/getLabel";
 import React, { useEffect, useState } from "react";
+import ColorDelete from "./ColorDelete";
 import { Select, SelectBody, SelectHeader, SelectItem } from "./Select";
-import { BiTrash } from "react-icons/bi";
 import { useToast } from "./ToastProvider";
-import Overlay from "./Overlay";
 import { cn } from "@/utils/cn";
+import Button from "./Button";
 
 // const colors = [
 //   { name: "Red", hex: "#FF0000" },
@@ -50,6 +50,7 @@ export const SelectColorBoxes = ({
   const toast = useToast();
   const [isOpen, setIsOpen] = useState(false);
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
+  const [colorToDelete, setColorToDelete] = useState<ColorType>();
 
   const colorBoxHandler = (key: selectFieldsKeyType, value: string) => {
     setDesignerData((prev) => ({ ...prev, [key]: value }));
@@ -58,23 +59,21 @@ export const SelectColorBoxes = ({
 
   useEffect(() => {
     const fetchColor = async () => {
-      const { data, error, status } = await apiClient<ColorResponseType[]>(
-        "colors"
-      );
-
-      const colors = data?.map((item) => ({ id: item.id, color: item.color }));
-
-      console.log(colors);
+      const { data, error } = await apiClient<ColorResponseType[]>("colors");
 
       if (data && !error) {
-        setColors(colors);
+        const formatted = data.map((item) => ({
+          id: item.id,
+          color: item.color,
+        }));
+        setColors(formatted);
       }
     };
     fetchColor();
   }, [reload]);
 
-  const deleteColor = async (colorId: number) => {
-    const { data, error, status } = await apiClient(`colors/${colorId}`, {
+  const deleteColor = async () => {
+    const { error } = await apiClient(`colors/${colorToDelete?.id}`, {
       method: "DELETE",
     });
 
@@ -82,17 +81,22 @@ export const SelectColorBoxes = ({
       toast("Error deleting color", "error");
       return;
     }
-    setColors((prev) => prev?.filter((color) => color.id !== colorId));
+
+    setColors((prev) =>
+      prev?.filter((color) => color.id !== colorToDelete?.id)
+    );
     toast("Color deleted successfully", "success");
-    console.log(data, error, status);
+    setIsOpen(false);
   };
 
-  const handelContextMeny = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handelContextMeny = (
+    e: React.MouseEvent<HTMLDivElement>,
+    color: ColorType
+  ) => {
     e.preventDefault();
-    setIsOpen(true);
-    setMenuPosition({ x: 0, y: 0 });
     setMenuPosition({ x: e.clientX, y: e.clientY });
-    console.log(menuPosition);
+    setColorToDelete(color);
+    setIsOpen(true);
   };
 
   return (
@@ -103,9 +107,13 @@ export const SelectColorBoxes = ({
             designerData[item.key as selectFieldsKeyType] || "";
 
           return (
-            <div>
+            <div
+              key={item.key}
+              onContextMenu={(e) => {
+                e.preventDefault();
+              }}
+            >
               <Select
-                key={item.key}
                 className="relative w-full"
                 value={colorValue}
                 selectHandler={colorBoxHandler}
@@ -118,7 +126,7 @@ export const SelectColorBoxes = ({
                       placeHolder={item.label}
                     >
                       {colorValue && (
-                        <div className="flex items-center gap-2 ">
+                        <div className="flex items-center gap-2">
                           <div
                             className="w-4 h-4 rounded-full border border-muted"
                             style={{ backgroundColor: colorValue }}
@@ -136,17 +144,17 @@ export const SelectColorBoxes = ({
                 </div>
                 <SelectBody>
                   {!colors || !colors.length ? (
-                    <p className="px-2 text-sm font-medium">
+                    <p className="px-2 py-1 text-sm font-medium">
                       No colors available
                     </p>
                   ) : (
-                    <div
-                      className="relative"
-                      onContextMenu={(e) => handelContextMeny(e)}
-                    >
+                    <div className="relative">
                       {colors.map((color) => (
                         <SelectItem key={color.color} itemValue={color.color}>
-                          <div className="flex items-center gap-2 justify-between">
+                          <div
+                            className="flex items-center gap-2  w-full"
+                            onContextMenu={(e) => handelContextMeny(e, color)}
+                          >
                             <div
                               className="w-4 h-4 rounded-full border border-muted"
                               style={{ backgroundColor: color.color }}
@@ -154,15 +162,6 @@ export const SelectColorBoxes = ({
                             <span className="font-normal text-basec">
                               ({color.color})
                             </span>
-                            <div
-                              className="hover hover:bg-on-surface p-1 rounded-full  duration-200 text-basec"
-                              onClick={(e) => {
-                                deleteColor(color.id);
-                                e.stopPropagation();
-                              }}
-                            >
-                              <BiTrash />
-                            </div>
                           </div>
                         </SelectItem>
                       ))}
@@ -174,17 +173,46 @@ export const SelectColorBoxes = ({
           );
         })}
       </div>
-      {/* <Overlay setIsOpen={setIsOpen}>
+      <ColorDelete setIsOpen={setIsOpen}>
         <div
           className={cn(
-            "fixed z-50 transition-all duration-200 ease-in-out w-10 h-10 bg-black",
+            `fixed z-50 transition-all duration-200 ease-in-out w-64 bg-white rounded-md text-sm shadow-lg border border-muted p-4`,
             isOpen
               ? "opacity-100 translate-y-0 pointer-events-auto"
               : "opacity-0 -translate-y-2 pointer-events-none"
           )}
           style={{ top: menuPosition.y, left: menuPosition.x }}
-        ></div>
-      </Overlay> */}
+          onContextMenu={(e) => e.preventDefault()}
+        >
+          <div className="flex items-center gap-2 mb-2">
+            <div
+              className="w-5 h-5 rounded-full border border-muted"
+              style={{ backgroundColor: colorToDelete?.color }}
+            />
+            <p className="text-black font-medium">{colorToDelete?.color}</p>
+          </div>
+
+          <p className="text-gray-700 mb-4">
+            Are you sure you want to delete this color?
+          </p>
+
+          <div className="flex justify-end gap-2">
+            <Button
+              onClick={() => setIsOpen(false)}
+              className="px-3 py-1 rounded-md text-sm border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
+              variant="outline"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={deleteColor}
+              className="px-3 py-1 rounded-md text-sm text-white transition"
+            >
+              Delete
+            </Button>
+          </div>
+        </div>
+      </ColorDelete>
     </>
   );
 };

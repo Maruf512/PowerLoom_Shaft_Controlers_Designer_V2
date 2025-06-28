@@ -15,7 +15,6 @@ const useFilter = () => {
   const router = useRouter();
 
   const [search, setSearch] = useState("");
-  const [display, setDisplay] = useState<TableType>("");
 
   useEffect(() => {
     const initialSearch = params.get("search") || "";
@@ -24,23 +23,19 @@ const useFilter = () => {
     const initialDisplay = isValidDisplay(param) ? param : "design";
 
     setSearch(initialSearch);
-    setDisplay(initialDisplay as TableType);
   }, [params]);
 
   useEffect(() => {
     const newParams = new URLSearchParams();
 
     if (search) newParams.set("search", search);
-    if (display) newParams.set("display", display);
 
     router.replace(`?${newParams.toString()}`);
-  }, [search, display, router]);
+  }, [search, router]);
 
   return {
     search,
     setSearch,
-    display,
-    setDisplay,
   };
 };
 
