@@ -4,7 +4,7 @@ import { DataTablePropsType } from "@/types/props";
 import { cn } from "@/utils/cn";
 import Link from "next/link";
 import { useState } from "react";
-import CustomContextMeny from "./ColorDelete";
+import CustomContextMeny from "./CustomContextMeny";
 import DeleteDesign from "./DeleteDesign";
 import { Modal, ModalContent } from "./Modal";
 import { useToast } from "./ToastProvider";

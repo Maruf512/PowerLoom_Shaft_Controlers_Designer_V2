@@ -7,7 +7,6 @@ import React, {
   useEffect,
   useRef,
 } from "react";
-import ReactDOM from "react-dom";
 
 interface ModalContextType {
   modalRef: React.RefObject<HTMLDivElement | null>;
@@ -75,7 +74,7 @@ export const Modal = ({
   //   return null;
   // }
 
-  return ReactDOM.createPortal(
+  return (
     <div
       className={cn(
         "fixed inset-0 z-40 flex",
@@ -95,8 +94,7 @@ export const Modal = ({
           {children}
         </div>
       </ModalContext.Provider>
-    </div>,
-    document.body
+    </div>
   );
 };
 

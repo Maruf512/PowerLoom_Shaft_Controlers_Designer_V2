@@ -16,7 +16,7 @@ import { cn } from "@/utils/cn";
 import { getLabel } from "@/utils/getLabel";
 import React, { useEffect, useState } from "react";
 import Button from "./Button";
-import CustomContextMeny from "./ColorDelete";
+import CustomContextMeny from "./CustomContextMeny";
 import { Select, SelectBody, SelectHeader, SelectItem } from "./Select";
 import { useToast } from "./ToastProvider";
 

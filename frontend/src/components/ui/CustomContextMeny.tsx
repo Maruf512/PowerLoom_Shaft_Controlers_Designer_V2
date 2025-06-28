@@ -1,6 +1,6 @@
-// components/ColorDelete.tsx
 "use client";
-import { useEffect, useRef } from "react";
+
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 const CustomContextMeny = ({
@@ -11,6 +11,11 @@ const CustomContextMeny = ({
   children: React.ReactNode;
 }) => {
   const ref = useRef<HTMLDivElement | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -33,6 +38,8 @@ const CustomContextMeny = ({
   }, [setIsOpen]);
 
   if (typeof window === "undefined") return null;
+
+  if (!isMounted) return null;
 
   return createPortal(<div ref={ref}>{children}</div>, document.body);
 };
