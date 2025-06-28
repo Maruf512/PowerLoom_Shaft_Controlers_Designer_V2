@@ -2,9 +2,7 @@ import React from "react";
 import {
   DataTableColumnType,
   DesignDataType,
-  DesignType,
   selectFieldsKeyType,
-  TableType,
 } from "./data";
 
 export interface FilterPropsType {
@@ -19,6 +17,7 @@ export interface DataTablePropsType {
   columns: DataTableColumnType<DesignDataType>[];
   className?: string;
   emptyMessage?: string;
+  setReload: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // export interface SelectContextType {

@@ -42,8 +42,8 @@ const Semulator = ({
   ].filter(Boolean);
 
   return (
-    <div>
-      <Button className="w-full" onClick={handleSimulate}>
+    <>
+      <Button className="w-full h-full" onClick={handleSimulate}>
         Simulate
       </Button>
       <Modal setIsOpen={setIsOpen} isOpen={isOpen}>
@@ -107,7 +107,7 @@ const Semulator = ({
           </div>
         </ModalContent>
       </Modal>
-    </div>
+    </>
   );
 };
 

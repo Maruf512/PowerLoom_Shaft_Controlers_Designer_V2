@@ -4,9 +4,12 @@ import DesignDetails from "@/components/layout/DesignDetails";
 import useFetchState from "@/hooks/useFetchState";
 import apiClient from "@/lib/apiClient";
 import { Design } from "@/types/data";
+import { useParams } from "next/navigation";
 import { useEffect } from "react";
 
-const page = ({ params }: { params: { id: string } }) => {
+const Page = () => {
+  const { id } = useParams();
+
   const {
     data: designer,
     setData: setDesigner,
@@ -17,10 +20,16 @@ const page = ({ params }: { params: { id: string } }) => {
   } = useFetchState<Design>();
 
   useEffect(() => {
+    if (!id) {
+      setDesignerError("Invalid designer id");
+      return;
+    }
+
     const fetchDesigner = async () => {
       setLoading(true);
-      const { data, error } = await apiClient<Design>(`designs/${params.id}`);
+      const { data, error } = await apiClient<Design>(`designs/${id}`);
       setLoading(false);
+
       if (error) {
         setDesignerError("Error fetching designer data");
         return;
@@ -30,33 +39,27 @@ const page = ({ params }: { params: { id: string } }) => {
     };
 
     fetchDesigner();
-  }, []);
-
-  console.log(designer);
+  }, [id, setDesigner, setDesignerError, setLoading]);
 
   return (
     <div>
       {loading ? (
-        <div className="font-semibold text-basec text-center capitalize tracking-wide">
+        <div className="font-semibold text-base text-center capitalize tracking-wide">
           Loading...
         </div>
+      ) : designerError ? (
+        <p className="font-semibold text-base text-center capitalize tracking-wide">
+          {designerError}
+        </p>
+      ) : designer ? (
+        <DesignDetails designer={designer} />
       ) : (
-        <div>
-          {designerError ? (
-            <p className="font-semibold text-basec text-center capitalize tracking-wide">
-              {designerError}
-            </p>
-          ) : designer ? (
-            <DesignDetails designer={designer} />
-          ) : (
-            <p className="font-semibold text-basec text-center capitalize tracking-wide">
-              No design data found.
-            </p>
-          )}
-        </div>
+        <p className="font-semibold text-base text-center capitalize tracking-wide">
+          No design data found.
+        </p>
       )}
     </div>
   );
 };
 
-export default page;
+export default Page;

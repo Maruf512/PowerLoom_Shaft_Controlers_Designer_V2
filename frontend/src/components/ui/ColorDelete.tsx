@@ -1,11 +1,9 @@
 // components/ColorDelete.tsx
 "use client";
-import { createPortal } from "react-dom";
-import { cn } from "@/utils/cn";
 import { useEffect, useRef } from "react";
-import { ColorType } from "@/types/data";
+import { createPortal } from "react-dom";
 
-const ColorDelete = ({
+const CustomContextMeny = ({
   setIsOpen,
   children,
 }: {
@@ -32,11 +30,11 @@ const ColorDelete = ({
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("scroll", handelScroll);
     };
-  }, []);
+  }, [setIsOpen]);
 
   if (typeof window === "undefined") return null;
 
   return createPortal(<div ref={ref}>{children}</div>, document.body);
 };
 
-export default ColorDelete;
+export default CustomContextMeny;

@@ -12,13 +12,13 @@ import {
   selectFieldsKeyType,
   SelectStartingPositionFieldsType,
 } from "@/types/data";
+import { cn } from "@/utils/cn";
 import { getLabel } from "@/utils/getLabel";
 import React, { useEffect, useState } from "react";
-import ColorDelete from "./ColorDelete";
+import Button from "./Button";
+import CustomContextMeny from "./ColorDelete";
 import { Select, SelectBody, SelectHeader, SelectItem } from "./Select";
 import { useToast } from "./ToastProvider";
-import { cn } from "@/utils/cn";
-import Button from "./Button";
 
 // const colors = [
 //   { name: "Red", hex: "#FF0000" },
@@ -173,7 +173,7 @@ export const SelectColorBoxes = ({
           );
         })}
       </div>
-      <ColorDelete setIsOpen={setIsOpen}>
+      <CustomContextMeny setIsOpen={setIsOpen}>
         <div
           className={cn(
             `fixed z-50 transition-all duration-200 ease-in-out w-64 bg-white rounded-md text-sm shadow-lg border border-muted p-4`,
@@ -212,7 +212,7 @@ export const SelectColorBoxes = ({
             </Button>
           </div>
         </div>
-      </ColorDelete>
+      </CustomContextMeny>
     </>
   );
 };
@@ -284,7 +284,12 @@ export const SelectMachineType = ({
   useEffect(() => {
     setDesignerData((prev) => ({ ...prev, machine_type: machineType }));
     setDesignDataError((prev) => ({ ...prev, machine_type: "" }));
-  }, [machineType, designerData.machine_type]);
+  }, [
+    machineType,
+    designerData.machine_type,
+    setDesignDataError,
+    setDesignerData,
+  ]);
 
   const label = getLabel(designerData.machine_type, machineTypeFields);
 

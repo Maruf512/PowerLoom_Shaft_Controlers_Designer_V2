@@ -3,7 +3,7 @@
 import AuthForm from "@/components/layout/AuthForm";
 import useFetchState from "@/hooks/useFetchState";
 import apiClient from "@/lib/apiClient";
-import { AuthFieldsNameType, AuthFieldsTypes } from "@/types/auth";
+import { AuthFieldsNameType } from "@/types/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 

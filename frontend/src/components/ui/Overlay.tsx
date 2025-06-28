@@ -31,7 +31,7 @@ const Overlay = ({
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("scroll", handelScroll);
     };
-  }, []);
+  }, [setIsOpen]);
 
   return (
     <div ref={ref} className={cn(className)}>
