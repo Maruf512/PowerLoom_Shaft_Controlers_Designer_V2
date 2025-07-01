@@ -3,7 +3,7 @@
 import { AuthFieldsNameType, AuthFormTypes } from "@/types/auth";
 import { cn } from "@/utils/cn";
 import { authFormValidator } from "@/utils/validators";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import Button from "../ui/Button";
 
@@ -28,18 +28,17 @@ const AuthForm = ({
     {} as Record<AuthFieldsNameType, string>
   );
 
-  const formHandler = useCallback(() => {
-    return () => {
-      const errors = authFormValidator(formData);
+  const formHandler = (e: React.FormEvent<HTMLFormElement> | KeyboardEvent) => {
+    e.preventDefault();
+    const errors = authFormValidator(formData);
 
-      if (Object.keys(errors).length > 0) {
-        setErrors(errors);
-        return;
-      }
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      return;
+    }
 
-      submitHandler(formData);
-    };
-  }, [formData, submitHandler]);
+    submitHandler(formData);
+  };
 
   const handelChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -52,7 +51,7 @@ const AuthForm = ({
   useEffect(() => {
     const handelKeypress = (e: KeyboardEvent) => {
       if (e.key === "Enter") {
-        formHandler();
+        formHandler(e);
       }
     };
 
@@ -62,7 +61,10 @@ const AuthForm = ({
   }, [formHandler]);
 
   return (
-    <form className="flex flex-col items-center px-5 py-6 rounded-radius-sm w-[90%] md:w-[35rem] lg:px-7 lg:py-9 bg-surface border border-muted shadow-sm">
+    <form
+      className="flex flex-col items-center px-5 py-6 rounded-radius-sm w-[90%] md:w-[35rem] lg:px-7 lg:py-9 bg-surface border border-muted shadow-sm"
+      onSubmit={(e) => formHandler(e)}
+    >
       <div className="w-full space-y-4">
         <div className="mb-6 space-y-1">
           <h3 className="text-lg md:text-xl text-strong font-semibold">
@@ -120,7 +122,7 @@ const AuthForm = ({
       <Button
         className="mt-6 w-full lg:text-base text-sm md:text-base"
         isLoading={isLoading}
-        onClick={formHandler}
+        type="submit"
       >
         {title.split(" ")[0]}
       </Button>

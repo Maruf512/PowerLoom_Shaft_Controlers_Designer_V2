@@ -15,7 +15,6 @@ const Page = () => {
   const [reload, setReload] = useState(false);
 
   useEffect(() => {
-    console.log("useeffect enitiatedx");
     const fetchDesigns = async () => {
       const { data, error } = await apiClient<DesignDataRecievedType[]>(
         "designs",

@@ -56,7 +56,6 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
     }, TOAST_ANIMATION_DURATION);
   }, []);
 
-  console.log(toasts);
 
   return (
     <ToastContext.Provider value={{ addToast }}>

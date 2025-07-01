@@ -11,6 +11,7 @@ import DeleteDesign from "../ui/DeleteDesign";
 import { Modal, ModalContent } from "../ui/Modal";
 import Semulator from "../ui/Semulator";
 import { useToast } from "../ui/ToastProvider";
+import ExportTxt from "../ui/ExportTxt";
 
 const DesignDetails = ({ designer }: { designer: Design }) => {
   const router = useRouter();
@@ -113,7 +114,11 @@ const DesignDetails = ({ designer }: { designer: Design }) => {
             setDesignDataError={setDesignDataError}
             setHasError={setHasError}
           />
-          <Button className="w-full h-full">Export</Button>
+          <ExportTxt
+            designerData={designData}
+            setDesignDataError={setDesignDataError}
+            setHasError={setHasError}
+          />
           <Link
             href={`/designer/edit/${designer.id}`}
             className="w-full h-full"
