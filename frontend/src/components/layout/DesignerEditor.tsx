@@ -180,7 +180,11 @@ const DesignerEditor = ({
               />
             </div>
             <div className="flex-1">
-              <ExportTxt />
+              <ExportTxt
+                designerData={designerData}
+                setDesignDataError={setDesignDataError}
+                setHasError={setHasError}
+              />
             </div>
           </div>
         </div>

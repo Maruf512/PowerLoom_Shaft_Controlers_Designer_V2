@@ -14,7 +14,6 @@ const NavBar = () => {
   const path = usePathname();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  console.log(path.slice(1));
 
   return (
     <div className="bg-surface rounded-radius-lg border border-muted lg:text-sm text-xs flex justify-between items-center h-[3rem]">

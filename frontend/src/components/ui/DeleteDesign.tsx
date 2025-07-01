@@ -19,7 +19,7 @@ const DeleteDesign = ({
       <div className="space-y-4">
         <div className="space-y-1">
           <p className="text-muted-foreground">
-            Are you sure you want to delete the design named
+            Are you sure you want to delete the design named{" "}
             <span className="font-bold text-foreground">{`"${data?.name}"`}</span>
             ?
           </p>
