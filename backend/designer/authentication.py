@@ -59,7 +59,7 @@ class CookiesJwtAuthentication(JWTAuthentication):
         except Exception as e:
             # This is a fallback for any other unexpected errors during the authentication process
             # (should ideally not be hit for token-related issues with the above structure)
-            print(f"Auth: An unexpected error occurred during authentication: {e}")
+            print(f"Auth: An unexpected error occurred during authentication.")
             raise AuthenticationFailed(
                 "Authentication failed due to an unexpected error."
             )
