@@ -61,11 +61,13 @@ export const generateOutput = (designerData: DesignType) => {
   let generatedOutput = "";
   let startingPosition = Number(designerData.starting_position);
 
-  for (let i = 0; i <= designerData.design_grids.length; i++) {
-    const currentPosition = designerData.design_grids[i]?.color_box;
-    const totalPics = designerData.design_grids[i]?.total_pics;
+  for (let i = 0; i < designerData.design_grids.length; i++) {
+    const grid = designerData.design_grids[i];
 
-    if (!currentPosition || !totalPics) return;
+    if (!grid || !grid.color_box || !grid.total_pics) return;
+
+    const currentPosition = grid.color_box;
+    const totalPics = grid.total_pics;
 
     if (startingPosition === 1) {
       const output = startingPosition1(currentPosition);
