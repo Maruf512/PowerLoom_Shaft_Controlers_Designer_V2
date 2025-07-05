@@ -5,15 +5,23 @@ import { useToast } from "@/components/ui/ToastProvider";
 import useFetchState from "@/hooks/useFetchState";
 import apiClient from "@/lib/apiClient";
 import { Design, DesignType } from "@/types/data";
+import { useParams } from "next/navigation";
 import React, { useEffect } from "react";
 
-const page = ({ params }: { params: { id: string } }) => {
+const Page = () => {
   const { data, setData, error, setError } = useFetchState<DesignType>();
   const toast = useToast();
 
+  const { id } = useParams();
+
   useEffect(() => {
+    if (!id) {
+      setError("Invalid designer id");
+      return;
+    }
+
     const fetchDesigner = async () => {
-      const { data, error } = await apiClient<Design>(`designs/${params.id}`);
+      const { data, error } = await apiClient<Design>(`designs/${id}`);
       if (error) {
         setError("Error fetching designer data for update");
         return;
@@ -37,18 +45,13 @@ const page = ({ params }: { params: { id: string } }) => {
     };
 
     fetchDesigner();
-  }, []);
+  }, [id, setData, setError]);
 
-  const updateHandler = async (designderData: DesignType) => {
-    const { data, error, status } = await apiClient<Design>(
-      `designs/${params.id}`,
-      {
-        method: "PUT",
-        body: designderData,
-      }
-    );
-
-    console.log(data, error, status);
+  const updateHandler = async (designerData: DesignType) => {
+    const { error } = await apiClient<Design>(`designs/${id}`, {
+      method: "PUT",
+      body: designerData,
+    });
 
     if (error) {
       toast("Error updating designer data", "error");
@@ -60,7 +63,7 @@ const page = ({ params }: { params: { id: string } }) => {
   return (
     <div>
       {error ? (
-        <p className="font-semibold text-basec text-center capitalize tracking-wide">
+        <p className="font-semibold text-base text-center capitalize tracking-wide">
           {error}
         </p>
       ) : (
@@ -76,4 +79,4 @@ const page = ({ params }: { params: { id: string } }) => {
   );
 };
 
-export default page;
+export default Page;

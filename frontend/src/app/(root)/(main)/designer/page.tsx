@@ -7,10 +7,10 @@ import apiClient from "@/lib/apiClient";
 import { DesignType } from "@/types/data";
 import React from "react";
 
-const page = () => {
+const Page = () => {
   const toast = useToast();
   const createHandler = async (designerData: DesignType) => {
-    const { data, error, status } = await apiClient(`designs`, {
+    const { error } = await apiClient(`designs`, {
       method: "POST",
       body: designerData,
     });
@@ -33,4 +33,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

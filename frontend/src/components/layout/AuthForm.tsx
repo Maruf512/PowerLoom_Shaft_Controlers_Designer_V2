@@ -28,7 +28,8 @@ const AuthForm = ({
     {} as Record<AuthFieldsNameType, string>
   );
 
-  const formHandler = () => {
+  const formHandler = (e: React.FormEvent<HTMLFormElement> | KeyboardEvent) => {
+    e.preventDefault();
     const errors = authFormValidator(formData);
 
     if (Object.keys(errors).length > 0) {
@@ -50,7 +51,7 @@ const AuthForm = ({
   useEffect(() => {
     const handelKeypress = (e: KeyboardEvent) => {
       if (e.key === "Enter") {
-        formHandler();
+        formHandler(e);
       }
     };
 
@@ -60,7 +61,10 @@ const AuthForm = ({
   }, [formHandler]);
 
   return (
-    <form className="flex flex-col items-center px-5 py-6 rounded-radius-sm w-[90%] md:w-[35rem] lg:px-7 lg:py-9 bg-surface border border-muted shadow-sm">
+    <form
+      className="flex flex-col items-center px-5 py-6 rounded-radius-sm w-[90%] md:w-[35rem] lg:px-7 lg:py-9 bg-surface border border-muted shadow-sm"
+      onSubmit={(e) => formHandler(e)}
+    >
       <div className="w-full space-y-4">
         <div className="mb-6 space-y-1">
           <h3 className="text-lg md:text-xl text-strong font-semibold">
@@ -118,7 +122,7 @@ const AuthForm = ({
       <Button
         className="mt-6 w-full lg:text-base text-sm md:text-base"
         isLoading={isLoading}
-        onClick={formHandler}
+        type="submit"
       >
         {title.split(" ")[0]}
       </Button>

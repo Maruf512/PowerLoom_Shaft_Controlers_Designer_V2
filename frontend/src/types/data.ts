@@ -100,8 +100,10 @@ export interface ColorResponseType {
   };
 }
 
-export interface ColorType
-  extends Omit<ColorResponseType, "created_at" | "updated_at" | "user"> {}
+export type ColorType = Omit<
+  ColorResponseType,
+  "created_at" | "updated_at" | "user"
+>;
 
 export type DesignGrid = {
   id: number;
@@ -134,3 +136,8 @@ export type Design = {
   created_at: string;
   updated_at: string;
 };
+
+export interface ActiveDesign {
+  id: number;
+  name: string;
+}

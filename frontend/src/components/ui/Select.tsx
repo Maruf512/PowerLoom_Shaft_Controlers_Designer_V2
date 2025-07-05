@@ -234,13 +234,9 @@ export const Select = ({
 
   const selectRef = useRef<HTMLDivElement>(null);
 
-  const handelSelect = (
-    value: string,
-    key: selectFieldsKeyType,
-    label?: React.ReactNode
-  ) => {
-    !!setValue && setValue(value);
-    !!selectHandler && selectHandler(key, value);
+  const handelSelect = (value: string, key: selectFieldsKeyType) => {
+    if (setValue) setValue(value);
+    if (selectHandler) selectHandler(key, value);
     setOpen(false);
   };
 

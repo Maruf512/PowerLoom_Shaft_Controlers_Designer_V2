@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { cn } from "@/utils/cn";
+import { useState } from "react";
 import JSONView from "./JSONView";
 import { Modal, ModalContent } from "./Modal";
-import { cn } from "@/utils/cn";
-import { DesignErrorType, DesignType } from "@/types/data";
 
 const DataErrorModal = ({
   hasError,
@@ -10,8 +9,8 @@ const DataErrorModal = ({
   designDataError,
 }: {
   hasError: boolean;
-  designerData: DesignType;
-  designDataError: DesignErrorType;
+  designerData: object;
+  designDataError: object;
 }) => {
   const [dataModalOpen, setDataModalOpen] = useState(false);
   const [modalView, setModalView] = useState<"data" | "error">("data");

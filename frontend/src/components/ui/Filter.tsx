@@ -11,7 +11,7 @@ const Filter = ({ search, setSearch }: FilterPropsType) => {
   }, [search]);
 
   return (
-    <div className="flex flex-col lg:flex-row justify-between items-center gap-4 px-4 lg:px-6 py-3 rounded-xl border border-muted bg-background ">
+    <div className="flex flex-col lg:flex-row justify-between items-center gap-4 px-4 lg:px-6 py-3 rounded-radius-lg border border-muted bg-background ">
       <div className="h-7 flex items-center justify-center lg:w-fit w-full">
         <input
           type="text"

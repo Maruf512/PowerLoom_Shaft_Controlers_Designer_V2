@@ -142,14 +142,18 @@ const DesignBoxTable = ({
         ...prev,
         design_grids: new Array(totalColorPalettes)
           .fill(null)
-          .map((_) => ({ color_box: null, total_pics: null })),
+          .map(() => ({ color_box: null, total_pics: null })),
       }));
     }
-  }, [designerData.total_color_palettes]);
+  }, [
+    designerData.total_color_palettes,
+    designerData.design_grids.length,
+    setDesignerData,
+  ]);
 
   const deisignGridRow = useMemo(() => {
     return new Array(4).fill(null).map((_, i) => `Box ${i + 1}`);
-  }, [designerData]);
+  }, []);
 
   const handelColorBox = (columnbNum: number, rowNum: number) => {
     setDesignerData((prev) => {

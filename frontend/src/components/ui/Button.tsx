@@ -2,19 +2,21 @@ import { cn } from "@/utils/cn";
 import { cva, VariantProps } from "class-variance-authority";
 import React from "react";
 
-const buttonVarients = cva(
-  "px-40 rounded font-medium transition-colors hover:bg-secondary duration-200 cursor-pointer",
+const buttonVariants = cva(
+  "inline-flex items-center justify-center rounded-md font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none cursor-pointer",
   {
     variants: {
       variant: {
-        default: "bg-primary text-surface hover:bg-primary/80",
-        destructive: "bg-secondary text-surface hover:bg-secondary/80",
-        outline: "border border-muted text-basec",
+        default: "bg-primary text-surface hover:bg-primary/90",
+        destructive: "bg-red-600 text-white hover:bg-red-700",
+        outline:
+          "border border-muted text-basec bg-transparent hover:bg-muted/20",
       },
       size: {
-        default: "py-2 px-4",
-        sm: "py-1 px-3",
-        lg: "py-3 px-6",
+        default: "h-10 px-4 py-2 text-sm",
+        sm: "h-8 px-3 text-sm",
+        lg: "h-12 px-6 text-base",
+        icon: "h-10 w-10",
       },
     },
     defaultVariants: {
@@ -26,23 +28,21 @@ const buttonVarients = cva(
 
 interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVarients> {
+    VariantProps<typeof buttonVariants> {
   isLoading?: boolean;
 }
 
 const Button = ({
-  variant,
-  size,
-  isLoading,
   className,
   children,
+  variant,
+  size,
+  isLoading = false,
   ...props
 }: ButtonProps) => {
   return (
     <button
-      className={cn(buttonVarients({ size, variant }), className as string, {
-        "cursor-not-allowed": isLoading,
-      })}
+      className={cn(buttonVariants({ variant, size }), className)}
       disabled={isLoading}
       {...props}
     >

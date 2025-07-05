@@ -1,24 +1,20 @@
 "use client";
 
-import DataErrorModal from "@/components/ui/DataErrorModal";
 import DataTable from "@/components/ui/DataTable";
 import Filter from "@/components/ui/Filter";
-import Navigator from "@/components/ui/Navigator";
-import { useToast } from "@/components/ui/ToastProvider";
-import UserDetails from "@/components/ui/UserDetails";
 import { designColumn } from "@/constants/dataTable";
 import useFetchState from "@/hooks/useFetchState";
 import useFilter from "@/hooks/useFilter";
 import apiClient from "@/lib/apiClient";
 import { DesignDataRecievedType, DesignDataType } from "@/types/data";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-const Dashboard = () => {
-  const { display, search, setSearch } = useFilter();
+const Page = () => {
+  const { search, setSearch } = useFilter();
   const { data, setData } = useFetchState<DesignDataType[]>();
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
-    console.log("useeffect enitiatedx");
     const fetchDesigns = async () => {
       const { data, error } = await apiClient<DesignDataRecievedType[]>(
         "designs",
@@ -41,7 +37,7 @@ const Dashboard = () => {
     };
 
     fetchDesigns();
-  }, [display, search]);
+  }, [search, reload, setData]);
 
   return (
     <div className="space-y-6">
@@ -58,10 +54,14 @@ const Dashboard = () => {
         />
       </div>
       <div>
-        <DataTable data={data || []} columns={designColumn} />
+        <DataTable
+          data={data || []}
+          columns={designColumn}
+          setReload={setReload}
+        />
       </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default Page;

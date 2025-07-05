@@ -1,16 +1,21 @@
-import { cn } from "@/utils/cn";
-import React, { useEffect, useRef } from "react";
+"use client";
 
-const Overlay = ({
-  children,
-  className,
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+
+const CustomContextMeny = ({
   setIsOpen,
+  children,
 }: {
-  children: React.ReactNode;
-  className?: string;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  children: React.ReactNode;
 }) => {
   const ref = useRef<HTMLDivElement | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -18,7 +23,6 @@ const Overlay = ({
         setIsOpen(false);
       }
     };
-
     const handelScroll = () => {
       setIsOpen(false);
     };
@@ -33,11 +37,11 @@ const Overlay = ({
     };
   }, [setIsOpen]);
 
-  return (
-    <div ref={ref} className={cn(className)}>
-      {children}
-    </div>
-  );
+  if (typeof window === "undefined") return null;
+
+  if (!isMounted) return null;
+
+  return createPortal(<div ref={ref}>{children}</div>, document.body);
 };
 
-export default Overlay;
+export default CustomContextMeny;

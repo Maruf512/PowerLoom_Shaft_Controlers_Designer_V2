@@ -16,7 +16,6 @@ import {
   designerEnitialState,
   designerErrorEnitialState,
 } from "@/constants/Designer";
-import apiClient from "@/lib/apiClient";
 import { DesignErrorType, DesignType } from "@/types/data";
 import { designDataValidator } from "@/utils/validators";
 import { useState } from "react";
@@ -181,7 +180,11 @@ const DesignerEditor = ({
               />
             </div>
             <div className="flex-1">
-              <ExportTxt />
+              <ExportTxt
+                designerData={designerData}
+                setDesignDataError={setDesignDataError}
+                setHasError={setHasError}
+              />
             </div>
           </div>
         </div>
