@@ -68,7 +68,7 @@ export interface DesignDataRecievedType extends DesignType {
   created_at: string;
   user: {
     id: number;
-    username: string;
+    name: string;
     email: string;
   };
 }
@@ -95,7 +95,7 @@ export interface ColorResponseType {
   updated_at: string;
   user: {
     id: number;
-    username: string;
+    name: string;
     email: string;
   };
 }
@@ -113,7 +113,7 @@ export type DesignGrid = {
 
 export type User = {
   id: number;
-  username: string;
+  name: string;
   email: string;
 };
 

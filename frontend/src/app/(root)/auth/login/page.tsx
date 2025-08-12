@@ -17,7 +17,7 @@ const Page = () => {
     setLoading(true);
 
     const { data, error, status } = await apiClient<AuthUserResponseType>(
-      "login",
+      "auth/login",
       {
         method: "POST",
         body: values,

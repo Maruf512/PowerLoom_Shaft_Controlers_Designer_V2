@@ -10,19 +10,14 @@ import { RiLogoutBoxRLine } from "react-icons/ri";
 
 const UserDetails = () => {
   const router = useRouter();
-  const { getUser, removeUser } = useUser();
-
-  const user = useMemo(() => {
-    return getUser() as AuthUserResponseType;
-  }, [getUser]);
+  const user = useUser();
 
   const handleLogout = async () => {
-    const { status } = await apiClient("logout", {
+    const { status } = await apiClient("auth/logout", {
       method: "POST",
     });
 
     if (status >= 200 && status < 300) {
-      removeUser();
       router.push("/auth/login");
     }
   };
@@ -43,7 +38,7 @@ const UserDetails = () => {
             {user ? (
               <>
                 <h2 className="text-xl font-semibold text-primary capitalize truncate">
-                  {user.username}
+                  {user.name}
                 </h2>
                 <p className="mt-1 text-sm text-strong truncate">
                   {user.email}
