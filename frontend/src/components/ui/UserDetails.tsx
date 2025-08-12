@@ -2,10 +2,8 @@
 
 import useUser from "@/hooks/useUser";
 import apiClient from "@/lib/apiClient";
-import { AuthUserResponseType } from "@/types/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useMemo } from "react";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 
 const UserDetails = () => {
