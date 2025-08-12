@@ -38,7 +38,7 @@ const UserDetails = () => {
             {user ? (
               <>
                 <h2 className="text-xl font-semibold text-primary capitalize truncate">
-                  {user.username}
+                  {user.name}
                 </h2>
                 <p className="mt-1 text-sm text-strong truncate">
                   {user.email}

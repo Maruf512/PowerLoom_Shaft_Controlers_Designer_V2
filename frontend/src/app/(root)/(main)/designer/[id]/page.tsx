@@ -44,8 +44,9 @@ const Page = () => {
   return (
     <div>
       {loading ? (
-        <div className="font-semibold text-base text-center capitalize tracking-wide">
-          Loading...
+        <div className="flex items-center justify-center py-10">
+          <div className="animate-spin rounded-full h-6 w-6 border-2 border-primary border-t-transparent"></div>
+          <span className="ml-3 text-primary">Loading...</span>
         </div>
       ) : designerError ? (
         <p className="font-semibold text-base text-center capitalize tracking-wide">

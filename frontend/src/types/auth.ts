@@ -1,4 +1,4 @@
-export type AuthFieldsNameType = "email" | "password" | "username";
+export type AuthFieldsNameType = "email" | "password" | "name";
 
 export interface AuthFieldsTypes {
   fieldName: AuthFieldsNameType;
@@ -17,6 +17,6 @@ export type AuthFormTypes = {
 
 export interface AuthUserResponseType {
   id: number;
-  username: string;
+  name: string;
   email: string;
 }
