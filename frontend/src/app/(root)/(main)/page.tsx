@@ -17,7 +17,7 @@ const Page = () => {
   useEffect(() => {
     const fetchDesigns = async () => {
       const { data, error } = await apiClient<DesignDataRecievedType[]>(
-        "designs",
+        "designer/designs",
         {
           method: "GET",
         }

@@ -21,7 +21,7 @@ const Page = () => {
     }
 
     const fetchDesigner = async () => {
-      const { data, error } = await apiClient<Design>(`designs/${id}`);
+      const { data, error } = await apiClient<Design>(`designer/designs/${id}`);
       if (error) {
         setError("Error fetching designer data for update");
         return;
@@ -48,7 +48,7 @@ const Page = () => {
   }, [id, setData, setError]);
 
   const updateHandler = async (designerData: DesignType) => {
-    const { error } = await apiClient<Design>(`designs/${id}`, {
+    const { error } = await apiClient<Design>(`designer/designs/${id}`, {
       method: "PUT",
       body: designerData,
     });

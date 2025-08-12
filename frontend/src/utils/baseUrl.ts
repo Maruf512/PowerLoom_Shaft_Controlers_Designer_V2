@@ -5,5 +5,5 @@ export const baseUrl = () => {
     return baseUrl;
   }
 
-  return "http://localhost:8000/designer";
+  return "http://localhost:8000";
 };

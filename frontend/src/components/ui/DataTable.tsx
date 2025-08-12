@@ -38,7 +38,7 @@ const DataTable = ({
       return;
     }
 
-    const { error } = await apiClient(`designs/${activeDesign.id}`, {
+    const { error } = await apiClient(`designer/designs/${activeDesign.id}`, {
       method: "DELETE",
     });
 

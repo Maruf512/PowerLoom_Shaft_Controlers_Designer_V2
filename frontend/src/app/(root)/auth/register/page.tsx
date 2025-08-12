@@ -15,7 +15,7 @@ const Page = () => {
     setError(undefined);
     setLoading(true);
 
-    const { error, status } = await apiClient("register", {
+    const { error, status } = await apiClient("designer/register", {
       method: "POST",
       body: values,
     });

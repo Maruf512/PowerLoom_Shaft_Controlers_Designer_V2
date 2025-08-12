@@ -27,7 +27,7 @@ const Page = () => {
 
     const fetchDesigner = async () => {
       setLoading(true);
-      const { data, error } = await apiClient<Design>(`designs/${id}`);
+      const { data, error } = await apiClient<Design>(`designer/designs/${id}`);
       setLoading(false);
 
       if (error) {

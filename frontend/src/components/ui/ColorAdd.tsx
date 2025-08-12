@@ -36,7 +36,7 @@ const ColorAdd = ({
     setColorError("");
 
     setColorLoading(true);
-    const { error } = await apiClient("colors", {
+    const { error } = await apiClient("designer/colors", {
       method: "POST",
       body: { color },
     });
