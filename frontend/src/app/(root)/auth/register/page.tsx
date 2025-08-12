@@ -15,7 +15,7 @@ const Page = () => {
     setError(undefined);
     setLoading(true);
 
-    const { error, status } = await apiClient("register", {
+    const { error, status } = await apiClient("auth/register", {
       method: "POST",
       body: values,
     });
@@ -36,9 +36,9 @@ const Page = () => {
         <AuthForm
           fields={[
             {
-              fieldName: "username",
+              fieldName: "name",
               fieldType: "text",
-              placeholder: "Enter your username",
+              placeholder: "Enter your name",
             },
             {
               fieldName: "email",

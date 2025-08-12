@@ -18,6 +18,7 @@ export interface DataTablePropsType {
   className?: string;
   emptyMessage?: string;
   setReload: React.Dispatch<React.SetStateAction<boolean>>;
+  loading: boolean;
 }
 
 // export interface SelectContextType {

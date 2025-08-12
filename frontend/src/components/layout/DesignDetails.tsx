@@ -37,7 +37,7 @@ const DesignDetails = ({ designer }: { designer: Design }) => {
   }, [designer]);
 
   const deleteHandler = async () => {
-    const { error } = await apiClient(`designs/${designer.id}`, {
+    const { error } = await apiClient(`designer/designs/${designer.id}`, {
       method: "DELETE",
     });
 

@@ -18,8 +18,8 @@ export const authFormValidator = (
     newErrors.password = "Password must be at least 6 characters";
   }
 
-  if (formData.username === "") {
-    newErrors.username = "Username is required";
+  if (formData.name === "") {
+    newErrors.name = "name is required";
   }
 
   return newErrors;

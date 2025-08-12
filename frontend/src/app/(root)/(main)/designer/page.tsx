@@ -10,7 +10,7 @@ import React from "react";
 const Page = () => {
   const toast = useToast();
   const createHandler = async (designerData: DesignType) => {
-    const { error } = await apiClient(`designs`, {
+    const { error } = await apiClient(`designer/designs`, {
       method: "POST",
       body: designerData,
     });

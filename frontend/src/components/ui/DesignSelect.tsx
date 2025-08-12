@@ -59,7 +59,9 @@ export const SelectColorBoxes = ({
 
   useEffect(() => {
     const fetchColor = async () => {
-      const { data, error } = await apiClient<ColorResponseType[]>("colors");
+      const { data, error } = await apiClient<ColorResponseType[]>(
+        "designer/colors"
+      );
 
       if (data && !error) {
         const formatted = data.map((item) => ({
@@ -73,7 +75,7 @@ export const SelectColorBoxes = ({
   }, [reload]);
 
   const deleteColor = async () => {
-    const { error } = await apiClient(`colors/${colorToDelete?.id}`, {
+    const { error } = await apiClient(`designer/colors/${colorToDelete?.id}`, {
       method: "DELETE",
     });
 

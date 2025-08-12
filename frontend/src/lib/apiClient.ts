@@ -61,7 +61,10 @@ const apiClient = async <T>(
     const { data, error, status } = await attemptRequest(url);
 
     if (status === 401) {
-      const { error: refreshErr } = await attemptRequest("refresh", "POST");
+      const { error: refreshErr } = await attemptRequest(
+        "auth/refresh",
+        "POST"
+      );
 
       if (!refreshErr) {
         const { data, error, status } = await attemptRequest(url);

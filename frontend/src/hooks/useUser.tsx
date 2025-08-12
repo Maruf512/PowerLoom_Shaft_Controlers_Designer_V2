@@ -1,28 +1,21 @@
+import { data } from "@/constants/dataTable";
+import apiClient from "@/lib/apiClient";
 import { AuthUserResponseType } from "@/types/auth";
+import { get } from "http";
 import { useState, useEffect } from "react";
 
 const useUser = () => {
   const [user, setUser] = useState<AuthUserResponseType | null>();
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const user = localStorage.getItem("user");
-      if (user) {
-        setUser(JSON.parse(user));
-      }
-    }
+    const getUser = async () => {
+      const { data } = await apiClient<AuthUserResponseType>("auth/profile");
+      setUser(data);
+    };
+    getUser();
   }, []);
 
-  const getUser = () => user;
-
-  const removeUser = () => {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("user");
-      setUser(null);
-    }
-  };
-
-  return { getUser, removeUser };
+  return user;
 };
 
 export default useUser;

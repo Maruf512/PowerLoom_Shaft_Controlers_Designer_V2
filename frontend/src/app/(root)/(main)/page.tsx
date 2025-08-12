@@ -14,10 +14,13 @@ const Page = () => {
   const { data, setData } = useFetchState<DesignDataType[]>();
   const [reload, setReload] = useState(false);
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    setLoading(true);
     const fetchDesigns = async () => {
       const { data, error } = await apiClient<DesignDataRecievedType[]>(
-        "designs",
+        "designer/designs",
         {
           method: "GET",
         }
@@ -33,6 +36,7 @@ const Page = () => {
         }));
 
         setData(mutatedData);
+        setLoading(false);
       }
     };
 
@@ -58,6 +62,7 @@ const Page = () => {
           data={data || []}
           columns={designColumn}
           setReload={setReload}
+          loading={loading}
         />
       </div>
     </div>
