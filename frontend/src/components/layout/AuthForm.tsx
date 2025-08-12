@@ -3,7 +3,7 @@
 import { AuthFieldsNameType, AuthFormTypes } from "@/types/auth";
 import { cn } from "@/utils/cn";
 import { authFormValidator } from "@/utils/validators";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import Button from "../ui/Button";
 
@@ -28,17 +28,20 @@ const AuthForm = ({
     {} as Record<AuthFieldsNameType, string>
   );
 
-  const formHandler = (e: React.FormEvent<HTMLFormElement> | KeyboardEvent) => {
-    e.preventDefault();
-    const errors = authFormValidator(formData);
+  const formHandler = useCallback(
+    (e: React.FormEvent<HTMLFormElement> | KeyboardEvent) => {
+      e.preventDefault();
+      const errors = authFormValidator(formData);
 
-    if (Object.keys(errors).length > 0) {
-      setErrors(errors);
-      return;
-    }
+      if (Object.keys(errors).length > 0) {
+        setErrors(errors);
+        return;
+      }
 
-    submitHandler(formData);
-  };
+      submitHandler(formData);
+    },
+    [formData, submitHandler]
+  );
 
   const handelChange = (
     e: React.ChangeEvent<HTMLInputElement>,

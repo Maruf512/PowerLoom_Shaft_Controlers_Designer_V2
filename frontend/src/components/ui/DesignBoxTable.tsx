@@ -203,8 +203,6 @@ const DesignBoxTable = ({
     });
   };
 
-  console.log(designerData);
-
   return (
     <div className="border border-muted w-full rounded-radius-lg lg:max-h-[52rem] overflow-auto ">
       <div className="flex justify-between border-b border-muted py-4 tracking-wide font-semibold text-muted text-xs lg:text-sm sticky top-0 bg-primary px-2">

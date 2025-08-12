@@ -1,8 +1,6 @@
-import { data } from "@/constants/dataTable";
 import apiClient from "@/lib/apiClient";
 import { AuthUserResponseType } from "@/types/auth";
-import { get } from "http";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const useUser = () => {
   const [user, setUser] = useState<AuthUserResponseType | null>();
